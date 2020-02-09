@@ -1,2 +1,0 @@
-# Calendar
-Catalyst Community Calendar

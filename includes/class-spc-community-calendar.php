@@ -79,6 +79,7 @@ class SPC_Community_Calendar {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_shortcodes();
+		$this->configure_update_checker();
 
 	}
 
@@ -99,6 +100,8 @@ class SPC_Community_Calendar {
 	 * @access   private
 	 */
 	private function load_dependencies() {
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/PUC/plugin-update-checker.php';
 
 		/**
 		 * The class responsible for formatting the API response
@@ -254,6 +257,17 @@ class SPC_Community_Calendar {
 		$plugin_public = new SPC_Community_Calendar_Public( $this->get_plugin_name(), $this->get_version() );
 
 		add_shortcode( 'community_calendar', array( $plugin_public, 'shortcode_community_calendar' ) );
+	}
+
+	/**
+	 * Configures the plugin update checker to watch the Github repo.
+	 */
+	public function configure_update_checker() {
+		$updater = Puc_v4_Factory::buildUpdateChecker(
+			'https://github.com/SPCatalyst/Calendar',
+			SPCC_ROOT_FILE,
+			'spc-community-calendar',
+		);
 	}
 
 	/**
