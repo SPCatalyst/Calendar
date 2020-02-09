@@ -1,6 +1,13 @@
 <?php
 
-
+/**
+ * This class represents single event
+ *
+ * @since      1.0.0
+ * @package    SPC_Community_Calendar
+ * @subpackage SPC_Community_Calendar/includes
+ * @author     Darko Gjorgjijoski <dg@darkog.com>
+ */
 class SPC_Community_Calendar_Event {
 
 	/**

@@ -8,7 +8,7 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://darkog.com
+ * @link              https://stpetecatalyst.com
  * @since             1.0.0
  * @package           SPC_Community_Calendar
  *
@@ -16,7 +16,7 @@
  * Plugin Name:       SPC Community Calendar
  * Plugin URI:        https://stpetecatalyst.com
  * Description:       The catalyst events calendar
- * Version:           0.9.3
+ * Version:           1.0.0
  * Author:            Darko Gjorgjijoski (stpetecatalyst.com)
  * Author URI:        https://darkog.com
  * License:           GPL-2.0+
@@ -37,7 +37,7 @@ require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'SPC_COMMUNITY_CALENDAR_VERSION', '0.9.3' );
+define( 'SPC_COMMUNITY_CALENDAR_VERSION', '1.0.0' );
 define( 'SPCC_PT_EVENT', 'spcc-event' );
 define( 'SPCC_ROOT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SPCC_ROOT_FILE', __FILE__ );

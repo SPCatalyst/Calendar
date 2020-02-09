@@ -1,7 +1,12 @@
 <?php
 
 /**
- * Class SPC_Community_Calendar_Multipart
+ * This is used to wrap data into multipart encoded string
+ *
+ * @since      1.0.0
+ * @package    SPC_Community_Calendar
+ * @subpackage SPC_Community_Calendar/includes/API
+ * @author     Darko Gjorgjijoski <dg@darkog.com>
  */
 class SPC_Community_Calendar_Multipart {
 

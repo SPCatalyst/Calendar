@@ -2,6 +2,14 @@
 
 use Rakit\Validation\Validator;
 
+/**
+ * This class is used to handle the ajax actions
+ *
+ * @since      1.0.0
+ * @package    SPC_Community_Calendar
+ * @subpackage SPC_Community_Calendar/includes
+ * @author     Darko Gjorgjijoski <dg@darkog.com>
+ */
 class SPC_Community_Calendar_AJAX {
 
 
