@@ -1,0 +1,78 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.service-success {
+    font-weight: bold;
+    color: green;
+}
+.status-wrapper {
+    margin-bottom: 10px;
+}
+
+.status-wrapper .notice {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.loading:before {
+    content: '';
+    background-image: url(loader.gif);
+    background-size: cover;
+    height: 12px;
+    width: 12px;
+    display: inline-block;
+    margin-right: 5px;
+    position: relative;
+    top: 1px;
+    cursor: not-allowed;
+}
+
+.loading {
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+/* Form */
+.event-form-wrap .form-control {
+    min-height: 34px;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+.event-form-wrap .form-row {
+    margin-bottom: 8px;
+    float:left;
+    width: 100%;
+}
+.event-form-wrap .form-row  label {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+.form-row-footer {
+    margin-top: 10px;
+    margin-bottom: 30px !important;
+}
+
+.form-col-4 {
+    width: 31%;
+    float: left;
+    margin-right: 3%;
+}
+.form-col-4:last-child {
+    margin-right: 0;
+}
+.form-col-6 {
+    width: 49%;
+    float: left;
+    margin-right: 2%;
+}
+.form-col-6:last-child {
+    margin-right: 0;
+}
+.lodaed .spinner {
+    display: none;
+}
