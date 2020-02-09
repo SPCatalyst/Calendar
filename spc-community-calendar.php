@@ -16,7 +16,7 @@
  * Plugin Name:       SPC Community Calendar
  * Plugin URI:        https://stpetecatalyst.com
  * Description:       The catalyst events calendar
- * Version:           0.9.2
+ * Version:           0.9.3
  * Author:            Darko Gjorgjijoski (stpetecatalyst.com)
  * Author URI:        https://darkog.com
  * License:           GPL-2.0+
@@ -37,7 +37,7 @@ require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'SPC_COMMUNITY_CALENDAR_VERSION', '0.9.2' );
+define( 'SPC_COMMUNITY_CALENDAR_VERSION', '0.9.3' );
 define( 'SPCC_PT_EVENT', 'spcc-event' );
 define( 'SPCC_ROOT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SPCC_ROOT_FILE', __FILE__ );
@@ -86,53 +86,3 @@ function run_spc_community_calendar() {
 }
 
 run_spc_community_calendar();
-
-
-/*add_action( 'init', function () {
-
-	$c_http = new SPC_Community_Calendar_Categories_API();
-	$e_http = new SPC_Community_Calendar_Events_API();
-
-
-	print '<pre>';
-	$test = 0;
-
-
-	// GET CATEGORIES
-	if ( $test == 1 ) {
-		$cats = $c_http->get_categories();
-		var_dump( $cats );
-	}
-
-
-	// GET EVENTS
-	if ( $test == 2 ) {
-		$events = $e_http->get_events( [ 'per_page' => 10, 'page' => 1 ] );
-		var_dump( $events );
-	}
-
-	// CREATE EVENT
-	if ( $test == 3 ) {
-		$event = $e_http->create( '2a577bd9ffb02cadfcb4fea5842064b8', [
-			'title'       => 'Some event name',
-			'description' => 'Some event description',
-			'start'       => '2020-01-20',
-			'end'         => '2020-01-25',
-			'venue'       => 'Venue Demo',
-			'address'     => 'Address Demo 145',
-			'city'        => 'St Petersburg',
-			'state'       => 'FL',
-			'postal_code' => '12818',
-			'country'     => 'US',
-			'image'       => '',
-		] );
-
-		var_dump( $event->get_errors() );
-	}
-
-
-	if ( $test > 0 ) {
-		die;
-	}
-
-} );*/
