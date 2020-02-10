@@ -50,7 +50,7 @@ $allowed_views        = array(
 
 // Static config
 $config = array(
-	'per_page' => 10,
+	'per_page' => 3,
 	'parent'   => get_option( 'spcc_website_id' ),
 	'fields'   => 'all',
 );

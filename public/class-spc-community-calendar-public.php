@@ -76,6 +76,7 @@ class SPC_Community_Calendar_Public {
 		$last_updated = filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'css/spc-community-calendar-public.css' );
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/spc-community-calendar-public.css', array(), $last_updated, 'all' );
 		wp_enqueue_style( 'jquery-ui', plugin_dir_url( __FILE__ ) . 'resources/jquery-ui/jquery-ui.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'remodal', plugin_dir_url( __FILE__ ) . 'resources/remodal/remodal-default-theme.css', array(), $this->version, 'all' );
 
 		if ( $this->maps_provider === self::MAPS_PROVIDER_LEAFLET ) {
 			wp_enqueue_style( 'leaflet', plugin_dir_url( __FILE__ ) . 'resources/leaflet/leaflet.css', array(), $this->version, 'all' );
@@ -91,9 +92,17 @@ class SPC_Community_Calendar_Public {
 	public function enqueue_scripts() {
 
 		wp_enqueue_script( 'jquery-ui-datepicker' );
+		wp_enqueue_script( 'remodal', plugin_dir_url( __FILE__ ) . 'resources/remodal/remodal.min.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'loadingoverlay', plugin_dir_url( __FILE__ ) . 'resources/loadingoverlay.min.js', array( 'jquery' ), null, true );
 
 		$last_updated = filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'js/spc-community-calendar-public.js' );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/spc-community-calendar-public.js', array( 'jquery' ), $last_updated, true );
+
+		wp_localize_script( $this->plugin_name, 'SPCC', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'spcc_nonce' ),
+		) );
+
 
 		if ( $this->maps_provider === self::MAPS_PROVIDER_GOOGLE ) {
 			$settings = new SPC_Community_Calendar_Settings();

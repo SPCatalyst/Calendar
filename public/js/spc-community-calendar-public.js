@@ -180,7 +180,7 @@ function spcc_parse_query(url) {
 		var modalInst = modalWrap.remodal();
 
 		$.ajax({
-			url: SPCC.ajax_url + '?action=spcc_quick_view&event_id=' + eventID,
+			url: SPCC.ajax_url + '?action=spcc_render_quickview&event_id=' + eventID,
 			type: 'GET',
 			cache: false,
 			beforeSend: function () {
@@ -212,6 +212,9 @@ function spcc_parse_query(url) {
 			type: 'GET',
 			cache: false,
 			url: url,
+			beforeSend: function() {
+				$('body').LoadingOverlay('show');
+			},
 			success: function (response) {
 				var cont = $('.spcc-events-container');
 				var part = $(response).find('.spcc-events-container').html();
@@ -219,12 +222,18 @@ function spcc_parse_query(url) {
 				cont.html(part);
 				window.init_spcc_scripts();
 				window.init_spcc_map();
-				var params = spcc_parse_query(url)
+				var params = spcc_parse_query(url);
 				spcc_update_pushstate(params);
 				setTimeout(function () {
 					cont.removeClass('spcc-loading');
 				}, 100);
-			}
+			},
+			complete: function() {
+				$('body').LoadingOverlay('hide');
+			},
+			error: function() {
+				$('body').LoadingOverlay('hide');
+			},
 		})
 
 	});
@@ -247,6 +256,9 @@ function spcc_parse_query(url) {
 			type: 'GET',
 			cache: false,
 			url: url,
+			beforeSend: function() {
+				$('body').LoadingOverlay('show');
+			},
 			success: function (response) {
 				var cont = $('.spcc-events-container');
 				var part = $(response).find('.spcc-events-container').html();
@@ -259,7 +271,13 @@ function spcc_parse_query(url) {
 				setTimeout(function () {
 					cont.removeClass('spcc-loading');
 				}, 100);
-			}
+			},
+			complete: function() {
+				$('body').LoadingOverlay('hide');
+			},
+			error: function() {
+				$('body').LoadingOverlay('hide');
+			},
 		});
 
 		return false;

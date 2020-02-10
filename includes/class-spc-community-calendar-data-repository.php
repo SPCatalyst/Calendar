@@ -38,6 +38,19 @@ class SPC_Community_Calendar_Data_Repository {
 		$this->filters_api    = new SPC_Community_Calendar_Filters_API();
 	}
 
+	/**
+	 * Returns single event from storage
+	 *
+	 * @param $id
+	 * @param array $params
+	 *
+	 * @return SPC_Community_Calendar_API_Response
+	 */
+	public function get_event( $id, $params = array() ) {
+		$event = $this->events_api->get_event($id, $params);
+
+		return $event;
+	}
 
 	/**
 	 * Returns the events
@@ -113,6 +126,7 @@ class SPC_Community_Calendar_Data_Repository {
 
 	public function get_account() {
 		$account = $this->api->get_account();
+
 		return $account;
 	}
 

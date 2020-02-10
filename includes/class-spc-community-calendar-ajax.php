@@ -48,7 +48,16 @@ class SPC_Community_Calendar_AJAX {
 			$is_private      = $type == 'public';
 
 			$valid_keys = spcc_array_except( array_keys( $rules ), [ 'image' ] );
-			$valid_keys = array_merge( $valid_keys, array( 'address2', 'cost', 'host', 'facebook', 'twitter', 'instagram', 'website', 'pinterest' ) );
+			$valid_keys = array_merge( $valid_keys, array(
+				'address2',
+				'cost',
+				'host',
+				'facebook',
+				'twitter',
+				'instagram',
+				'website',
+				'pinterest'
+			) );
 			$data       = spcc_array_only( $_REQUEST, $valid_keys );
 
 			$data['type'] = $type;
@@ -135,7 +144,16 @@ class SPC_Community_Calendar_AJAX {
 			$is_private      = $type == 'public';
 
 			$valid_keys = spcc_array_except( array_keys( $rules ), [ 'image' ] );
-			$valid_keys = array_merge( $valid_keys, array( 'address2', 'cost', 'host', 'facebook', 'twitter', 'instagram', 'website', 'pinterest' ) );
+			$valid_keys = array_merge( $valid_keys, array(
+				'address2',
+				'cost',
+				'host',
+				'facebook',
+				'twitter',
+				'instagram',
+				'website',
+				'pinterest'
+			) );
 			$data       = spcc_array_only( $_REQUEST, $valid_keys );
 
 			$data['type'] = $type;
@@ -246,6 +264,30 @@ class SPC_Community_Calendar_AJAX {
 		include SPCC_ROOT_PATH . 'admin/partials/form-delete.php';
 		die;
 	}
+
+	/**
+	 * Render quick view
+	 */
+	public function render_quick_view() {
+
+		$event_id = isset( $_GET['event_id'] ) && ! empty( $_GET['event_id'] ) ? $_GET['event_id'] : null;
+
+		$repo = new SPC_Community_Calendar_Data_Repository();
+
+		$response = $repo->get_event( $event_id, array( 'fields' => 'all' ) );
+
+		$event = $response->get_item();
+
+		if ( is_null( $event ) || empty( $event ) ) {
+			return '';
+		}
+
+		echo spcc_get_view( 'quick-view', array( 'event' => $event ) );
+
+		exit;
+
+	}
+
 	/**
 	 * Check the ajax referer
 	 *

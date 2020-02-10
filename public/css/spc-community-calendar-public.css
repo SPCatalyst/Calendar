@@ -221,6 +221,10 @@
     float: left;
 }
 
+.spcc-quick-view-body td, .spcc-quick-view-body th, .spcc-quick-view-body {
+    text-align: left;
+}
+
 .spcc-quickview-photo img {
     width: 100%;
 }
@@ -246,6 +250,10 @@
 
 .spcc-quickview-details .table {
     width: 100%;
+}
+
+.spc-quickview-foot {
+    text-align: center;
 }
 
 .spcc-quickview-foot a {
@@ -500,6 +508,12 @@ ul.spcc-inline-list {
 .spcc-reset {
     color: #5d5d5d;
 }
+
+.spcc-text-left {
+    text-align: center;
+}
+
+
 
 .spcc-icon {
     font-family: "spccicons";

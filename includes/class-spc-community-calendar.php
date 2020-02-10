@@ -248,6 +248,8 @@ class SPC_Community_Calendar {
 		$this->loader->add_action( 'wp_ajax_spcc_update_event', $ajax_actions, 'handle_update_event' );
 		$this->loader->add_action( 'wp_ajax_spcc_delete_event', $ajax_actions, 'handle_delete_event' );
 
+		$this->loader->add_action( 'wp_ajax_spcc_render_quickview', $ajax_actions, 'render_quick_view' );
+		$this->loader->add_action( 'wp_ajax_nopriv_spcc_render_quickview', $ajax_actions, 'render_quick_view' );
 	}
 
 	/**
