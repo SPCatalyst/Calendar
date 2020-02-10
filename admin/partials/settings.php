@@ -139,7 +139,7 @@ $logo                = $settings->get( 'logo' );
                        value="<?php echo $color_scheme; ?>">
             </div>
             <div class="settings-row">
-                <label for="google_maps_key"><?php _e( 'Google Maps Key (Optional)', 'spcc' ); ?></label>
+                <label for="google_maps_key"><?php _e( 'Google Maps Key', 'spcc' ); ?></label>
                 <input type="text" name="google_maps_key" id="google_maps_key"
                        value="<?php echo $google_maps_key; ?>">
             </div>

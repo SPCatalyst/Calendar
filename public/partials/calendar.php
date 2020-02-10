@@ -1,5 +1,13 @@
 <?php
 
+// Settings
+$settings = new SPC_Community_Calendar_Settings();
+
+$preferred_categories = $settings->get( 'preferred_categories', array() );
+$preferred_filters    = $settings->get( 'preferred_filters', array() );
+
+$show_internal = $settings->get( 'type' ) === 'internal';
+
 // Meta
 global $wp;
 $short_url = home_url( $wp->request );
@@ -51,9 +59,11 @@ $allowed_views        = array(
 // Static config
 $config = array(
 	'per_page' => 3,
-	'parent'   => get_option( 'spcc_website_id' ),
 	'fields'   => 'all',
 );
+if ( $show_internal ) {
+	$config['parent'] = get_option( 'spcc_website_id' );
+}
 
 // API Params
 $params = spcc_array_only( $_GET, array(
@@ -61,22 +71,47 @@ $params = spcc_array_only( $_GET, array(
 	'datefrom',
 	'dateto',
 	'search',
-	'category',
-	'filter',
-	'page',
 ) );
-$params = array_merge( $params, $config );
 
-// Vars
-$page = isset( $_GET['pagenum'] ) && is_numeric( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
-$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'date';
+$params['page'] = isset( $_GET['pagenum'] ) && is_numeric( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
+$params         = array_merge( $params, $config );
 
+// Sort
+$sort_by           = isset( $_GET['sort_by'] ) ? $_GET['sort_by'] : 'date';
 $params['orderby'] = $sort_by;
+
+// Category
+$category = isset( $_GET['category'] ) ? (int) $_GET['category'] : null;
+if ( ! is_null( $category ) ) {
+	$params['category'] = $category;
+} else if ( ! empty( $preferred_categories ) ) {
+	$params['category'] = implode( ',', $preferred_categories );
+}
+
+// Filters
+$filter = isset( $_GET['filter'] ) ? (int) $_GET['filter'] : null;
+if ( ! is_null( $filter ) ) {
+	$params['filter'] = $filter;
+} else if ( ! empty( $preferred_filters ) ) {
+	$params['filter'] = implode( ',', $preferred_filters );
+}
 
 // Query
 $repo        = new SPC_Community_Calendar_Data_Repository();
 $events      = $repo->get_events( $params );
 $events_list = $events->get_items();
+
+#var_dump( $params );
+#var_dump( $events->raw['body'] );
+
+
+// Query the categories
+$categories      = $repo->get_categories();
+$categories_list = $categories->get_items();
+
+// Query the filters
+$filters      = $repo->get_filters();
+$filters_list = $filters->get_items();
 
 $total       = (int) $events->get_header( 'X-WP-Total' );
 $total_pages = (int) $events->get_header( 'X-WP-TotalPages' );
@@ -86,28 +121,28 @@ $url_sort_by_name = add_query_arg( 'sort_by', 'name', $full_url );
 $url_sort_by_date = add_query_arg( 'sort_by', 'date', $full_url );
 
 // Pagination
-$prev_page = $page > 1 ? $page - 1 : 1;
-$next_page = $page + 1 > $total_pages ? $total_pages : $page + 1;
+$prev_page = $params['page'] > 1 ? $params['page'] - 1 : 1;
+$next_page = $params['page'] + 1 > $total_pages ? $total_pages : $params['page'] + 1;
 $url_next  = add_query_arg( 'pagenum', $next_page, $full_url );
 $url_prev  = add_query_arg( 'pagenum', $prev_page, $full_url );
 $url_first = add_query_arg( 'pagenum', 1, $full_url );
 $url_last  = add_query_arg( 'pagenum', $total_pages, $full_url );
 
 $settings = new SPC_Community_Calendar_Settings();
-$logo = $settings->get('logo');
-if(!empty($logo)) {
-	$logo = wp_get_attachment_image_url($logo, 'medium');
+$logo     = $settings->get( 'logo' );
+if ( ! empty( $logo ) ) {
+	$logo = wp_get_attachment_image_url( $logo, 'medium' );
 }
 
 ?>
 <div class="spcc-events-container">
     <div class="spcc-events-row">
         <div class="spcc-events-filters">
-            <?php if(!empty($logo)): ?>
-            <div class="spcc-banner">
-                <a href="#"><img alt="ad" src="<?php echo $logo; ?>"></a>
-            </div>
-            <?php endif; ?>
+			<?php if ( ! empty( $logo ) ): ?>
+                <div class="spcc-banner">
+                    <a href="#"><img alt="ad" src="<?php echo $logo; ?>"></a>
+                </div>
+			<?php endif; ?>
             <div class="spcc-filters">
 
                 <form class="spcc-events-filters-form" id="spcc-events-filters-form" action="" method="GET">
@@ -115,8 +150,11 @@ if(!empty($logo)) {
                         <label>Show events for</label>
                         <ul class="spcc-inline-list">
 							<?php foreach ( $allowed_date_filters as $allowed_date_filter ): ?>
-                                <li><a target="_self" href="<?php echo $allowed_date_filter['url']; ?>"
-                                       class="<?php echo spcc_get_var( 'date' ) === $allowed_date_filter['key'] ? 'active' : ''; ?>"><?php echo $allowed_date_filter['name']; ?></a>
+                                <li>
+                                    <a target="_self" href="<?php echo $allowed_date_filter['url']; ?>"
+                                       class="<?php echo spcc_get_var( 'date' ) === $allowed_date_filter['key'] ? 'active' : ''; ?>">
+										<?php echo $allowed_date_filter['name']; ?>
+                                    </a>
                                 </li>
 							<?php endforeach; ?>
                         </ul>
@@ -132,18 +170,18 @@ if(!empty($logo)) {
                     <div class="spcc-form-row">
                         <label for="filter">Filters</label>
                         <select id="filter" name="filter" class="form-control">
-                            <option value="0">All Filters</option>
-							<?php foreach ( $filters as $term ): ?>
-                                <option value="<?php echo $term->term_id; ?>" <?php selected( spcc_get_var( 'filter' ), $term->term_id ); ?>><?php echo $term->name; ?></option>
+                            <option value="0" <?php selected( $filter, null ); ?>>All Filters</option>
+							<?php foreach ( $filters_list as $term ): ?>
+                                <option value="<?php echo $term['id']; ?>" <?php selected( $filter, $term['id'] ); ?>><?php echo $term['name']; ?></option>
 							<?php endforeach; ?>
                         </select>
                     </div>
                     <div class="spcc-form-row">
                         <label for="category">Category</label>
                         <select id="category" name="category" class="form-control">
-                            <option value="0">All Categories</option>
-							<?php foreach ( $categories as $term ): ?>
-                                <option value="<?php echo $term->term_id; ?>" <?php selected( spcc_get_var( 'category' ), $term->term_id ); ?>><?php echo $term->name; ?></option>
+                            <option value="0" <?php selected( $category, null ); ?>>All Categories</option>
+							<?php foreach ( $categories_list as $term ): ?>
+                                <option value="<?php echo $term['id']; ?>" <?php selected( $category, $term['id'] ); ?>><?php echo $term['name']; ?></option>
 							<?php endforeach; ?>
                         </select>
                     </div>
@@ -154,7 +192,6 @@ if(!empty($logo)) {
                         <a href="<?php echo $short_url; ?>" class="spcc-btn spcc-btn-link spcc-reset">Reset</a>
                     </div>
                 </form>
-
 
             </div>
             <div class="spcc-other">
@@ -188,7 +225,7 @@ if(!empty($logo)) {
                             <a target="_self" href="<?php echo $url_prev; ?>" class="spcc-backward"><i
                                         class="spcc-icon spcc-icon-fast-bw"></i></a>
                             <a target="_self" href="#"><?php echo implode( '-', array(
-									$page,
+									$params['page'],
 									$config['per_page']
 								) ); ?>
                                 OF <?php echo $total_pages; ?></a>
@@ -202,7 +239,7 @@ if(!empty($logo)) {
             </div>
             <div class="spcc-events-main--list">
 				<?php
-				if ( $total > 0 ) {
+				if ( $total_pages > 0 ) {
 					if ( $view === 'grid' ) {
 						$view = 'events-grid';
 					} else if ( $view === 'map' ) {
