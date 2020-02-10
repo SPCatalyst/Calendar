@@ -45,9 +45,17 @@ class SPC_Community_Calendar_Public {
 
 	/**
 	 * The active maps provider
+	 *
 	 * @var int
 	 */
 	private $maps_provider;
+
+	/**
+	 * The settings bundle
+	 *
+	 * @var SPC_Community_Calendar_Settings
+	 */
+	private $settings;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -59,10 +67,10 @@ class SPC_Community_Calendar_Public {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
-
-		$this->maps_provider = apply_filters( 'catalyst_community_calendar_maps_provider', self::MAPS_PROVIDER_LEAFLET );
+		$this->plugin_name   = $plugin_name;
+		$this->version       = $version;
+		$this->settings      = new SPC_Community_Calendar_Settings();
+		$this->maps_provider = $this->settings->get( 'maps_provider', self::MAPS_PROVIDER_LEAFLET );
 	}
 
 	/**
@@ -102,7 +110,6 @@ class SPC_Community_Calendar_Public {
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'nonce'    => wp_create_nonce( 'spcc_nonce' ),
 		) );
-
 
 		if ( $this->maps_provider === self::MAPS_PROVIDER_GOOGLE ) {
 			$settings = new SPC_Community_Calendar_Settings();

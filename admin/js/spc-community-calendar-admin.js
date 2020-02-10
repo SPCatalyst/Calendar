@@ -187,4 +187,15 @@
     $('.spcc-select').select2();
     $('.spcc-colorpicker').wpColorPicker();
 
+    $('.spcc-conditional').on('change', function(e){
+        var value = $(this).val();
+        var $target = $($(this).data('target'));
+        var hideif = $(this).data('target-hideifvalue');
+        if( value === hideif) {
+            $target.hide();
+        } else {
+            $target.show();
+        }
+    })
+
 })(jQuery);

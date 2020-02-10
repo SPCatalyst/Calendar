@@ -126,6 +126,7 @@ class SPC_Community_Calendar_Settings {
 			'visibility',
 			'logo',
 			'google_maps_key',
+			'maps_provider',
 		);
 	}
 
