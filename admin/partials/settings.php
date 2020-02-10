@@ -66,6 +66,7 @@ $filters_selected    = $settings->get( 'preferred_filters', array() );
 $color_scheme        = $settings->get( 'color_scheme' );
 $events_type         = $settings->get( 'type' );
 $events_visibility   = $settings->get( 'visibility' );
+$google_maps_key     = $settings->get( 'google_maps_key' );
 $logo                = $settings->get( 'logo' );
 
 ?>
@@ -136,6 +137,11 @@ $logo                = $settings->get( 'logo' );
                 <label for="color_scheme"><?php _e( 'Color Scheme', 'spcc' ); ?></label>
                 <input type="text" class="spcc-colorpicker" name="color_scheme" id="color_scheme"
                        value="<?php echo $color_scheme; ?>">
+            </div>
+            <div class="settings-row">
+                <label for="google_maps_key"><?php _e( 'Google Maps Key (Optional)', 'spcc' ); ?></label>
+                <input type="text" name="google_maps_key" id="google_maps_key"
+                       value="<?php echo $google_maps_key; ?>">
             </div>
             <div class="settings-row">
                 <label for="type" class="spcc-radio-group">

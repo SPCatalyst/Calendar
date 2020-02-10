@@ -1,5 +1,6 @@
 {
   "logo": null,
+  "google_maps_key":null,
   "color_scheme": "#3ee4db",
   "type": "internal",
   "visibility": "public",

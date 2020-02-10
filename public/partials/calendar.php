@@ -31,19 +31,19 @@ $allowed_views        = array(
 	array(
 		'key'  => 'grid',
 		'name' => 'GRID',
-		'icon' => 'fa fa-th',
+		'icon' => 'spcc-icon spcc-icon-th',
 		'url'  => add_query_arg( 'view', 'grid', $full_url )
 	),
 	array(
 		'key'  => 'list',
 		'name' => 'LIST',
-		'icon' => 'fa fa-list',
+		'icon' => 'spcc-icon spcc-icon-list',
 		'url'  => add_query_arg( 'view', 'list', $full_url )
 	),
 	array(
 		'key'  => 'map',
 		'name' => 'MAP',
-		'icon' => 'fa fa-map-pin',
+		'icon' => 'spcc-icon spcc-icon-pin',
 		'url'  => add_query_arg( 'view', 'map', $full_url )
 	),
 );
@@ -63,13 +63,15 @@ $params = spcc_array_only( $_GET, array(
 	'search',
 	'category',
 	'filter',
-	'sort_by',
 	'page',
 ) );
 $params = array_merge( $params, $config );
 
 // Vars
 $page = isset( $_GET['pagenum'] ) && is_numeric( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
+$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'date';
+
+$params['orderby'] = $sort_by;
 
 // Query
 $repo        = new SPC_Community_Calendar_Data_Repository();
@@ -91,20 +93,27 @@ $url_prev  = add_query_arg( 'pagenum', $prev_page, $full_url );
 $url_first = add_query_arg( 'pagenum', 1, $full_url );
 $url_last  = add_query_arg( 'pagenum', $total_pages, $full_url );
 
+$settings = new SPC_Community_Calendar_Settings();
+$logo = $settings->get('logo');
+if(!empty($logo)) {
+	$logo = wp_get_attachment_image_url($logo, 'medium');
+}
 
 ?>
-<div class="cc-events-container">
-    <div class="cc-events-row">
-        <div class="cc-events-filters">
-            <div class="cc-banner">
-                <a href="#"><img alt="ad" src="/wp-content/uploads/2020/01/catalyst.jpg"></a>
+<div class="spcc-events-container">
+    <div class="spcc-events-row">
+        <div class="spcc-events-filters">
+            <?php if(!empty($logo)): ?>
+            <div class="spcc-banner">
+                <a href="#"><img alt="ad" src="<?php echo $logo; ?>"></a>
             </div>
-            <div class="cc-filters">
+            <?php endif; ?>
+            <div class="spcc-filters">
 
-                <form class="cc-events-filters-form" id="cc-events-filters-form" action="" method="GET">
-                    <div class="form-row">
+                <form class="spcc-events-filters-form" id="spcc-events-filters-form" action="" method="GET">
+                    <div class="spcc-form-row">
                         <label>Show events for</label>
-                        <ul class="cc-inline-list">
+                        <ul class="spcc-inline-list">
 							<?php foreach ( $allowed_date_filters as $allowed_date_filter ): ?>
                                 <li><a target="_self" href="<?php echo $allowed_date_filter['url']; ?>"
                                        class="<?php echo spcc_get_var( 'date' ) === $allowed_date_filter['key'] ? 'active' : ''; ?>"><?php echo $allowed_date_filter['name']; ?></a>
@@ -112,15 +121,15 @@ $url_last  = add_query_arg( 'pagenum', $total_pages, $full_url );
 							<?php endforeach; ?>
                         </ul>
                     </div>
-                    <div class="form-row f-14">
-                        <label class="cc-label-fw" for="datefrom">Show events between</label>
+                    <div class="spcc-form-row f-14">
+                        <label class="spcc-label-fw" for="datefrom">Show events between</label>
                         <input type="text" autocomplete="off" name="datefrom" id="datefrom"
                                value="<?php echo spcc_get_var( 'datefrom' ); ?>"> And <input autocomplete="off"
                                                                                              type="text" name="dateto"
                                                                                              id="dateto"
                                                                                              value="<?php echo spcc_get_var( 'dateto' ); ?>">
                     </div>
-                    <div class="form-row">
+                    <div class="spcc-form-row">
                         <label for="filter">Filters</label>
                         <select id="filter" name="filter" class="form-control">
                             <option value="0">All Filters</option>
@@ -129,7 +138,7 @@ $url_last  = add_query_arg( 'pagenum', $total_pages, $full_url );
 							<?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="form-row">
+                    <div class="spcc-form-row">
                         <label for="category">Category</label>
                         <select id="category" name="category" class="form-control">
                             <option value="0">All Categories</option>
@@ -138,23 +147,24 @@ $url_last  = add_query_arg( 'pagenum', $total_pages, $full_url );
 							<?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="form-row">
+                    <div class="spcc-form-row">
                         <input type="hidden" name="view" value="<?php echo $view; ?>">
                         <input type="hidden" name="sort_by" value="<?php echo spcc_get_var( 'sort_by' ); ?>">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="spcc-btn spcc-btn-primary">Submit</button>
+                        <a href="<?php echo $short_url; ?>" class="spcc-btn spcc-btn-link spcc-reset">Reset</a>
                     </div>
                 </form>
 
 
             </div>
-            <div class="cc-other">
+            <div class="spcc-other">
 				<?php do_action( 'spcc_sidebar' ); ?>
             </div>
         </div>
-        <div class="cc-events-main">
-            <div class="cc-events-main--filters">
+        <div class="spcc-events-main">
+            <div class="spcc-events-main--filters">
                 <ul>
-                    <li class="cc-view-links">
+                    <li class="spcc-view-links">
                         <span>VIEW BY:</span>
 						<?php foreach ( $allowed_views as $value ): ?>
                             <a target="_self"
@@ -163,7 +173,7 @@ $url_last  = add_query_arg( 'pagenum', $total_pages, $full_url );
                                         class="<?php echo $value['icon']; ?>"></i> <?php echo $value['name']; ?></a>
 						<?php endforeach; ?>
                     </li>
-                    <li class="cc-sort-links">
+                    <li class="spcc-sort-links">
                         <span>SORT BY:</span>
                         <a target="_self"
                            class="<?php echo empty( $sort_by ) || $sort_by === 'date' ? 'current' : ''; ?>"
@@ -172,25 +182,25 @@ $url_last  = add_query_arg( 'pagenum', $total_pages, $full_url );
                            href="<?php echo $url_sort_by_name; ?>">NAME</a>
                     </li>
 					<?php if ( $total_pages > 1 ): ?>
-                        <li class="cc-nav-links">
-                            <a target="_self" href="<?php echo $url_first; ?>" class="cc-left"><i
-                                        class="fa fa-caret-left"></i></a>
-                            <a target="_self" href="<?php echo $url_prev; ?>" class="cc-backward"><i
-                                        class="fa fa-backward"></i></a>
+                        <li class="spcc-nav-links">
+                            <a target="_self" href="<?php echo $url_first; ?>" class="spcc-left"><i
+                                        class="spcc-icon spcc-icon-left-dir"></i></a>
+                            <a target="_self" href="<?php echo $url_prev; ?>" class="spcc-backward"><i
+                                        class="spcc-icon spcc-icon-fast-bw"></i></a>
                             <a target="_self" href="#"><?php echo implode( '-', array(
 									$page,
 									$config['per_page']
 								) ); ?>
                                 OF <?php echo $total_pages; ?></a>
-                            <a target="_self" href="<?php echo $url_next; ?>" class="cc-forward"><i
-                                        class="fa fa-forward"></i></a>
-                            <a target="_self" href="<?php echo $url_last; ?>" class="cc-right"><i
-                                        class="fa fa-caret-right"></i></a>
+                            <a target="_self" href="<?php echo $url_next; ?>" class="spcc-forward"><i
+                                        class="spcc-icon spcc-icon-fast-fw"></i></a>
+                            <a target="_self" href="<?php echo $url_last; ?>" class="spcc-right"><i
+                                        class="spcc-icon spcc-icon-right-dir"></i></a>
                         </li>
 					<?php endif; ?>
                 </ul>
             </div>
-            <div class="cc-events-main--list">
+            <div class="spcc-events-main--list">
 				<?php
 				if ( $total > 0 ) {
 					if ( $view === 'grid' ) {

@@ -1,4 +1,530 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+.spcc-events-container br {
+    display: none;
+}
+
+.spcc-events-main {
+    width: 73%;
+    margin-left: 2%;
+}
+
+.spcc-events-filters {
+    width: 25%;
+}
+
+@media (max-width: 767px) {
+    .spcc-events-filters {
+        width: 100%;
+    }
+
+    .spcc-events-main {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+.spcc-events-filters, .spcc-events-main {
+    float: left;
+}
+
+.spcc-events-container, .cc-events-row {
+    width: 100%;
+    float: left;
+}
+
+.spcc-post-date {
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    color: #9d9d9d;
+    font-family: Roboto, serif;
+    font-size: 13px;
+}
+
+.spcc-post-title {
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.spcc-post-excerpt {
+    margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 20px;
+    color: #292929;
+    font-family: Roboto, serif;
+}
+
+.spcc-post-excerpt p {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.spcc-post-actions a i.fa {
+    color: #2be2d8;
+}
+
+.spcc-post-actions a {
+    color: #8b8b8b;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 10px;
+    font-family: Roboto, serif;
+}
+
+.spcc-events-main--filters ul li:last-child {
+    margin-right: 0;
+    float: right;
+}
+
+.spcc-events-main--filters, .spcc-events-main--list {
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.spcc-events-main--filters ul li {
+    float: left;
+    margin-right: 16px;
+}
+
+
+.spcc-event-row {
+    width: 100%;
+    float: left;
+    background: #f0f0f0;
+    margin-bottom: 15px;
+}
+
+.spcc-event-right {
+    width: 70%;
+    float: left;
+    padding: 15px;
+}
+
+.spcc-event-left {
+    width: 30%;
+    float: left;
+    padding: 15px;
+}
+
+.spcc-events-filters-form {
+    background: #f5f5f5;
+    padding: 20px;
+    float: left;
+    width: 100%;
+}
+
+.spcc-events-filters-form .spcc-btn {
+    width: auto;
+    float: left;
+    padding: 12px;
+    cursor:pointer;
+    text-decoration: none;
+}
+
+.spcc-btn-search {
+    color: #fff !important;
+    text-transform: capitalize;
+    letter-spacing: 0;
+}
+
+.spcc-events-filters-form input.form-control {
+    margin-bottom: 0;
+    float: left;
+    padding: 11px;
+    width: 100%;
+}
+
+.spcc-form-row > label {
+    margin-bottom: 5px;
+    display: block;
+    font-size: 14px;
+}
+
+.spcc-label-fw {
+    width: 100%;
+    float: left;
+}
+
+.spcc-form-row #datefrom, .spcc-form-row #dateto {
+    width: 40%;
+    padding: 8px;
+    display: inline-block;
+}
+
+.spcc-form-row.f-14 {
+    font-size: 14px;
+}
+
+.spcc-events-main--filters ul li span {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.spcc-events-main--filters ul li > a:last-child {
+    margin-right: 0;
+}
+
+.spcc-events-main--filters ul li > a {
+    margin-right: 5px;
+}
+
+.spcc-left > i.fa, .spcc-right > i.fa {
+    font-size: 18px;
+}
+
+.spcc-inline-list li:last-child {
+    margin-right: 0;
+}
+
+.spcc-inline-list li {
+    display: inline-block;
+    margin-right: 9px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.spcc-inline-list a {
+    color: #000;
+    font-weight: bold;
+}
+
+.spcc-inline-list a.active {
+    color: #2be2d8;
+    text-decoration: underline;
+}
+
+.spcc-events-filters-form > .spcc-form-row {
+    margin-bottom: 30px !important;
+}
+
+.spcc-btn-primary {
+    background-color: #3ee4db;
+    color: #fff !important;
+    border: 0 !important;
+    padding: 11px 20px !important;
+}
+
+.spcc-events-main--filters ul li > a {
+    color: #848484;
+}
+
+.spcc-events-main--filters ul li > a.current {
+    color: #2be2d8;
+}
+
+.spcc-nav-links a {
+    color: #2be2d8 !important;
+}
+
+.spcc-other, .cc-filters, .cc-banner {
+    width: 100%;
+    float: left;
+}
+
+.spcc-quickview-photo img {
+    width: 100%;
+}
+
+.spcc-quickview-title {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.spcc-quickview-photo {
+    margin-bottom: 15px;
+}
+
+.spcc-quickview {
+    text-align: left;
+}
+
+.spcc-quickview-details .table td, .spcc-quickview-details .table th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 14px;
+}
+
+.spcc-quickview-details .table {
+    width: 100%;
+}
+
+.spcc-quickview-foot a {
+    color: #000;
+    background: #f0f0f0;
+    padding: 10px;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 1;
+}
+
+.spcc-quickview-details {
+    margin-bottom: 10px;
+}
+
+#spcc-events-map {
+    width: 100%;
+    height: 890px;
+}
+
+/* Infowindow */
+.spcc-ifw-event-meta-name {
+    font-weight: bold;
+}
+
+.spcc-ifw-event-meta-entry {
+    margin-bottom: 8px;
+}
+
+.spcc-ifw-event-meta {
+    margin-top: 10px;
+}
+
+.spcc-ifw-event-title h4 {
+    font-size: 18px;
+}
+
+.spcc-featured-events > p {
+    display: none;
+}
+
+.spcc-post-title a {
+    color: #000;
+}
+
+.spcc-g-row {
+    width: 100%;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.spcc-g-event {
+    width: 33.1%;
+    float: left;
+}
+
+.spcc-g-event:last-child {
+    margin-right: 0 !important;
+}
+
+.spcc-g-event {
+    width: 32.1%;
+    float: left;
+    margin-right: 1.8%;
+}
+
+.spcc-g-event-meta {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.spcc-g-event-title {
+    margin-bottom: 5px;
+    margin-top: 4px;
+}
+
+.spcc-g-event-title a {
+    color: #000;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+#spcc-event-map {
+    height: 300px;
+    width: 100%;
+    border: 7px solid #fff;
+}
+
+.spcc-text-right {
+    text-align: right;
+}
+
+.spcc-event-row-intro {
+    margin-top: 20px;
+    margin-bottom: 30px !important;
+}
+.spcc-event-row-main {
+    margin-top: 40px;
+}
+
+.spcc-event-date {
+    color: gray;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.spcc-event-title > h1 {
+    font-family: Oswald, serif;
+    margin-bottom: 25px;
+    font-size: 42px;
+    line-height: 1;
+}
+.spcc-event-text p {
+    margin-bottom: 11px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.2;
+}
+@media(max-width: 767px) {
+    .spcc-event-venue-wrap {
+        margin-bottom: 25px;
+    }
+}
+
+
+.spcc-event-page-title {
+    font-size: 28px;
+    font-family: Oswald, serif;
+    margin-bottom: 15px;
+}
+.spcc-event-details-row {
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #f0f0f0;
+}
+.spcc-event-details-row:last-child {
+    border-bottom: 0;
+}
+.spcc-event-details, .spcc-event-details-row {
+    float: left;
+    width: 100%;
+}
+.spcc-event-details-val {
+    color: #2be2d8;
+}
+
+.spcc-event-details-name {
+    color: grey;
+}
+.spcc-event-details-name, .spcc-event-details-val {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+}
+.spcc-event-details-name, .spcc-event-details-val {
+    float: left;
+    width: 50%;
+}
+.spcc-event-details-val {
+    text-align: right;
+}
+
+.spcc-event-section {
+    margin-bottom: 30px !important;
+    float: left;
+    width: 100%;
+}
+
+.spcc-event-venue-wrap {
+    background-color: #f5f5f5;
+    padding: 20px;
+    float: left;
+    width: 100%;
+    display:flex;
+    align-items:center;
+}
+
+.spcc-event-venue {
+    margin-right: 0;
+}
+
+.spcc-event-venue {
+    width: 48%;
+    float: left;
+}
+.spcc-event-map {
+    float: left;
+    width: 48%;
+    margin-right: 4%;
+}
+
+.spcc-event-address {
+    line-height: 22px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.spcc-event-page-title {
+    font-size: 26px;
+    font-family: Oswald,serif;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.spcc-event-socials {
+    padding-left: 0;
+    margin-left: 0;
+}
+.spcc-event-socials li {
+    display: inline-block;
+    margin-right: 10px;
+    padding-left:0;
+}
+.spcc-event-socials li a {
+    font-size: 20px;
+    background: #2be2d8;
+    padding: 5px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    color: #fff !important;
+}
+.spcc-event-socials li a:hover {
+    opacity: 0.8;
+}
+.spcc-event-thumbnail img {
+    width: 100%;
+}
+
+.spcc-events-main--filters ul {
+    padding-left: 0 !important;
+    list-style: none;
+    display: block;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+}
+ul.spcc-inline-list {
+    padding-left: 0 !important;
+}
+
+.spcc-loading{
+    /*visibility: hidden;*/
+}
+
+.spcc-reset {
+    color: #5d5d5d;
+}
+
+.spcc-icon {
+    font-family: "spccicons";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+    /* You can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+    /* Font smoothing. That was taken from TWBS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}

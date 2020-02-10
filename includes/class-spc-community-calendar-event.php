@@ -47,6 +47,17 @@ class SPC_Community_Calendar_Event {
 	}
 
 	/**
+	 * The event excerpt
+	 * @return string
+	 */
+	public function get_excerpt() {
+
+		$content = $this->event['post_content'];
+
+		return wp_trim_words($content, 30);
+	}
+
+	/**
 	 * Return thumbnail
 	 *
 	 * @param $size

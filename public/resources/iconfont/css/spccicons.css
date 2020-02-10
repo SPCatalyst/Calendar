@@ -1,0 +1,76 @@
+@font-face {
+  font-family: 'spccicons';
+  src: url('../font/spccicons.eot?76614166');
+  src: url('../font/spccicons.eot?76614166#iefix') format('embedded-opentype'),
+       url('../font/spccicons.woff2?76614166') format('woff2'),
+       url('../font/spccicons.woff?76614166') format('woff'),
+       url('../font/spccicons.ttf?76614166') format('truetype'),
+       url('../font/spccicons.svg?76614166#spccicons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'spccicons';
+    src: url('../font/spccicons.svg?76614166#spccicons') format('svg');
+  }
+}
+*/
+ 
+ [class^="spcc-icon-"]:before, [class*=" spcc-icon-"]:before {
+  font-family: "spccicons";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.spcc-icon-list:before { content: '\e800'; } /* '' */
+.spcc-icon-th:before { content: '\e801'; } /* '' */
+.spcc-icon-pin:before { content: '\e802'; } /* '' */
+.spcc-icon-eye:before { content: '\e803'; } /* '' */
+.spcc-icon-left-dir:before { content: '\e804'; } /* '' */
+.spcc-icon-right-dir:before { content: '\e805'; } /* '' */
+.spcc-icon-fast-bw:before { content: '\e806'; } /* '' */
+.spcc-icon-fast-fw:before { content: '\e807'; } /* '' */
+.spcc-icon-star:before { content: '\e808'; } /* '' */
+.spcc-icon-star-half:before { content: '\e809'; } /* '' */
+.spcc-icon-star-empty:before { content: '\e80a'; } /* '' */
+.spcc-icon-heart:before { content: '\e80b'; } /* '' */
+.spcc-icon-search:before { content: '\e80c'; } /* '' */
+.spcc-icon-angle-double-left:before { content: '\f100'; } /* '' */
+.spcc-icon-angle-double-right:before { content: '\f101'; } /* '' */
+.spcc-icon-angle-left:before { content: '\f104'; } /* '' */
+.spcc-icon-angle-right:before { content: '\f105'; } /* '' */
+.spcc-icon-star-half-alt:before { content: '\f123'; } /* '' */
+.spcc-icon-calendar-plus-o:before { content: '\f271'; } /* '' */

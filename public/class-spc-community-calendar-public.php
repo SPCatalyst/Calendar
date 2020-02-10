@@ -22,12 +22,15 @@
  */
 class SPC_Community_Calendar_Public {
 
+	const MAPS_PROVIDER_GOOGLE = 'google';
+	const MAPS_PROVIDER_LEAFLET = 'leaflet';
+
 	/**
 	 * The ID of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string $plugin_name The ID of this plugin.
 	 */
 	private $plugin_name;
 
@@ -36,22 +39,30 @@ class SPC_Community_Calendar_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @var      string $version The current version of this plugin.
 	 */
 	private $version;
 
 	/**
+	 * The active maps provider
+	 * @var int
+	 */
+	private $maps_provider;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of the plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
+		$this->maps_provider = apply_filters( 'catalyst_community_calendar_maps_provider', self::MAPS_PROVIDER_LEAFLET );
 	}
 
 	/**
@@ -61,19 +72,14 @@ class SPC_Community_Calendar_Public {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in SPC_Community_Calendar_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The SPC_Community_Calendar_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+		wp_enqueue_style( $this->plugin_name . '-iconfont', plugin_dir_url( __FILE__ ) . 'resources/iconfont/css/spccicons.css', array(), null, 'all' );
+		$last_updated = filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'css/spc-community-calendar-public.css' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/spc-community-calendar-public.css', array(), $last_updated, 'all' );
+		wp_enqueue_style( 'jquery-ui', plugin_dir_url( __FILE__ ) . 'resources/jquery-ui/jquery-ui.min.css', array(), $this->version, 'all' );
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/spc-community-calendar-public.css', array(), $this->version, 'all' );
+		if ( $this->maps_provider === self::MAPS_PROVIDER_LEAFLET ) {
+			wp_enqueue_style( 'leaflet', plugin_dir_url( __FILE__ ) . 'resources/leaflet/leaflet.css', array(), $this->version, 'all' );
+		}
 
 	}
 
@@ -84,22 +90,22 @@ class SPC_Community_Calendar_Public {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in SPC_Community_Calendar_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The SPC_Community_Calendar_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+		wp_enqueue_script( 'jquery-ui-datepicker' );
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/spc-community-calendar-public.js', array( 'jquery' ), $this->version, false );
+		$last_updated = filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'js/spc-community-calendar-public.js' );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/spc-community-calendar-public.js', array( 'jquery' ), $last_updated, true );
 
+		if ( $this->maps_provider === self::MAPS_PROVIDER_GOOGLE ) {
+			$settings = new SPC_Community_Calendar_Settings();
+			wp_enqueue_script( 'googlemaps', 'https://maps.googleapis.com/maps/api/js?key=' . $settings->get( 'google_maps_key' ), null, null, true );
+			$last_updated = filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'js/spc-community-calendar-gmaps.js' );
+			wp_enqueue_script( $this->plugin_name . '-gmaps', plugin_dir_url( __FILE__ ) . 'js/spc-community-calendar-gmaps.js', array( 'jquery' ), $last_updated, true );
+		} else if ( $this->maps_provider === self::MAPS_PROVIDER_LEAFLET ) {
+			$last_updated = filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'js/spc-community-calendar-leaflet.js' );
+			wp_enqueue_script( 'leaflet', plugin_dir_url( __FILE__ ) . 'resources/leaflet/leaflet.js', array( 'jquery' ), $last_updated, true );
+			wp_enqueue_script( $this->plugin_name . '-leaflet', plugin_dir_url( __FILE__ ) . 'js/spc-community-calendar-leaflet.js', array( 'jquery' ), $last_updated, true );
+		}
 	}
-
 
 
 	/**
@@ -175,8 +181,8 @@ class SPC_Community_Calendar_Public {
 	 *
 	 * @return string
 	 */
-	public function shortcode_community_calendar($atts) {
-		return spcc_get_view('calendar');
+	public function shortcode_community_calendar( $atts ) {
+		return spcc_get_view( 'calendar' );
 	}
 
 }

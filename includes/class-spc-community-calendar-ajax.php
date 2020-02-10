@@ -246,7 +246,6 @@ class SPC_Community_Calendar_AJAX {
 		include SPCC_ROOT_PATH . 'admin/partials/form-delete.php';
 		die;
 	}
-
 	/**
 	 * Check the ajax referer
 	 *
