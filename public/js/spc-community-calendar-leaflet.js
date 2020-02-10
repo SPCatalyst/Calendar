@@ -3,7 +3,9 @@
  */
 (function ($) {
 
-    var $el = $('#spcc-event-map');
+    var id = 'spcc-event-map';
+
+    var $el = $('#' + id);
     if (!$el.length) {
         return;
     }
@@ -11,7 +13,13 @@
     var lat = $el.data('lat');
     var lng = $el.data('lng');
 
-    var center = new google.maps.LatLng(lat, lng);
+    var eventsMap = L.map(id).setView([lat, lng], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '',
+    }).addTo(eventsMap);
+
+    var marker = L.marker([lat, lng]).addTo(eventsMap);
 
 
 })(jQuery);
@@ -45,8 +53,6 @@
 
     window.init_spcc_map = function () {
 
-        console.log('initializing 1')
-
         var id = 'spcc-events-map';
         var $el = $('#' + id);
 
@@ -54,15 +60,11 @@
             return;
         }
 
-        console.log('initializing 2')
-
         var eventsMap = L.map('spcc-events-map').setView([27.773056, -82.639999], 13);
         L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: '',
         }).addTo(eventsMap);
-
-        console.log(window.spccevents)
 
         var bounds = [];
         var events = window.spccevents ? JSON.parse(window.spccevents) : [];
@@ -71,7 +73,7 @@
             var lng = events[i].event_lng;
             var marker = L.marker([lat, lng]).addTo(eventsMap);
             marker.bindPopup(create_popup(events[i]));
-            bounds.push([lat,lng]);
+            bounds.push([lat, lng]);
         }
         eventsMap.fitBounds(bounds);
     };

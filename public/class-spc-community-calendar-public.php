@@ -198,7 +198,126 @@ class SPC_Community_Calendar_Public {
 	 * @return string
 	 */
 	public function shortcode_community_calendar( $atts ) {
-		return spcc_get_view( 'calendar' );
+
+		global $wp_query;
+
+		$single_event_name = get_query_var( 'spccevent' );
+		if ( ! empty( $single_event_name ) ) {
+			return spcc_get_view( 'single' );
+		} else {
+			return spcc_get_view( 'events' );
+		}
+	}
+
+
+	public function print_theme_stylesheet() {
+
+		$settings = new SPC_Community_Calendar_Settings();
+		$color = $settings->get('color_scheme');
+
+		?>
+		<style type="text/css">
+			.spcc-post-actions a i.spcc-icon {
+				color:<?php echo $color; ?>;
+			}
+			.spcc-inline-list a.active {
+				color: <?php echo $color; ?>;
+			}
+			.spcc-btn-primary {
+				background-color: <?php echo $color; ?>;
+			}
+			.spcc-events-main--filters ul li > a.current {
+				color: <?php echo $color; ?>;
+			}
+			.spcc-nav-links a {
+				color: <?php echo $color; ?> !important;
+			}
+			.spcc-event-details-val {
+				color: <?php echo $color; ?>;
+			}
+			.spcc-event-socials li a {
+				background: <?php echo $color; ?>;
+			}
+		</style>
+		<?php
+	}
+
+
+	/**
+	 * Setup the single event vars
+	 *
+	 * @param $vars
+	 *
+	 * @return array
+	 */
+	public function add_query_vars( $vars ) {
+		$vars[] = 'spccevent';
+
+		return $vars;
+	}
+
+
+	/**
+	 * Initializes the rewrite rules
+	 */
+	public function add_rewrite_rules() {
+
+		$settings = new SPC_Community_Calendar_Settings();
+
+		$events_page_ID = $settings->get( 'events_page', null );
+		if ( is_null( $events_page_ID ) ) {
+			error_log( 'SPCC ERROR: Events page NOT set! Please try activating and deactivating the SPC Community Calendar plugin.' );
+
+			return;
+		}
+		$slug = get_post_field( 'post_name', $events_page_ID );
+		if ( empty( $slug ) ) {
+			error_log( 'SPCC ERROR: Events page slug invalid.' );
+
+			return;
+		}
+
+		add_rewrite_rule( $slug . '/([^/]+)/?$', 'index.php?pagename=' . $slug . '&spccevent=$matches[1]', 'top' );
+
+		// Hard flush, if needed.
+		$permalinks_flushed = get_option( 'spcc_permalinks_flushed' );
+		if ( ! $permalinks_flushed || empty( $permalinks_flushed ) ) {
+			flush_rewrite_rules( true );
+			update_option( 'spcc_permalinks_flushed', 1 );
+		}
+	}
+
+
+	/**
+	 * Set the event object od trigger 404
+	 */
+	public function set_event_object() {
+
+		global $spccevent;
+		$event_name = get_query_var( 'spccevent', null );
+		if ( ! is_null( $event_name ) ) {
+			$repo     = new SPC_Community_Calendar_Data_Repository();
+			$response = $repo->get_event_by_slug( $event_name, array( 'fields' => 'all' ) );
+
+			if ( $response->is_error() ) {
+				global $wp_query;
+				$wp_query->set_404();
+				status_header( 404 );
+				get_template_part( 404 );
+				exit();
+			} else {
+				$spccevent = new SPC_Community_Calendar_Event( $response->get_item() );
+			}
+		}
+	}
+
+	/**
+	 * Initialize the custom rewrites.
+	 */
+	public function init_custom_rewrites() {
+		add_filter( 'query_vars', array( $this, 'add_query_vars' ), 0, 1 );
+		add_action( 'init', array( $this, 'add_rewrite_rules' ) );
+		add_action( 'template_redirect', array( $this, 'set_event_object' ) );
 	}
 
 }

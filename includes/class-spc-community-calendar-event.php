@@ -54,7 +54,7 @@ class SPC_Community_Calendar_Event {
 
 		$content = $this->event['post_content'];
 
-		return wp_trim_words($content, 30);
+		return wp_trim_words( $content, 30 );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class SPC_Community_Calendar_Event {
 	 * @return string
 	 */
 	public function get_thumbnail( $size ) {
-		return isset($this->event['image'][$size]) ? $this->event['image'][$size] : '';
+		return isset( $this->event['image'][ $size ] ) ? $this->event['image'][ $size ] : '';
 	}
 
 	/**
@@ -106,6 +106,33 @@ class SPC_Community_Calendar_Event {
 	 */
 	public function get_postal_code() {
 		return $this->get_meta_value( 'event_postal_code' );
+	}
+
+	/**
+	 * Event cost
+	 * @return mixed|string
+	 */
+	public function get_cost() {
+		return $this->get_meta_value( 'event_cost' );
+	}
+
+	/**
+	 * Returns website
+	 * @return mixed|string
+	 */
+	public function get_website() {
+		$website = $this->get_meta_value( 'event_website' );
+
+		if ( empty( $website ) ) {
+			return '';
+		}
+
+		#$website = str_replace( 'http://', 'https://', $website );
+		#if ( strpos( 'https://', $website ) === false ) {
+		#	$website = 'https://' . $website;
+		#}
+
+		return $website;
 	}
 
 	/**
@@ -186,7 +213,15 @@ class SPC_Community_Calendar_Event {
 	 * @return false|string
 	 */
 	public function get_link() {
-		return get_permalink( $this->get_id() );
+		$settings       = new SPC_Community_Calendar_Settings();
+		$events_page_ID = $settings->get( 'events_page' );
+		$base           = get_permalink( $events_page_ID );
+		if ( empty( $base ) ) {
+			return '/404';
+		}
+		$url = trailingslashit( $base ) . $this->event['post_name'];
+
+		return $url;
 	}
 
 	/**
@@ -346,6 +381,7 @@ class SPC_Community_Calendar_Event {
 			return $date;
 		}
 		$dt = DateTime::createFromFormat( 'Y-m-d H:i:s', $date );
+
 		return $dt->format( $format );
 
 	}

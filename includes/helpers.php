@@ -159,8 +159,12 @@ function spcc_get_view( $view, $data = array() ) {
  */
 function spcc_current_page_url() {
 	global $wp;
+	$url = home_url( $wp->request );
+	if ( isset( $_SERVER['QUERY_STRING'] ) ) {
+		$url = add_query_arg( $_SERVER['QUERY_STRING'], '', $url );
+	}
 
-	return add_query_arg( $_SERVER['QUERY_STRING'], '', home_url( $wp->request ) );
+	return $url;
 }
 
 
@@ -179,6 +183,7 @@ function spcc_get_var( $key, $default = null ) {
 
 /**
  * Custom image upload field
+ *
  * @param $key
  * @param $current_value
  * @param $placeholder
@@ -194,13 +199,13 @@ function spcc_custom_upload_field( $key, $current_value, $placeholder = '' ) {
 		$media_id    = '';
 	}
 	?>
-	<div class="upload">
-		<img data-src="<?php echo $placeholder; ?>" src="<?php echo $current_src; ?>" width="120px"/>
-		<div>
-			<input type="hidden" name="<?php echo $key; ?>" id="<?php echo $key; ?>" value="<?php echo $media_id; ?>"/>
-			<button type="submit" class="upload_image_button button">Upload</button>
-			<button type="submit" class="remove_image_button button">&times;</button>
-		</div>
-	</div>
+    <div class="upload">
+        <img data-src="<?php echo $placeholder; ?>" src="<?php echo $current_src; ?>" width="120px"/>
+        <div>
+            <input type="hidden" name="<?php echo $key; ?>" id="<?php echo $key; ?>" value="<?php echo $media_id; ?>"/>
+            <button type="submit" class="upload_image_button button">Upload</button>
+            <button type="submit" class="remove_image_button button">&times;</button>
+        </div>
+    </div>
 	<?php
 }

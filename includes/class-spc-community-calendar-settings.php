@@ -29,9 +29,15 @@ class SPC_Community_Calendar_Settings {
 	/**
 	 * SPC_Community_Calendar_Settings constructor.
 	 *
-	 * @param bool $load
 	 */
 	public function __construct() {
+		$this->load();
+	}
+
+	/**
+	 * Refreshes the settings
+	 */
+	public function refresh() {
 		$this->load();
 	}
 
@@ -74,7 +80,10 @@ class SPC_Community_Calendar_Settings {
 		if ( empty( $values ) ) {
 			return false;
 		}
-		$this->data = $values;
+		if ( ! is_array( $this->data ) ) {
+			$this->data = array();
+		}
+		$this->data = array_merge( $this->data, $values );
 		update_option( $this->key, $this->data );
 
 		return true;
@@ -127,6 +136,7 @@ class SPC_Community_Calendar_Settings {
 			'logo',
 			'google_maps_key',
 			'maps_provider',
+			'events_page',
 		);
 	}
 
@@ -180,6 +190,8 @@ class SPC_Community_Calendar_Settings {
 		if ( ! is_array( $data ) ) {
 			$data = array();
 		}
+
+		error_log( 'SPCC INFO: Importing settings: ' . json_encode( $data ) );
 
 		return $this->save( $data );
 

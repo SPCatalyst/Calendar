@@ -31,6 +31,8 @@ class SPC_Community_Calendar_Deactivator {
 	 */
 	public static function deactivate() {
 
+		delete_option('spcc_permalinks_flushed');
+
 	}
 
 }

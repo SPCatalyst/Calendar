@@ -57,10 +57,6 @@
     font-weight: 500;
 }
 
-.spcc-post-actions a i.fa {
-    color: #2be2d8;
-}
-
 .spcc-post-actions a {
     color: #8b8b8b;
     text-transform: uppercase;
@@ -86,12 +82,25 @@
     margin-right: 16px;
 }
 
-
 .spcc-event-row {
     width: 100%;
     float: left;
-    background: #f0f0f0;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.spcc-event-col-6 {
+    width: 100%;
+}
+.spcc-event-col-6 {
+    width: 50%;
+    float: left;
+    padding: 15px;
+}
+@media(max-width: 767px) {
+    .spcc-event-row {
+        float: left;
+        width: 100%;
+    }
 }
 
 .spcc-event-right {
@@ -189,7 +198,6 @@
 }
 
 .spcc-inline-list a.active {
-    color: #2be2d8;
     text-decoration: underline;
 }
 
@@ -198,7 +206,6 @@
 }
 
 .spcc-btn-primary {
-    background-color: #3ee4db;
     color: #fff !important;
     border: 0 !important;
     padding: 11px 20px !important;
@@ -206,14 +213,6 @@
 
 .spcc-events-main--filters ul li > a {
     color: #848484;
-}
-
-.spcc-events-main--filters ul li > a.current {
-    color: #2be2d8;
-}
-
-.spcc-nav-links a {
-    color: #2be2d8 !important;
 }
 
 .spcc-other, .cc-filters, .cc-banner {
@@ -399,10 +398,6 @@
     float: left;
     width: 100%;
 }
-.spcc-event-details-val {
-    color: #2be2d8;
-}
-
 .spcc-event-details-name {
     color: grey;
 }
@@ -471,7 +466,6 @@
 }
 .spcc-event-socials li a {
     font-size: 20px;
-    background: #2be2d8;
     padding: 5px;
     border-radius: 50%;
     width: 40px;

@@ -35,6 +35,21 @@ class SPC_Community_Calendar_Events_API extends SPC_Community_Calendar_API {
 	}
 
 	/**
+	 * Single event by slug
+	 *
+	 * @param $slug
+	 * @param $params
+	 *
+	 * @return SPC_Community_Calendar_API_Response
+	 */
+	public function get_event_by_slug($slug, $params) {
+		$response = $this->get( "events/show/{$slug}", $params );
+
+		return SPC_Community_Calendar_API_Response::create( $response );
+	}
+
+
+	/**
 	 * Returns list of events
 	 *
 	 * @param $params

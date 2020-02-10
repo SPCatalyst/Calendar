@@ -53,6 +53,20 @@ class SPC_Community_Calendar_Data_Repository {
 	}
 
 	/**
+	 * Returns single event from storage
+	 *
+	 * @param $id
+	 * @param array $params
+	 *
+	 * @return SPC_Community_Calendar_API_Response
+	 */
+	public function get_event_by_slug( $slug, $params = array() ) {
+		$event = $this->events_api->get_event_by_slug($slug, $params);
+
+		return $event;
+	}
+
+	/**
 	 * Returns the events
 	 *
 	 * @param array $params

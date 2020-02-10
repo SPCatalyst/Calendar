@@ -236,8 +236,11 @@ class SPC_Community_Calendar {
 
 		$plugin_public = new SPC_Community_Calendar_Public( $this->get_plugin_name(), $this->get_version() );
 
+		$plugin_public->init_custom_rewrites();
+
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_head', $plugin_public, 'print_theme_stylesheet' );
 		$this->loader->add_action( 'init', $plugin_public, 'register_post_types' );
 
 		$ajax_actions = new SPC_Community_Calendar_AJAX();
