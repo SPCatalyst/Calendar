@@ -89,6 +89,11 @@
     float: left;
     padding: 15px;
 }
+.spcc-event-col-12 {
+    padding: 15px;
+    width: 100%;
+    float:left;
+}
 @media(max-width: 767px) {
     .spcc-event-row {
         float: left;
@@ -531,16 +536,37 @@ ul.spcc-inline-list {
 }
 
 
+.spcc-submit-box a {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.spcc-submit-box {
+    float: left;
+    width: 100%;
+    text-align: center;
+    padding: 70px 40px;
+    background: #fafafa;
+}
+.spcc-submit-box .spcc-h3 {
+    font-size: 30px;
+    margin-bottom: 0;
+}
+
+.spcc-events-container .spcc-branding {
+    margin-bottom: 25px;
+}
+
+
 @media (max-width: 767px) {
     .spcc-events-filters {
         width: 100%;
         margin-bottom: 40px;
     }
-
     .spcc-banner img {
         width: 100%;
     }
-
     .spcc-events-main {
         width: 100%;
         margin-left: 0;
@@ -553,15 +579,12 @@ ul.spcc-inline-list {
     .spcc-event-left, .spcc-event-right {
         width: 100% !important;
     }
-
     .spcc-event-col-6 {
         width: 100% !important;
     }
-
     .spcc-event-map {
         margin-bottom: 15px;
     }
-
     .spcc-event-venue-wrap {
         display: block;
     }

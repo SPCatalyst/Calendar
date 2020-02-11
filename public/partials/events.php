@@ -136,6 +136,15 @@ if ( ! empty( $logo ) ) {
 
 ?>
 <div class="spcc-events-container">
+
+	<?php if ( apply_filters( 'ccc_show_branding', true ) ): ?>
+        <div class="spcc-events-row">
+            <div class="spcc-branding spcc-text-right">
+                <a target="_blank" href="https://stpetecatalyst.com"><img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ); ?>img/poweredby.jpg" width="300" alt="st pete catalyst"></a>
+            </div>
+        </div>
+	<?php endif; ?>
+
     <div class="spcc-events-row">
         <div class="spcc-events-filters">
 			<?php if ( ! empty( $logo ) ): ?>
@@ -256,5 +265,10 @@ if ( ! empty( $logo ) ) {
             </div>
         </div>
     </div>
+	<?php if ( apply_filters( 'ccc_show_submit_section', true ) ): ?>
+        <div class="spcc-events-row">
+			<?php include( 'events-submit.php' ); ?>
+        </div>
+	<?php endif; ?>
 </div>
 

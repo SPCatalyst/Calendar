@@ -238,6 +238,9 @@ class SPC_Community_Calendar_Public {
 			.spcc-event-socials li a {
 				background: <?php echo $color; ?>;
 			}
+            .spcc-submit-box .spcc-h3 {
+                color: <?php echo $color; ?>;
+            }
 		</style>
 		<?php
 	}

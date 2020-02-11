@@ -48,13 +48,14 @@ $event_website = $e->get_website();
 ?>
 
 <div class="spcc-event-wrap">
-    <!-- Disabled on stpetecatalyst.com main
-    <div class="row spcc-event-row spcc-event-row-intro">
-        <div class="spcc-event-col-6">&nbsp;</div>
-        <div class="spcc-event-col-6 spcc-text-right">
-            <a href="https://stpetecatalyst.com"><img src="<?php echo ''; ?>assets/img/poweredby.jpg" width="300" alt="st pete catalyst"></a>
+
+	<?php if ( apply_filters( 'ccc_show_branding', true ) ): ?>
+        <div class="spcc-event-row">
+            <div class="spcc-branding spcc-text-right">
+                <a target="_blank" href="https://stpetecatalyst.com"><img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ); ?>img/poweredby.jpg" width="300" alt="st pete catalyst"></a>
+            </div>
         </div>
-    </div> -->
+	<?php endif; ?>
     <div class="spcc-event-row spcc-event-row-main">
         <div class="spcc-event-col-6">
             <div class="spcc-event-date">
@@ -131,4 +132,11 @@ $event_website = $e->get_website();
 			<?php endif; ?>
         </div>
     </div>
+	<?php if ( apply_filters( 'ccc_show_submit_section', true ) ): ?>
+        <div class="spcc-event-row spcc-event-row-footer">
+			<div class="spcc-event-col-12">
+				<?php include( 'events-submit.php' ); ?>
+            </div>
+        </div>
+	<?php endif; ?>
 </div>

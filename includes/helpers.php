@@ -209,3 +209,12 @@ function spcc_custom_upload_field( $key, $current_value, $placeholder = '' ) {
     </div>
 	<?php
 }
+
+/**
+ * Submit link
+ *
+ * @return string
+ */
+function spcc_get_submit_link() {
+    return 'https://stpetecatalyst.com/events/submit';
+}
