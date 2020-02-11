@@ -32,6 +32,10 @@
  */
 (function ($) {
 
+	var validate_coordinate = function(coord) {
+		return ("" !== coord);
+	};
+
 	window.init_spcc_map = function () {
 		var $el = $('#spcc-events-map');
 
@@ -47,9 +51,17 @@
 		var bounds = new google.maps.LatLngBounds();
 
 		for (i = 0; i < events.length; i++) {
+
+			var lat = events[i].event_lat;
+			var lng = events[i].event_lng;
+
+			if(!validate_coordinate(lat) || !validate_coordinate(lng)) {
+				continue;
+			}
+
 			window.currentEvent = events[i];
 			marker = new google.maps.Marker({
-				position: new google.maps.LatLng(events[i].event_lat, events[i].event_lng),
+				position: new google.maps.LatLng(lat, lng),
 				map: window.map
 			});
 			bounds.extend(marker.position);

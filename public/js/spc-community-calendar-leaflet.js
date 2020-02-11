@@ -75,8 +75,6 @@
         for (i = 0; i < events.length; i++) {
             var lat = events[i].event_lat;
             var lng = events[i].event_lng;
-            console.log(lat);
-            console.log(lng);
             if( !validate_coordinate(lat) || !validate_coordinate(lng)) {
                 continue;
             }
