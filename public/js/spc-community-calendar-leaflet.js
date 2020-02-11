@@ -14,7 +14,7 @@
     var lng = $el.data('lng');
 
     var eventsMap = L.map(id).setView([lat, lng], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '',
     }).addTo(eventsMap);
@@ -28,6 +28,10 @@
  * The events archive map functionality
  */
 (function ($) {
+
+    var validate_coordinate = function(coord) {
+        return ("" !== coord);
+    };
 
     var create_popup = function (event) {
         var venue = event.hasOwnProperty('event_venue') ? event.event_venue : undefined;
@@ -61,7 +65,7 @@
         }
 
         var eventsMap = L.map('spcc-events-map').setView([27.773056, -82.639999], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: '',
         }).addTo(eventsMap);
@@ -71,11 +75,18 @@
         for (i = 0; i < events.length; i++) {
             var lat = events[i].event_lat;
             var lng = events[i].event_lng;
+            console.log(lat);
+            console.log(lng);
+            if( !validate_coordinate(lat) || !validate_coordinate(lng)) {
+                continue;
+            }
             var marker = L.marker([lat, lng]).addTo(eventsMap);
             marker.bindPopup(create_popup(events[i]));
             bounds.push([lat, lng]);
         }
-        eventsMap.fitBounds(bounds);
+        if(bounds.length > 0) {
+            eventsMap.fitBounds(bounds);
+        }
     };
 
     window.init_spcc_map();
