@@ -205,10 +205,7 @@ class SPC_Community_Calendar_Events_List_Table extends WP_List_Table {
 
 		$response = $repository->get_events( $args );
 
-		error_log(print_r($response, true));
-
 		$total_items = (int) $response->get_header( 'X-WP-Total' );
-		//$total_pages = (int) $response->get_header( 'X-WP-TotalPages' );
 
 		$this->items = $response->get_items();
 

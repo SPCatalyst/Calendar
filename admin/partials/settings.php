@@ -70,6 +70,8 @@ $google_maps_key     = $settings->get( 'google_maps_key' );
 $logo                = $settings->get( 'logo' );
 $maps_provider       = $settings->get( 'maps_provider', 'leaflet' );
 
+$status = $account->get_item_param( 'status' );
+
 ?>
 
 <div class="wrap">
@@ -121,7 +123,13 @@ $maps_provider       = $settings->get( 'maps_provider', 'leaflet' );
 		<?php else: ?>
             <div class="settings-row">
                 <label><?php _e( 'Service Status', 'spcc' ); ?></label>
-                <p class="service-success"><?php _e( 'ONLINE' ); ?></p>
+	            <?php if($status === 'publish'): ?>
+                    <p class="service-success"><?php _e( 'ONLINE' ); ?></p>
+                <?php elseif($status === 'draft'): ?>
+                    <p class="service-warning"><?php _e( 'WAITING FOR APPROVAL' ); ?></p>
+                <?php else: ?>
+                    <p class="service-error"><?php _e( 'UNKNOWN' ); ?></p>
+                <?php endif; ?>
             </div>
 
             <div class="settings-row">
@@ -141,12 +149,14 @@ $maps_provider       = $settings->get( 'maps_provider', 'leaflet' );
             </div>
             <div class="settings-row">
                 <label for="maps_provider"><?php _e( 'Maps Provider', 'spcc' ); ?></label>
-                <select name="maps_provider" id="maps_provider" class="spcc-select spcc-conditional" data-target="#google_maps_key_wrap" data-target-hideifvalue="leaflet">
-                    <option value="leaflet" <?php selected($maps_provider, 'leaflet'); ?>><?php _e( 'Leaflet/OSM', 'spcc' ); ?></option>
-                    <option value="google" <?php selected($maps_provider, 'google'); ?>><?php _e( 'Google', 'spcc' ); ?></option>
+                <select name="maps_provider" id="maps_provider" class="spcc-select spcc-conditional"
+                        data-target="#google_maps_key_wrap" data-target-hideifvalue="leaflet">
+                    <option value="leaflet" <?php selected( $maps_provider, 'leaflet' ); ?>><?php _e( 'Leaflet/OSM', 'spcc' ); ?></option>
+                    <option value="google" <?php selected( $maps_provider, 'google' ); ?>><?php _e( 'Google', 'spcc' ); ?></option>
                 </select>
             </div>
-            <div class="settings-row" id="google_maps_key_wrap" style="<?php echo $maps_provider === 'leaflet' ? 'display:none;' : ''; ?>">
+            <div class="settings-row" id="google_maps_key_wrap"
+                 style="<?php echo $maps_provider === 'leaflet' ? 'display:none;' : ''; ?>">
                 <label for="google_maps_key"><?php _e( 'Google Maps Key', 'spcc' ); ?></label>
                 <input type="text" name="google_maps_key" id="google_maps_key"
                        value="<?php echo $google_maps_key; ?>">

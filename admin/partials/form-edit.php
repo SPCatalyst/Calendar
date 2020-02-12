@@ -52,11 +52,11 @@ if(!isset($event['post_title']) || !isset($event['ID'])) {
 
 	<div class="form-row">
 		<div class="form-col-4">
-			<label for="city"><?php _e('City'); ?> <span class="required">*</span></label>
+			<label for="city"><?php _e('City'); ?> <span class="spcc-required">*</span></label>
 			<input type="text" id="city" name="city" required value="<?php echo isset($event['meta']['event_city']) ? $event['meta']['event_city'] : ''; ?>" class="form-control" placeholder="<?php _e('Enter city'); ?>">
 		</div>
 		<div class="form-col-4">
-			<label for="state"><?php _e('State'); ?> <span class="required">*</span></label>
+			<label for="state"><?php _e('State'); ?> <span class="spcc-required">*</span></label>
 			<select id="state" name="state" required  class="form-control">
 				<?php foreach($states as $key => $name): ?>
                 <option value="<?php echo $key; ?>" <?php echo isset($event['meta']['event_state']) && $event['meta']['event_state'] === $key ? 'selected' : ''; ?>><?php echo $name; ?></option>
@@ -64,7 +64,7 @@ if(!isset($event['post_title']) || !isset($event['ID'])) {
 			</select>
 		</div>
 		<div class="form-col-4">
-			<label for="postal_code"><?php _e('Postal Code'); ?> <span class="required">*</span></label>
+			<label for="postal_code"><?php _e('Postal Code'); ?> <span class="spcc-required">*</span></label>
 			<input type="text" id="postal_code" name="postal_code" required value="<?php echo isset($event['meta']['event_postal_code']) ? $event['meta']['event_postal_code'] : ''; ?>" class="form-control" placeholder="<?php _e('Enter postal code'); ?>">
 		</div>
 	</div>
@@ -74,7 +74,7 @@ if(!isset($event['post_title']) || !isset($event['ID'])) {
 	</div>
 	<div class="form-row">
         <div class="form-col-6">
-            <label for="category"><?php _e('Category'); ?> <span class="required">*</span></label>
+            <label for="category"><?php _e('Category'); ?> <span class="spcc-required">*</span></label>
             <select id="category" name="category" <?php echo !empty($categories_choices) ? 'required' : ''; ?> class="form-control">
 		        <?php foreach($categories_choices as $value => $name): ?>
                     <option value="<?php echo $value; ?>" <?php echo isset($event['categories'][$value]) ? 'selected' : ''; ?>><?php echo $name; ?></option>
@@ -83,7 +83,7 @@ if(!isset($event['post_title']) || !isset($event['ID'])) {
         </div>
         <div class="form-col-6">
 	        <?php $is_disabled = isset($event['meta']['event_type']) && in_array($event['meta']['event_type'], array('private', 'public')); ?>
-            <label for="type"><?php _e('Type'); ?> <span class="required">*</span></label>
+            <label for="type"><?php _e('Type'); ?> <span class="spcc-required">*</span></label>
             <select id="type" name="type" required class="form-control" <?php echo $is_disabled ? 'readonly' : ''; ?>>
                 <option value="private" <?php echo isset($event['meta']['event_type']) && $event['meta']['event_type'] === 'private' ? 'selected' : ''; ?>><?php _e('Private'); ?></option>
                 <option value="public" <?php echo isset($event['meta']['event_type']) && $event['meta']['event_type'] === 'public' ? 'selected' : ''; ?>><?php _e('Public'); ?></option>

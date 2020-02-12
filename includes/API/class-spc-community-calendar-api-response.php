@@ -116,6 +116,17 @@ class SPC_Community_Calendar_API_Response {
 	}
 
 	/**
+	 * Returns specific item param
+	 *
+	 * @param $key
+	 *
+	 * @return null
+	 */
+	public function get_item_param( $key ) {
+		return isset( $this->item[ $key ] ) ? $this->item[ $key ] : null;
+	}
+
+	/**
 	 * Create response object
 	 *
 	 * @param $response

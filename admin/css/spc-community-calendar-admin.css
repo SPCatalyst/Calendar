@@ -7,6 +7,14 @@
     font-weight: bold;
     color: green;
 }
+.service-success {
+    font-weight: bold;
+    color: orange;
+}
+.service-error {
+    font-weight: bold;
+    color: red;
+}
 .status-wrapper {
     margin-bottom: 10px;
 }
