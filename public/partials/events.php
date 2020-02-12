@@ -58,7 +58,7 @@ $allowed_views        = array(
 
 // Static config
 $config = array(
-	'per_page' => 3,
+	'per_page' => apply_filters('ccc_events_per_page', 10),
 	'fields'   => 'all',
 );
 if ( $show_internal ) {
