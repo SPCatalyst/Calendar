@@ -55,6 +55,7 @@ class SPC_Community_Calendar_Activator {
 				) );
 			} else {
 				error_log( 'SPCC ERROR: Error creating events page. Go to the Settings page to set this manually.' );
+				error_log( 'SPCC ERROR: ' . $ID->get_error_message() );
 			}
 		}
 

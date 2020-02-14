@@ -73,6 +73,13 @@
 .spcc-events-main--filters ul li {
     float: left;
     margin-right: 16px;
+    list-style: none !important;
+}
+
+.spcc-events-row {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .spcc-event-row {
@@ -484,11 +491,11 @@
 
 .spcc-events-main--filters ul {
     padding-left: 0 !important;
-    list-style: none;
+    list-style: none !important;
     display: block;
     float: left;
     width: 100%;
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
 ul.spcc-inline-list {
     padding-left: 0 !important;

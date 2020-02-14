@@ -5,7 +5,7 @@
   "color_scheme": "#3ee4db",
   "type": "internal",
   "visibility": "public",
-  "events_page": "events",
+  "events_page": null,
   "preferred_categories": [],
   "preferred_filters": []
 }
