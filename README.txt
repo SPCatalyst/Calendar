@@ -3,7 +3,7 @@ Contributors: darkog
 Tags: events, calendar
 Requires at least: 3.0.1
 Tested up to: 3.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,8 +22,7 @@ This section describes how to install the plugin and get it working.
 e.g.
 
 1. Upload `spc-community-calendar.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
 
@@ -32,6 +31,12 @@ e.g.
 Sure. Go to settings and select the "Internal" option in the type setting.
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Fix wrong config file
+* Fix compatibility with older PHP versions
+* Fix some CSS that is overriden
 
 = 1.0.0 =
 
