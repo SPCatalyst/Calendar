@@ -271,7 +271,7 @@ class SPC_Community_Calendar {
 		$updater = Puc_v4_Factory::buildUpdateChecker(
 			'https://github.com/SPCatalyst/Calendar',
 			SPCC_ROOT_FILE,
-			'spc-community-calendar',
+			'spc-community-calendar'
 		);
 	}
 
