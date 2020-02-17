@@ -21,7 +21,9 @@ $posts = array_chunk( $events_list, 3 );
             <h4 class="spcc-post-date"><?php echo $e->get_formatted_datetime(); ?></h4>
             <h2 class="spcc-post-title"><a target="_self" href="<?php echo $e->get_link(); ?>"><?php echo $e->get_title(); ?></a></h2>
             <div class="spcc-post-excerpt">
-				<?php echo $e->get_excerpt(); ?>
+				<p>
+					<?php echo $e->get_excerpt(); ?>
+                </p>
             </div>
             <div class="spcc-post-actions">
                 <p>
