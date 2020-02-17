@@ -156,7 +156,7 @@ if ( ! empty( $logo ) ) {
 
                 <form class="spcc-events-filters-form" id="spcc-events-filters-form" action="" method="GET">
                     <div class="spcc-form-row">
-                        <label>Show events for</label>
+                        <label>Show events for:</label>
                         <ul class="spcc-inline-list">
 							<?php foreach ( $allowed_date_filters as $allowed_date_filter ): ?>
                                 <li>
@@ -169,9 +169,9 @@ if ( ! empty( $logo ) ) {
                         </ul>
                     </div>
                     <div class="spcc-form-row f-14">
-                        <label class="spcc-label-fw" for="datefrom">Show events between</label>
+                        <label class="spcc-label-fw" for="datefrom">Show events between:</label>
                         <input type="text" autocomplete="off" name="datefrom" id="datefrom"
-                               value="<?php echo spcc_get_var( 'datefrom' ); ?>"> And <input autocomplete="off"
+                               value="<?php echo spcc_get_var( 'datefrom' ); ?>"> & <input autocomplete="off"
                                                                                              type="text" name="dateto"
                                                                                              id="dateto"
                                                                                              value="<?php echo spcc_get_var( 'dateto' ); ?>">
@@ -197,7 +197,7 @@ if ( ! empty( $logo ) ) {
                     <div class="spcc-form-row">
                         <input type="hidden" name="view" value="<?php echo $view; ?>">
                         <input type="hidden" name="sort_by" value="<?php echo spcc_get_var( 'sort_by' ); ?>">
-                        <button type="submit" class="spcc-btn spcc-btn-primary">Submit</button>
+                        <button type="submit" class="spcc-btn spcc-btn-primary">Go!</button>
                         <a href="<?php echo $short_url; ?>" class="spcc-btn spcc-btn-link spcc-reset">Reset</a>
                     </div>
                 </form>
