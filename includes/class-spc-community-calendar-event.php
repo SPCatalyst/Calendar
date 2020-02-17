@@ -52,9 +52,14 @@ class SPC_Community_Calendar_Event {
 	 */
 	public function get_excerpt() {
 
-		$content = $this->event['post_content'];
+		$excerpt = trim( $this->event['post_excerpt'] );
 
-		return wp_trim_words( $content, 30 );
+		if ( empty( $excerpt ) ) {
+			$excerpt = $this->event['post_content'];
+			$excerpt = wp_trim_words( $excerpt, 30 );
+		}
+
+		return $excerpt;
 	}
 
 	/**
