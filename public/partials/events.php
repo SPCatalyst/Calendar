@@ -171,7 +171,7 @@ if ( ! empty( $logo ) ) {
                     <div class="spcc-form-row f-14">
                         <label class="spcc-label-fw" for="datefrom">Show events between:</label>
                         <input type="text" autocomplete="off" name="datefrom" id="datefrom"
-                               value="<?php echo spcc_get_var( 'datefrom' ); ?>"> & <input autocomplete="off"
+                               value="<?php echo spcc_get_var( 'datefrom' ); ?>"><span>&</span><input autocomplete="off"
                                                                                              type="text" name="dateto"
                                                                                              id="dateto"
                                                                                              value="<?php echo spcc_get_var( 'dateto' ); ?>">

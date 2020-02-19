@@ -71,7 +71,7 @@ $event_website = $e->get_website();
         </div>
         <div class="spcc-event-col-6">
             <div class="spcc-event-thumbnail">
-                <img src="<?php echo $e->get_thumbnail( 'mvp-mid-thumb' ); ?>" alt="<?php echo $e->get_title(); ?>">
+                <img src="<?php echo $e->get_thumbnail( 'large' ); ?>" alt="<?php echo $e->get_title(); ?>">
             </div>
         </div>
     </div>
