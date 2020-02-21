@@ -85,7 +85,7 @@ $event_website = $e->get_website();
                 <div class="spcc-event-venue">
                     <h3 class="spcc-event-page-title">Venue</h3>
                     <div class="spcc-event-address">
-						<?php echo implode( '<br/>', $address ); ?>
+						<?php echo implode( ', ', $address ); ?>
                     </div>
                 </div>
             </div>
