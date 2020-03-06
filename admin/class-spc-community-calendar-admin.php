@@ -94,6 +94,7 @@ class SPC_Community_Calendar_Admin {
 
 			wp_enqueue_script( 'jquery-datetimepicker', plugin_dir_url( __FILE__ ) . 'resources/datepicker/datepicker.js', array( 'jquery' ), $this->version, false );
 			wp_enqueue_script( 'jquery-datetimepicker-en', plugin_dir_url( __FILE__ ) . 'resources/datepicker/i18n/datepicker.en.js', array( 'jquery' ), $this->version, false );
+
 			wp_enqueue_script( 'jquery-modal', plugin_dir_url( __FILE__ ) . 'resources/jquery-modal/jquery.modal.min.js', array( 'jquery' ), $this->version, false );
 
 			wp_enqueue_style( 'select2', plugin_dir_url( __FILE__ ) . 'resources/select2/select2.min.css', null, $this->version, 'all' );
