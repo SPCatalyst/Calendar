@@ -213,33 +213,35 @@ class SPC_Community_Calendar_Public {
 	public function print_theme_stylesheet() {
 
 		$settings = new SPC_Community_Calendar_Settings();
-		$color = $settings->get('color_scheme');
+		$color = $settings->get('color_schemes',array());
+
+		$primary = isset($color[0]) ? $color[0] : '#3EE4dB';
 
 		?>
 		<style type="text/css">
 			.spcc-post-actions a i.spcc-icon {
-				color:<?php echo $color; ?>;
+				color:<?php echo $primary; ?>;
 			}
 			.spcc-inline-list a.active {
-				color: <?php echo $color; ?>;
+				color: <?php echo $primary; ?>;
 			}
 			.spcc-btn-primary {
-				background-color: <?php echo $color; ?>;
+				background-color: <?php echo $primary; ?>;
 			}
 			.spcc-events-main--filters ul li > a.current {
-				color: <?php echo $color; ?>;
+				color: <?php echo $primary; ?>;
 			}
 			.spcc-nav-links a {
-				color: <?php echo $color; ?> !important;
+				color: <?php echo $primary; ?> !important;
 			}
 			.spcc-event-details-val {
-				color: <?php echo $color; ?>;
+				color: <?php echo $primary; ?>;
 			}
 			.spcc-event-socials li a {
-				background: <?php echo $color; ?>;
+				background: <?php echo $primary; ?>;
 			}
             .spcc-submit-box .spcc-h3 {
-                color: <?php echo $color; ?>;
+                color: <?php echo $primary; ?>;
             }
 		</style>
 		<?php

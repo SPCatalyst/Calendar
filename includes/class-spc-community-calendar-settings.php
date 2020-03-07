@@ -130,7 +130,7 @@ class SPC_Community_Calendar_Settings {
 		return array(
 			'preferred_categories',
 			'preferred_filters',
-			'color_scheme',
+			'color_schemes',
 			'type',
 			'visibility',
 			'logo',

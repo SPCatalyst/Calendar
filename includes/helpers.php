@@ -218,3 +218,22 @@ function spcc_custom_upload_field( $key, $current_value, $placeholder = '' ) {
 function spcc_get_submit_link() {
     return 'https://stpetecatalyst.com/events/submit';
 }
+
+
+
+
+/**
+ * Convert base64 encoded image into a file and move it to proper WP uploads directory.
+ **/
+function decode_image_to_uploads($base64_string)
+{
+	$temporary_file = wp_tempnam();
+	file_put_contents($temporary_file, base64_decode($base64_string));
+	$filename = 'headway-imported-image.jpg';
+	$file = array('name' => $filename, 'tmp_name' => $temporary_file);
+	$upload = wp_handle_sideload($file, array('test_form' => false));
+	if (isset($upload['error'])) {
+		@unlink($temporary_file);
+	}
+	return $upload;
+}

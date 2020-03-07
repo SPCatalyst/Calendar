@@ -63,7 +63,7 @@ if ( ! $settings->has_settings() ) {
 // Current Values
 $categories_selected = $settings->get( 'preferred_categories', array() );
 $filters_selected    = $settings->get( 'preferred_filters', array() );
-$color_scheme        = $settings->get( 'color_scheme' );
+$color_schemes       = $settings->get( 'color_schemes' );
 $events_type         = $settings->get( 'type' );
 $events_visibility   = $settings->get( 'visibility' );
 $google_maps_key     = $settings->get( 'google_maps_key' );
@@ -71,6 +71,10 @@ $logo                = $settings->get( 'logo' );
 $maps_provider       = $settings->get( 'maps_provider', 'leaflet' );
 
 $status = $account->get_item_param( 'status' );
+
+$color_primary   = isset( $color_schemes[0] ) ? $color_schemes[0] : null;
+$color_secondary = isset( $color_schemes[1] ) ? $color_schemes[2] : null;
+$color_alt       = isset( $color_schemes[3] ) ? $color_schemes[3] : null;
 
 ?>
 
@@ -123,13 +127,13 @@ $status = $account->get_item_param( 'status' );
 		<?php else: ?>
             <div class="settings-row">
                 <label><?php _e( 'Service Status', 'spcc' ); ?></label>
-	            <?php if($status === 'publish'): ?>
+				<?php if ( $status === 'publish' ): ?>
                     <p class="service-success"><?php _e( 'ONLINE' ); ?></p>
-                <?php elseif($status === 'draft'): ?>
+				<?php elseif ( $status === 'draft' ): ?>
                     <p class="service-warning"><?php _e( 'WAITING FOR APPROVAL' ); ?></p>
-                <?php else: ?>
+				<?php else: ?>
                     <p class="service-error"><?php _e( 'UNKNOWN' ); ?></p>
-                <?php endif; ?>
+				<?php endif; ?>
             </div>
 
             <div class="settings-row">
@@ -143,9 +147,19 @@ $status = $account->get_item_param( 'status' );
             </div>
 
             <div class="settings-row">
-                <label for="color_scheme"><?php _e( 'Color Scheme', 'spcc' ); ?></label>
-                <input type="text" class="spcc-colorpicker" name="color_scheme" id="color_scheme"
-                       value="<?php echo $color_scheme; ?>">
+                <label for="color_schemes"><?php _e( 'Primary color', 'spcc' ); ?></label>
+                <input type="text" class="spcc-colorpicker" name="color_schemes[0]" id="color_schemes"
+                       value="<?php echo $color_primary; ?>">
+            </div>
+            <div class="settings-row">
+                <label for="color_schemes"><?php _e( 'Secondary color', 'spcc' ); ?></label>
+                <input type="text" class="spcc-colorpicker" name="color_schemes[1]" id="color_schemes"
+                       value="<?php echo $color_secondary; ?>">
+            </div>
+            <div class="settings-row">
+                <label for="color_schemes"><?php _e( 'Alt color', 'spcc' ); ?></label>
+                <input type="text" class="spcc-colorpicker" name="color_schemes[2]" id="color_schemes"
+                       value="<?php echo $color_alt; ?>">
             </div>
             <div class="settings-row">
                 <label for="maps_provider"><?php _e( 'Maps Provider', 'spcc' ); ?></label>
