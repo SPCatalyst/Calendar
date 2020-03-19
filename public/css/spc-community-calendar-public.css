@@ -581,6 +581,10 @@ ul.spcc-inline-list {
     margin-bottom: 25px;
 }
 
+.spcc-events-container, .spcc-events-container * {
+    box-sizing: border-box !important;
+}
+
 
 @media (max-width: 767px) {
     .spcc-events-filters {
