@@ -170,15 +170,15 @@ if ( ! empty( $logo ) ) {
                     </div>
                     <div class="spcc-form-row f-14">
                         <label class="spcc-label-fw" for="datefrom">Show events between:</label>
-                        <input type="text" autocomplete="off" name="datefrom" id="datefrom"
-                               value="<?php echo spcc_get_var( 'datefrom' ); ?>"><span>&</span><input autocomplete="off"
+                        <input class="spcc-form-control" type="text" autocomplete="off" name="datefrom" id="datefrom"
+                               value="<?php echo spcc_get_var( 'datefrom' ); ?>"><span>&</span><input class="spcc-form-control" autocomplete="off"
                                                                                              type="text" name="dateto"
                                                                                              id="dateto"
                                                                                              value="<?php echo spcc_get_var( 'dateto' ); ?>">
                     </div>
                     <div class="spcc-form-row">
                         <label for="filter">Filters</label>
-                        <select id="filter" name="filter" class="form-control">
+                        <select id="filter" name="filter" class="spcc-form-control spcc-w-100">
                             <option value="0" <?php selected( $filter, null ); ?>>All Filters</option>
 							<?php foreach ( $filters_list as $term ): ?>
                                 <option value="<?php echo $term['id']; ?>" <?php selected( $filter, $term['id'] ); ?>><?php echo $term['name']; ?></option>
@@ -187,7 +187,7 @@ if ( ! empty( $logo ) ) {
                     </div>
                     <div class="spcc-form-row">
                         <label for="category">Category</label>
-                        <select id="category" name="category" class="form-control">
+                        <select id="category" name="category" class="spcc-form-control spcc-w-100">
                             <option value="0" <?php selected( $category, null ); ?>>All Categories</option>
 							<?php foreach ( $categories_list as $term ): ?>
                                 <option value="<?php echo $term['id']; ?>" <?php selected( $category, $term['id'] ); ?>><?php echo $term['name']; ?></option>

@@ -148,10 +148,13 @@
     letter-spacing: 0;
 }
 
-.spcc-events-filters-form input.form-control {
+.spcc-events-filters-form input.spcc-form-control {
     margin-bottom: 0;
     float: left;
-    padding: 11px;
+    padding: 10px;
+}
+
+.spcc-w-100 {
     width: 100%;
 }
 
@@ -584,7 +587,6 @@ ul.spcc-inline-list {
 .spcc-events-container, .spcc-events-container * {
     box-sizing: border-box !important;
 }
-
 
 @media (max-width: 767px) {
     .spcc-events-filters {
