@@ -580,6 +580,11 @@ ul.spcc-inline-list {
     margin-bottom: 0;
 }
 
+.spcc-form-control {
+    height: 38px;
+    padding: 2px;
+}
+
 .spcc-events-container .spcc-branding {
     margin-bottom: 25px;
 }
