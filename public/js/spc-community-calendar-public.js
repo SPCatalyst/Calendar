@@ -147,6 +147,11 @@ function spcc_parse_query(url) {
 		}
 		$('#calendar').datepicker({
 			dateFormat: dateFormat,
+			onSelect: function (date) {
+				var $field = $('#datefrom');
+				$field.val(date);
+				$field.closest('form').submit();
+			}
 		});
 	};
 
