@@ -122,6 +122,13 @@ class SPC_Community_Calendar_Event {
 	}
 
 	/**
+	 * Add tickets url
+	 */
+	public function get_tickets_url() {
+		return $this->get_meta_value( 'event_tickets_url' );
+	}
+
+	/**
 	 * Returns website
 	 * @return mixed|string
 	 */

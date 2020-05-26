@@ -9,6 +9,7 @@ $posts = array_chunk( $events_list, 3 );
 	<?php
 	$e                   = new SPC_Community_Calendar_Event( $event );
 	$url_add_to_calendar = $e->get_google_calendar_url();
+	$url_tickets = $e->get_tickets_url();
 
 	?>
     <div id="event-<?php echo $e->get_id(); ?>" class="spcc-event spcc-event-row">
@@ -28,8 +29,10 @@ $posts = array_chunk( $events_list, 3 );
             <div class="spcc-post-actions">
                 <p>
                     <a target="_blank" href="<?php echo $url_add_to_calendar; ?>"><i class="spcc-icon spcc-icon-list"></i> Add to Calendar</a>
-                    <a href="#" data-id="<?php echo $e->get_id(); ?>" class="spcc-action-qw"><i
-                                class="spcc-icon spcc-icon-eye"></i> Quick View</a>
+	                <?php if(!empty($url_tickets)): ?>
+                        <a target="_blank" href="<?php echo $url_tickets; ?>"><i class="spcc-icon spcc-icon-ticket"></i> Get Tickets</a>
+	                <?php endif; ?>
+                    <a href="#" data-id="<?php echo $e->get_id(); ?>" class="spcc-action-qw"><i class="spcc-icon spcc-icon-eye"></i> Quick View</a>
                 </p>
             </div>
         </div>

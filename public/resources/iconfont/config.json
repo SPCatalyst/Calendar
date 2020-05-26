@@ -167,6 +167,12 @@
       "css": "instagram",
       "code": 61805,
       "src": "fontawesome"
+    },
+    {
+      "uid": "d6fcb9886485b0bdb41b94521e7a3311",
+      "css": "ticket",
+      "code": 61765,
+      "src": "fontawesome"
     }
   ]
 }

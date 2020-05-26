@@ -51,6 +51,7 @@ class SPC_Community_Calendar_AJAX {
 			$valid_keys = array_merge( $valid_keys, array(
 				'address2',
 				'cost',
+				'tickets_url',
 				'host',
 				'facebook',
 				'twitter',
@@ -147,6 +148,7 @@ class SPC_Community_Calendar_AJAX {
 			$valid_keys = array_merge( $valid_keys, array(
 				'address2',
 				'cost',
+				'tickets_url',
 				'host',
 				'facebook',
 				'twitter',

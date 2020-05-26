@@ -20,6 +20,7 @@
 .spcc-icon-angle-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf104;&nbsp;'); }
 .spcc-icon-angle-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf105;&nbsp;'); }
 .spcc-icon-star-half-alt { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf123;&nbsp;'); }
+.spcc-icon-ticket { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf145;&nbsp;'); }
 .spcc-icon-instagram { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf16d;&nbsp;'); }
 .spcc-icon-wordpress { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf19a;&nbsp;'); }
 .spcc-icon-pinterest { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf231;&nbsp;'); }
