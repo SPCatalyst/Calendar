@@ -14,7 +14,7 @@ $short_url = home_url( $wp->request );
 $full_url  = remove_query_arg( array( 'pagenum', 'pagename' ), spcc_current_page_url() );
 
 // Set View
-$view = 'list';
+$view = $settings->get('preferred_view', 'list');
 if ( isset( $_GET['view'] ) && in_array( $_GET['view'], array( 'grid', 'list', 'map' ) ) ) {
 	$view = sanitize_text_field( $_GET['view'] );
 }

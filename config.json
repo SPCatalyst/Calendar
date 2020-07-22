@@ -7,6 +7,7 @@
   "events_page": null,
   "preferred_categories": [],
   "preferred_filters": [],
+  "preferred_view" : "list",
   "color_schemes": [
     "#3EE4dB",
     "#8EE9E4",

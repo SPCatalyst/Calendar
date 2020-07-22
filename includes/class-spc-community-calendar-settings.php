@@ -94,6 +94,7 @@ class SPC_Community_Calendar_Settings {
 	 * @return bool
 	 */
 	public function saveRequest() {
+
 		$values = array();
 		foreach ( $this->get_allowed_settings() as $key ) {
 			if ( ! isset( $_POST[ $key ] ) ) {
@@ -129,6 +130,7 @@ class SPC_Community_Calendar_Settings {
 		return array(
 			'preferred_categories',
 			'preferred_filters',
+			'preferred_view',
 			'color_schemes',
 			'type',
 			'visibility',

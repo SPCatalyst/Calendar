@@ -11,7 +11,11 @@ $categories         = $repo->get_categories();
 $categories_choices = spcc_array_key_value( $categories->get_items(), 'id', 'name' );
 $filters            = $repo->get_filters();
 $filters_choices    = spcc_array_key_value( $filters->get_items(), 'id', 'name' );
-
+$views_choices      = array(
+	'grid' => 'Grid',
+	'list' => 'List',
+	'map'  => 'Map',
+);
 
 $errors  = array();
 $message = '';
@@ -63,6 +67,7 @@ if ( ! $settings->has_settings() ) {
 // Current Values
 $categories_selected = $settings->get( 'preferred_categories', array() );
 $filters_selected    = $settings->get( 'preferred_filters', array() );
+$view_selected       = $settings->get( 'preferred_view', 'list' );
 $color_schemes       = $settings->get( 'color_schemes' );
 $events_type         = $settings->get( 'type' );
 $events_visibility   = $settings->get( 'visibility' );
@@ -206,6 +211,14 @@ $color_alt       = isset( $color_schemes[3] ) ? $color_schemes[3] : null;
                 <select name="preferred_filters[]" id="preferred_filters" multiple class="spcc-select">
 					<?php foreach ( $filters_choices as $value => $name ): ?>
                         <option value="<?php echo $value; ?>" <?php echo in_array( $value, $filters_selected ) ? 'selected' : ''; ?>><?php echo $name; ?></option>
+					<?php endforeach; ?>
+                </select>
+            </div>
+            <div class="settings-row">
+                <label for="preferred_view"><?php _e( 'Preferred View', 'spcc' ); ?></label>
+                <select name="preferred_view" id="preferred_view" class="spcc-select">
+					<?php foreach ( $views_choices as $value => $name ): ?>
+                        <option value="<?php echo $value; ?>" <?php echo $value == $view_selected ? 'selected' : ''; ?>><?php echo $name; ?></option>
 					<?php endforeach; ?>
                 </select>
             </div>

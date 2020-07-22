@@ -33,7 +33,7 @@ class SPC_Community_Calendar_Activator {
 
 		$settings = new SPC_Community_Calendar_Settings();
 
-		//$settings->purge();
+		$settings->purge();
 
 		if ( ! $settings->has_settings() ) {
 			$settings->import();

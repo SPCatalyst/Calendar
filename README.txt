@@ -3,7 +3,7 @@ Contributors: darkog
 Tags: events, calendar
 Requires at least: 3.0.1
 Tested up to: 3.4
-Stable tag: 1.0.4
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,7 +32,10 @@ Sure. Go to settings and select the "Internal" option in the type setting.
 
 == Changelog ==
 
-= 1.0.4 =
+= 1.0.6 =
+* Allow user to select the default view
+
+= 1.0.6 =
 * Style improvments
 
 = 1.0.3 =
