@@ -191,7 +191,7 @@ $color_alt       = isset( $color_schemes[3] ) ? $color_schemes[3] : null;
             </div>
             <div class="settings-row">
                 <label for="visibility" class="spcc-radio-group">
-                    <span><?php _e( 'Events Visibility', 'spcc' ); ?>y</span>
+                    <span><?php _e( 'Events Visibility', 'spcc' ); ?></span>
                     <input type="radio" name="visibility" <?php checked( $events_visibility, 'public', true ); ?>
                            value="public"> <?php _e( 'All events are accessible to everybody', 'spcc' ); ?> <br/>
                     <input type="radio" name="visibility" <?php checked( $events_visibility, 'private', true ); ?>
