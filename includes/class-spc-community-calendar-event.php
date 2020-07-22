@@ -221,6 +221,46 @@ class SPC_Community_Calendar_Event {
 	}
 
 	/**
+	 * Returns formatted event date.
+	 */
+	public function get_formatted_event_date() {
+
+		$event_start_meta = $this->get_meta_value('event_start');
+		$event_end_meta = $this->get_meta_value('event_end');
+		return self::format_theme_date($event_start_meta, $event_end_meta);
+
+	}
+
+
+	public static function format_theme_date($event_start_meta, $event_end_meta) {
+		$event_start = '';
+		$event_end   = '';
+
+		if ( ! empty( $event_start_meta ) ) {
+			$event_start_dt = DateTime::createFromFormat( 'Y-m-d H:i:s', $event_start_meta );
+			$event_start    = $event_start_dt->format( 'F' ) . ' ' . $event_start_dt->format( 'd' );
+			$event_start    = $event_start . ' @ ' . $event_start_dt->format( 'g:i A' );
+		}
+
+		if ( ! empty( $event_end_meta ) ) {
+			$event_end_dt = DateTime::createFromFormat( 'Y-m-d H:i:s', $event_end_meta );
+			$event_end    = $event_end_dt->format( 'F' ) . ' ' . $event_end_dt->format( 'd' );
+			$event_end    = $event_end . ' @ ' . $event_end_dt->format( 'g:i A' );
+		}
+
+		$dates = array();
+		if ( ! empty( $event_start ) ) {
+			$dates[] = $event_start;
+		}
+		if ( ! empty( $event_end ) ) {
+			$dates[] = $event_end;
+		}
+
+		return implode(' - ', $dates);
+	}
+
+
+	/**
 	 * Return the single event link
 	 * @return false|string
 	 */
