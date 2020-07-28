@@ -148,6 +148,22 @@ class SPC_Community_Calendar_Event {
 	}
 
 	/**
+	 * Is virtual?
+	 * @return bool
+	 */
+	public function is_virtual() {
+		return $this->get_meta_value('event_attendance', 'physical') === 'virtual';
+	}
+
+	/**
+	 * Is physical?
+	 * @return bool
+	 */
+	public function is_physical() {
+		return $this->get_meta_value('event_attendance', 'physical') === 'virtual';
+	}
+
+	/**
 	 * Returns the formatted address.
 	 */
 	public function get_formatted_address() {
@@ -307,7 +323,7 @@ class SPC_Community_Calendar_Event {
 	 *
 	 * @return string
 	 */
-	public function get_start_date( $format = 'M d, Y H:i A' ) {
+	public function get_start_date( $format = 'M d, Y h:i A' ) {
 		$start_date = $this->get_meta_value( 'event_start' );
 
 		return $this->format_date( $start_date, $format );
@@ -320,7 +336,7 @@ class SPC_Community_Calendar_Event {
 	 *
 	 * @return string
 	 */
-	public function get_end_date( $format = 'M d, Y H:i A' ) {
+	public function get_end_date( $format = 'M d, Y h:i A' ) {
 		$start_date = $this->get_meta_value( 'event_end' );
 
 		return $this->format_date( $start_date, $format );

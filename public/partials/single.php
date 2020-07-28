@@ -37,6 +37,8 @@ if ( ! empty( $e->get_postal_code() ) ) {
 	array_push( $address, $e->get_postal_code() );
 }
 
+$is_virtual =
+
 
 $socials = $e->get_social_urls();
 
@@ -76,6 +78,7 @@ $event_website = $e->get_website();
         </div>
     </div>
     <div class="spcc-event-row">
+        <?php if(!$e->is_physical()): ?>
         <div class="spcc-event-col-6">
             <div class="spcc-event-venue-wrap">
                 <div class="spcc-event-map">
@@ -89,19 +92,19 @@ $event_website = $e->get_website();
                     </div>
                 </div>
             </div>
-
         </div>
+        <?php endif; ?>
         <div class="spcc-event-col-6">
             <div class="spcc-event-section">
                 <h3 class="spcc-event-page-title">Event Details</h3>
                 <div class="spcc-event-details">
                     <div class="spcc-event-details-row">
                         <div class="spcc-event-details-name">Start</div>
-                        <div class="spcc-event-details-val"><?php echo $e->get_start_date( "H:i" ); ?></div>
+                        <div class="spcc-event-details-val"><?php echo $e->get_start_date( "h:i A" ); ?></div>
                     </div>
                     <div class="spcc-event-details-row">
                         <div class="spcc-event-details-name">End</div>
-                        <div class="spcc-event-details-val"><?php echo $e->get_end_date( "H:i" ); ?></div>
+                        <div class="spcc-event-details-val"><?php echo $e->get_end_date( "h:i A" ); ?></div>
                     </div>
 					<?php if ( ! empty( $event_cost ) ): ?>
                         <div class="spcc-event-details-row">

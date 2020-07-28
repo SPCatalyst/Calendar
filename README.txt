@@ -34,6 +34,9 @@ Sure. Go to settings and select the "Internal" option in the type setting.
 
 = 1.0.7 =
 * Added shortcode for displaying events grid
+* Added support for virtual events
+* Improved settings saving
+* Improved single event screen
 
 = 1.0.6 =
 * Allow user to select the default view
