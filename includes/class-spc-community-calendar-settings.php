@@ -96,9 +96,15 @@ class SPC_Community_Calendar_Settings {
 	public function saveRequest() {
 
 		$values = array();
+		$skip = array('events_page');
 		foreach ( $this->get_allowed_settings() as $key ) {
-			if ( ! isset( $_POST[ $key ] ) ) {
+
+			if(in_array($key, $skip)) {
 				continue;
+			}
+
+			if ( ! isset( $_POST[ $key ] ) ) {
+				$_POST[ $key ] = null;
 			}
 			$values[ $key ] = is_array( $_POST[ $key ] ) ? $_POST[ $key ] : sanitize_text_field( $_POST[ $key ] );
 		}

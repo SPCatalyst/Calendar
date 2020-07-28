@@ -55,6 +55,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 			}
 		}
 	} else { // If Settings Save
+
 		$settings->saveRequest();
 		$message = __( 'Settings updated!', 'spcc' );
 	}

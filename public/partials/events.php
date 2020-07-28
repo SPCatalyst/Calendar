@@ -121,15 +121,10 @@ if ( ! is_null( $filter ) ) {
 } else if ( ! empty( $preferred_filters ) ) {
 	$params['filter'] = implode( ',', $preferred_filters );
 }
-
 // Query
 $repo        = new SPC_Community_Calendar_Data_Repository();
 $events      = $repo->get_events( $params );
 $events_list = $events->get_items();
-
-#var_dump( $params );
-#var_dump( $events->raw['body'] );
-
 
 // Query the categories
 $categories      = $repo->get_categories();
