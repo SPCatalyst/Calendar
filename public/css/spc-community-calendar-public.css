@@ -594,6 +594,12 @@ ul.spcc-inline-list {
     box-sizing: border-box !important;
 }
 
+.spcc-events-type {
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+}
+
 @media (max-width: 767px) {
     .spcc-events-filters {
         width: 100%;

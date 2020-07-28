@@ -8,13 +8,21 @@ $preferred_filters    = $settings->get( 'preferred_filters', array() );
 
 $show_internal = $settings->get( 'type' ) === 'internal';
 
+if ( isset( $_GET['type'] ) ) {
+	if ( $_GET['type'] === 'internal' ) {
+		$show_internal = true;
+	} else {
+		$show_internal = false;
+    }
+}
+
 // Meta
 global $wp;
 $short_url = home_url( $wp->request );
 $full_url  = remove_query_arg( array( 'pagenum', 'pagename' ), spcc_current_page_url() );
 
 // Set View
-$view = $settings->get('preferred_view', 'list');
+$view = $settings->get( 'preferred_view', 'list' );
 if ( isset( $_GET['view'] ) && in_array( $_GET['view'], array( 'grid', 'list', 'map' ) ) ) {
 	$view = sanitize_text_field( $_GET['view'] );
 }
@@ -35,7 +43,25 @@ $allowed_date_filters = array(
 		'url'  => add_query_arg( 'date', 'month', $short_url )
 	),
 );
-$allowed_views        = array(
+$allowed_type_filters = array(
+	array(
+		'key'  => 'internal',
+		'name' => 'Internal',
+		'url'  => add_query_arg( 'type', 'internal', $short_url )
+	),
+	array(
+		'key'  => 'community',
+		'name' => 'Community',
+		'url'  => add_query_arg( 'type', 'community', $short_url )
+	),
+	array(
+		'key'  => 'both',
+		'name' => 'Both',
+		'url'  => add_query_arg( 'type', 'both', $short_url )
+	)
+);
+
+$allowed_views = array(
 	array(
 		'key'  => 'grid',
 		'name' => 'GRID',
@@ -58,7 +84,7 @@ $allowed_views        = array(
 
 // Static config
 $config = array(
-	'per_page' => apply_filters('ccc_events_per_page', 10),
+	'per_page' => apply_filters( 'ccc_events_per_page', 10 ),
 	'fields'   => 'all',
 );
 if ( $show_internal ) {
@@ -140,7 +166,9 @@ if ( ! empty( $logo ) ) {
 	<?php if ( apply_filters( 'ccc_show_branding', true ) ): ?>
         <div class="spcc-events-row">
             <div class="spcc-branding spcc-text-right">
-                <a target="_blank" href="https://stpetecatalyst.com"><img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ); ?>img/poweredby.jpg" width="300" alt="st pete catalyst"></a>
+                <a target="_blank" href="https://stpetecatalyst.com"><img
+                            src="<?php echo plugin_dir_url( dirname( __FILE__ ) ); ?>img/poweredby.jpg" width="300"
+                            alt="st pete catalyst"></a>
             </div>
         </div>
 	<?php endif; ?>
@@ -168,13 +196,18 @@ if ( ! empty( $logo ) ) {
 							<?php endforeach; ?>
                         </ul>
                     </div>
+                    <div class="spcc-form-row">
+                        <a class="spcc-events-type"
+                           href="<?php echo $allowed_type_filters[0]['url']; ?>"><?php echo sprintf( __( '%s events only' ), 'Local' ); ?></a>
+                    </div>
                     <div class="spcc-form-row f-14">
                         <label class="spcc-label-fw" for="datefrom">Show events between:</label>
                         <input class="spcc-form-control" type="text" autocomplete="off" name="datefrom" id="datefrom"
-                               value="<?php echo spcc_get_var( 'datefrom' ); ?>"><span>&</span><input class="spcc-form-control" autocomplete="off"
-                                                                                             type="text" name="dateto"
-                                                                                             id="dateto"
-                                                                                             value="<?php echo spcc_get_var( 'dateto' ); ?>">
+                               value="<?php echo spcc_get_var( 'datefrom' ); ?>"><span>&</span><input
+                                class="spcc-form-control" autocomplete="off"
+                                type="text" name="dateto"
+                                id="dateto"
+                                value="<?php echo spcc_get_var( 'dateto' ); ?>">
                     </div>
                     <div class="spcc-form-row">
                         <label for="filter">Filters</label>
@@ -193,6 +226,7 @@ if ( ! empty( $logo ) ) {
                                 <option value="<?php echo $term['id']; ?>" <?php selected( $category, $term['id'] ); ?>><?php echo $term['name']; ?></option>
 							<?php endforeach; ?>
                         </select>
+
                     </div>
                     <div class="spcc-form-row">
                         <input type="hidden" name="view" value="<?php echo $view; ?>">

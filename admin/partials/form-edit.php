@@ -9,6 +9,8 @@ $states = array(
 if(!isset($event['post_title']) || !isset($event['ID'])) {
     die('Event not found.');
 }
+$attendance = isset($event['meta']['event_attendance']) ? $event['meta']['event_attendance'] : 'physical';
+$is_virtual = $attendance === 'virtual';
 ?>
 <form id="editEventForm" class="event-form-wrap" method="POST" action="">
 	<div class="form-row status-wrapper-row">
@@ -37,6 +39,8 @@ if(!isset($event['post_title']) || !isset($event['ID'])) {
 		<input type="text" id="venue" name="venue" required value="<?php echo isset($event['meta']['event_venue']) ? $event['meta']['event_venue'] : ''; ?>" class="form-control" placeholder="<?php _e('Enter venue'); ?>">
 	</div>
 
+
+    <?php if(!$is_virtual): ?>
     <div class="form-row">
         <div class="form-col-6">
             <label for="address"><?php _e( 'Address Line 1' ); ?><span class="required">*</span></label>
@@ -68,6 +72,9 @@ if(!isset($event['post_title']) || !isset($event['ID'])) {
 			<input type="text" id="postal_code" name="postal_code" required value="<?php echo isset($event['meta']['event_postal_code']) ? $event['meta']['event_postal_code'] : ''; ?>" class="form-control" placeholder="<?php _e('Enter postal code'); ?>">
 		</div>
 	</div>
+
+    <?php endif; ?>
+
 	<div class="form-row">
 		<label for="image"><?php _e('Image'); ?></label>
 		<input type="file" id="image" name="image" placeholder="<?php _e('Enter image'); ?>">
@@ -125,13 +132,18 @@ if(!isset($event['post_title']) || !isset($event['ID'])) {
     </div>
 
     <div class="form-row">
-        <label for="website"><?php _e( 'Website' ); ?></label>
+        <?php if($is_virtual): ?>
+            <label for="website"><?php _e( 'Conference URL'); ?><span class="spcc-required">*</span></label>
+        <?php else: ?>
+            <label for="website"><?php _e( 'Website'); ?></label>
+        <?php endif; ?>
         <input type="text" value="<?php echo isset($event['meta']['event_website']) ? $event['meta']['event_website'] : ''; ?>" id="website" name="website" required class="form-control"">
     </div>
 
 	<div class="form-row form-row-footer">
         <input type="hidden" name="event_id" value="<?php echo $event['ID']; ?>">
 		<input type="hidden" name="country" value="US">
+        <input type="hidden" name="attendance" value="<?php echo $attendance; ?>">
 		<button type="submit" class="button-primary"><?php _e('Update'); ?></button>
 	</div>
 </form>

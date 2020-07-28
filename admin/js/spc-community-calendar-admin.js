@@ -196,6 +196,27 @@
         } else {
             $target.show();
         }
+    });
+
+
+    // Event edit
+    $(document).on('change', '#createEventForm #attendance', function(e){
+
+        var value = $(this).val();
+
+        $.ajax({
+            type: 'POST',
+            url: SPCC.ajax_url + '?action=spcc_render_form_dynamic&nonce=' + SPCC.nonce,
+            cache: false,
+            data: {attendance: value},
+            success: function(response) {
+                $('.form-attendance-dependant').html(response);
+            },
+            error: function() {
+                alert('HTTP error.');
+            }
+        })
+
     })
 
 })(jQuery);

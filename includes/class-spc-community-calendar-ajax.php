@@ -27,11 +27,13 @@ class SPC_Community_Calendar_AJAX {
 			'start'       => 'required',
 			'end'         => 'required',
 			'venue'       => 'required',
-			'address'     => 'required',
-			'country'     => 'required',
-			'city'        => 'required',
-			'state'       => 'required',
-			'postal_code' => 'required',
+			'address'     => 'required_if:attendance,physical',
+			'city'        => 'required_if:attendance,physical',
+			'state'       => 'required_if:attendance,physical',
+			'postal_code' => 'required_if:attendance,physical',
+			'country'     => 'required_if:attendance,physical',
+			'attendance'  => 'required|in:physical,virtual',
+			'website'     => 'required_if:attendance,virtual',
 			'image'       => 'required',
 			'category'    => 'required',
 		);
@@ -124,11 +126,13 @@ class SPC_Community_Calendar_AJAX {
 			'start'       => 'required',
 			'end'         => 'required',
 			'venue'       => 'required',
-			'address'     => 'required',
-			'country'     => 'required',
-			'city'        => 'required',
-			'state'       => 'required',
-			'postal_code' => 'required',
+			'address'     => 'required_if:attendance,physical',
+			'city'        => 'required_if:attendance,physical',
+			'state'       => 'required_if:attendance,physical',
+			'postal_code' => 'required_if:attendance,physical',
+			'country'     => 'required_if:attendance,physical',
+			'attendance'  => 'required|in:physical,virtual',
+			'website'     => 'required_if:attendance,virtual',
 			'image'       => 'required',
 			'category'    => 'required',
 		);
@@ -287,6 +291,20 @@ class SPC_Community_Calendar_AJAX {
 		echo spcc_get_view( 'quick-view', array( 'event' => $event ) );
 
 		exit;
+
+	}
+
+	public function render_event_form_dynamic() {
+
+		$type = isset($_POST['attendance']) ? $_POST['attendance'] : 'physical';
+
+		$path = SPCC_ROOT_PATH . 'admin/partials/form-create-'.$type.'.php';
+
+		if(file_exists($path)) {
+			include($path);
+		}
+
+		die;
 
 	}
 
