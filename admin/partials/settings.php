@@ -82,6 +82,8 @@ $color_primary   = isset( $color_schemes[0] ) ? $color_schemes[0] : null;
 $color_secondary = isset( $color_schemes[1] ) ? $color_schemes[2] : null;
 $color_alt       = isset( $color_schemes[3] ) ? $color_schemes[3] : null;
 
+$events_page = $settings->get('events_page');
+
 ?>
 
 <div class="wrap">
@@ -190,7 +192,7 @@ $color_alt       = isset( $color_schemes[3] ) ? $color_schemes[3] : null;
                            value="any"> <?php _e( 'Show my events and events from the Catalyst Master Calendar', 'spcc' ); ?>
                 </label>
             </div>
-            <div class="settings-row">
+            <!--<div class="settings-row">
                 <label for="visibility" class="spcc-radio-group">
                     <span><?php _e( 'Events Visibility', 'spcc' ); ?></span>
                     <input type="radio" name="visibility" <?php checked( $events_visibility, 'public', true ); ?>
@@ -198,7 +200,7 @@ $color_alt       = isset( $color_schemes[3] ) ? $color_schemes[3] : null;
                     <input type="radio" name="visibility" <?php checked( $events_visibility, 'private', true ); ?>
                            value="private"> <?php _e( 'Only people with the Calendar\'s URL can access events', 'spcc' ); ?>
                 </label>
-            </div>
+            </div>-->
             <div class="settings-row">
                 <label for="preferred_categories"><?php _e( 'Preferred Categories', 'spcc' ); ?></label>
                 <select name="preferred_categories[]" id="preferred_categories" multiple class="spcc-select">
@@ -224,6 +226,11 @@ $color_alt       = isset( $color_schemes[3] ) ? $color_schemes[3] : null;
                 </select>
             </div>
             <div class="settings-row">
+                <label for="events_page"><?php _e( 'Events Page', 'spcc' ); ?></label>
+               <p><a target="_blank" href="<?php echo get_permalink($events_page); ?>"><?php echo get_the_title($events_page); ?></a></p>
+            </div>
+            <div class="settings-row">
+                <hr/>
                 <input type="hidden" name="req_type" value="save_settings">
                 <button type="submit" class="button-primary"><?php _e( 'Save', 'spcc' ); ?></button>
             </div>

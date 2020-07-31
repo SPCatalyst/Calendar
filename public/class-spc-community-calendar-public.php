@@ -189,6 +189,42 @@ class SPC_Community_Calendar_Public {
 		register_post_type( SPCC_PT_EVENT, $args );
 	}
 
+	/**
+	 * Display events grid
+	 *
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	public function shortcode_community_calendar_mini( $atts ) {
+		$atts = shortcode_atts( array(
+			'type'     => 'any', // Possible Values: private | featured | any
+			'per_page' => 4,
+		), $atts );
+
+		// Static config
+		$config = array(
+			'per_page' => $atts['per_page'],
+			'fields'   => 'all',
+			'orderby'  => 'date',
+			'order'    => 'asc',
+		);
+		if ( $atts['type'] === 'private' ) {
+			$config['parent'] = get_option( 'spcc_website_id' );
+		} else if ( $atts['type'] === 'featured' ) {
+			$config['featured'] = 1;
+		}
+
+		$repo   = new SPC_Community_Calendar_Data_Repository();
+		$query  = $repo->get_events( $config );
+		$events = $query->get_items();
+
+		return '<div class="spcc-featured-events">' . spcc_get_view( 'events-grid-home', array(
+				'events_list' => $events,
+				'config'      => $config
+			) ) . '</div>';
+	}
+
 
 	/**
 	 * Display the calendar
@@ -213,37 +249,44 @@ class SPC_Community_Calendar_Public {
 	public function print_theme_stylesheet() {
 
 		$settings = new SPC_Community_Calendar_Settings();
-		$color = $settings->get('color_schemes',array());
+		$color    = $settings->get( 'color_schemes', array() );
 
-		$primary = isset($color[0]) ? $color[0] : '#3EE4dB';
+		$primary = isset( $color[0] ) ? $color[0] : '#3EE4dB';
 
 		?>
-		<style type="text/css">
-			.spcc-post-actions a i.spcc-icon {
-				color:<?php echo $primary; ?>;
-			}
-			.spcc-inline-list a.active {
-				color: <?php echo $primary; ?>;
-			}
-			.spcc-btn-primary {
-				background-color: <?php echo $primary; ?>;
-			}
-			.spcc-events-main--filters ul li > a.current {
-				color: <?php echo $primary; ?>;
-			}
-			.spcc-nav-links a {
-				color: <?php echo $primary; ?> !important;
-			}
-			.spcc-event-details-val {
-				color: <?php echo $primary; ?>;
-			}
-			.spcc-event-socials li a {
-				background: <?php echo $primary; ?>;
-			}
+        <style type="text/css">
+            .spcc-post-actions a i.spcc-icon {
+                color: <?php echo $primary; ?>;
+            }
+
+            .spcc-inline-list a.active {
+                color: <?php echo $primary; ?>;
+            }
+
+            .spcc-btn-primary {
+                background-color: <?php echo $primary; ?>;
+            }
+
+            .spcc-events-main--filters ul li > a.current {
+                color: <?php echo $primary; ?>;
+            }
+
+            .spcc-nav-links a {
+                color: <?php echo $primary; ?> !important;
+            }
+
+            .spcc-event-details-val {
+                color: <?php echo $primary; ?>;
+            }
+
+            .spcc-event-socials li a {
+                background: <?php echo $primary; ?>;
+            }
+
             .spcc-submit-box .spcc-h3 {
                 color: <?php echo $primary; ?>;
             }
-		</style>
+        </style>
 		<?php
 	}
 
@@ -324,5 +367,6 @@ class SPC_Community_Calendar_Public {
 		add_action( 'init', array( $this, 'add_rewrite_rules' ) );
 		add_action( 'template_redirect', array( $this, 'set_event_object' ) );
 	}
+
 
 }

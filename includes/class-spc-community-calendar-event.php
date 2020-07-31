@@ -195,7 +195,9 @@ class SPC_Community_Calendar_Event {
 	 * @return string
 	 */
 	public function get_formatted_datetime() {
-		$date_start = $this->get_start_date();
+		$date_start = $this->get_start_date('');
+
+
 		$date_end   = $this->get_end_date();
 
 		if ( $date_start === $date_end ) {
@@ -234,6 +236,33 @@ class SPC_Community_Calendar_Event {
 		}
 
 		return $date;
+	}
+
+
+	/**
+	 * Returns start date
+	 *
+	 * @param null $format
+	 *
+	 * @return string
+	 */
+	public function get_start_date( $format = 'M d, Y h:i A' ) {
+		$start_date = $this->get_meta_value( 'event_start' );
+
+		return $this->format_date( $start_date, $format );
+	}
+
+	/**
+	 * Returns end date
+	 *
+	 * @param null $format
+	 *
+	 * @return string
+	 */
+	public function get_end_date( $format = 'M d, Y h:i A' ) {
+		$start_date = $this->get_meta_value( 'event_end' );
+
+		return $this->format_date( $start_date, $format );
 	}
 
 	/**
@@ -314,32 +343,6 @@ class SPC_Community_Calendar_Event {
 	 */
 	public function get_lng() {
 		return $this->get_meta_value( 'event_lng' );
-	}
-
-	/**
-	 * Returns start date
-	 *
-	 * @param null $format
-	 *
-	 * @return string
-	 */
-	public function get_start_date( $format = 'M d, Y h:i A' ) {
-		$start_date = $this->get_meta_value( 'event_start' );
-
-		return $this->format_date( $start_date, $format );
-	}
-
-	/**
-	 * Returns end date
-	 *
-	 * @param null $format
-	 *
-	 * @return string
-	 */
-	public function get_end_date( $format = 'M d, Y h:i A' ) {
-		$start_date = $this->get_meta_value( 'event_end' );
-
-		return $this->format_date( $start_date, $format );
 	}
 
 	/**

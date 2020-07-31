@@ -265,6 +265,7 @@ class SPC_Community_Calendar {
 		$plugin_public = new SPC_Community_Calendar_Public( $this->get_plugin_name(), $this->get_version() );
 
 		add_shortcode( 'community_calendar', array( $plugin_public, 'shortcode_community_calendar' ) );
+		add_shortcode('community_calendar_mini', array($plugin_public, 'shortcode_community_calendar_mini'));
 	}
 
 	/**
