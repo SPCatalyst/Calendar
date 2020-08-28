@@ -1,5 +1,13 @@
 (function ($) {
 
+    $.modal.defaults.escapeClose = false;
+    $.modal.defaults.clickClose = false;
+
+    function init_scripts() {
+        $('.spcc-select').select2();
+        $('.spcc-colorpicker').wpColorPicker();
+    }
+
     function init_datepickers() {
         var $datepickers = $('.datetimepicker');
         $datepickers.each(function () {
@@ -7,6 +15,26 @@
                 language: 'en',
             });
         });
+    }
+
+    /**
+     * Notice
+     * @param type
+     * @param message
+     * @param errors
+     */
+    function make_notice(type, message, errors) {
+        var errors_html = '';
+        if (errors) {
+            errors_html += '<ul>';
+            for (var i in errors) {
+                errors_html += '<li>' + errors[i] + '</li>';
+            }
+            errors_html += '</ul>';
+        }
+        return '<div class="notice notice-' + type + ' is-dismissible">\n' +
+            '<p>' + message + '</p>' + errors_html + '\n' +
+            '</div>'
     }
 
     init_datepickers();
@@ -150,8 +178,8 @@
                     message = '<div class="notice notice-success is-dismissible">';
                     message += '<p>' + response.data.message + '</p>';
                     message += '</div>';
-                    var $cb = $('#the-list').find('input[value='+event_id+'].event_checkbox');
-                    if($cb.length>0) {
+                    var $cb = $('#the-list').find('input[value=' + event_id + '].event_checkbox');
+                    if ($cb.length > 0) {
                         var $row = $cb.closest('tr');
                         $row.detach().remove();
                     }
@@ -184,14 +212,13 @@
         init_datepickers();
     });
 
-    $('.spcc-select').select2();
-    $('.spcc-colorpicker').wpColorPicker();
+    init_scripts();
 
-    $('.spcc-conditional').on('change', function(e){
+    $(document).on('change', '.spcc-conditional', function (e) {
         var value = $(this).val();
         var $target = $($(this).data('target'));
         var hideif = $(this).data('target-hideifvalue');
-        if( value === hideif) {
+        if (value === hideif) {
             $target.hide();
         } else {
             $target.show();
@@ -200,7 +227,7 @@
 
 
     // Event edit
-    $(document).on('change', '#createEventForm #attendance', function(e){
+    $(document).on('change', '#createEventForm #attendance', function (e) {
 
         var value = $(this).val();
 
@@ -209,14 +236,185 @@
             url: SPCC.ajax_url + '?action=spcc_render_form_dynamic&nonce=' + SPCC.nonce,
             cache: false,
             data: {attendance: value},
-            success: function(response) {
+            success: function (response) {
                 $('.form-attendance-dependant').html(response);
             },
-            error: function() {
+            error: function () {
                 alert('HTTP error.');
             }
         })
 
-    })
+    });
+
+    // Login Form
+    $(document).on('submit', '#form-login', function (e) {
+
+        var data = $(this).serialize();
+
+        var $self = $(this);
+        var $wrap = $self.closest('.section-wrap');
+        var $formWrap = $wrap.find('.section-form');
+        var $formStatus = $wrap.find('.section-status');
+
+        $.ajax({
+            type: 'POST',
+            url: SPCC.ajax_url + '?action=spcc_login&nonce=' + SPCC.nonce,
+            data: data,
+            beforeSend: function () {
+                $formStatus.html('');
+                $self.addClass('spcc-loading');
+            },
+            success: function (response) {
+                if (response.success) {
+                    $formWrap.html(response.data.html);
+                    init_scripts();
+                } else {
+                    var notice = make_notice('error', response.data.message, response.data.errors);
+                    $formStatus.html(notice);
+                }
+                $self.removeClass('spcc-loading');
+            },
+            error: function () {
+                alert('HTTP Error.');
+                $self.removeClass('spcc-loading');
+            },
+            complete: function() {
+                $self.removeClass('spcc-loading');
+            }
+        });
+
+        return false;
+    });
+
+    // Register Form
+    $(document).on('submit', '#form-register', function (e) {
+
+        var data = $(this).serialize();
+
+        var $self = $(this);
+        var $wrap = $self.closest('.section-wrap');
+        var $formWrap = $wrap.find('.section-form');
+        var $formStatus = $wrap.find('.section-status');
+
+        $.ajax({
+            type: 'POST',
+            url: SPCC.ajax_url + '?action=spcc_register&nonce=' + SPCC.nonce,
+            data: data,
+            beforeSend: function () {
+                $formStatus.html('');
+                $self.addClass('spcc-loading');
+            },
+            success: function (response) {
+                if (response.success) {
+                    $formWrap.html(response.data.html);
+                    init_scripts();
+                } else {
+                    var notice = make_notice('error', response.data.message, response.data.errors);
+                    $formStatus.html(notice);
+                }
+                $self.removeClass('spcc-loading');
+            },
+            error: function () {
+                $self.removeClass('spcc-loading');
+                alert('HTTP Error.');
+            },
+            complete: function() {
+                $self.removeClass('spcc-loading');
+            }
+        });
+
+        return false;
+    });
+
+    // Settings Form
+    $(document).on('submit', '#form-settings', function (e) {
+
+        var data = new FormData(this);
+
+
+        var $self = $(this);
+        var $wrap = $self.closest('.section-wrap');
+        var $formWrap = $wrap.find('.section-form');
+        var $formStatus = $wrap.find('.section-status');
+
+        $.ajax({
+            type: 'POST',
+            url: SPCC.ajax_url + '?action=spcc_settings_save&nonce=' + SPCC.nonce,
+            data: data,
+            contentType: false,
+            processData: false,
+            beforeSend: function() {
+                $formStatus.html('');
+                $self.addClass('spcc-loading');
+            },
+            success: function (response) {
+                var notice;
+                if(response.success) {
+                   notice = make_notice('success',response.data.message);
+                } else {
+                    notice = make_notice('error', response.data.message, response.data.errors);
+                }
+                $formStatus.html(notice);
+                $self.removeClass('spcc-loading');
+            },
+            error: function () {
+                $self.removeClass('spcc-loading');
+                alert('HTTP Error.');
+            },
+            complete: function() {
+                $self.removeClass('spcc-loading');
+            }
+        });
+
+        return false;
+    });
+
+
+    // Switch forms
+    $(document).on('click', '.spcc-form-switch', function (e) {
+        var $login_wrap = $('#login-wrap');
+        var $register_wrap = $('#register-wrap');
+        $login_wrap.hide();
+        $register_wrap.hide();
+        var next = $(this).data('nextform');
+        if (next === 'login') {
+            $login_wrap.show();
+        } else {
+            $register_wrap.show();
+        }
+    });
+
+    $(document).on('click', '.spcc-disconnect', function(e){
+       if(confirm('Are you sure you want to disconnect from the community calendar')) {
+           $.ajax({
+
+           })
+       }
+    });
+
+    $(document).on('submit', '#requestAccessForm', function(){
+
+        var $self = $(this);
+        var data = $self.serialize();
+
+        $.ajax({
+            url: SPCC.ajax_url + '?action=spcc_request_access&nonce=' + SPCC.nonce,
+            type: 'POST',
+            data: data,
+            success: function(response) {
+                if(response.success) {
+                    $self.html('<p>'+response.data.message+'</p>');
+                    $('.spcc-request-access-info').hide();
+                } else {
+                    alert(response.data.errors[0]);
+                }
+            },
+            error: function() {
+                alert('HTTP Error');
+            }
+        });
+
+        return false;
+    });
 
 })(jQuery);

@@ -256,6 +256,11 @@ class SPC_Community_Calendar {
 
 		$this->loader->add_action( 'wp_ajax_spcc_render_quickview', $ajax_actions, 'render_quick_view' );
 		$this->loader->add_action( 'wp_ajax_nopriv_spcc_render_quickview', $ajax_actions, 'render_quick_view' );
+
+		$this->loader->add_action('wp_ajax_spcc_login', $ajax_actions, 'handle_login');
+		$this->loader->add_action('wp_ajax_spcc_register', $ajax_actions, 'handle_register');
+		$this->loader->add_action('wp_ajax_spcc_settings_save', $ajax_actions, 'handle_settings');
+		$this->loader->add_action('wp_ajax_spcc_request_access', $ajax_actions, 'request_access');
 	}
 
 	/**

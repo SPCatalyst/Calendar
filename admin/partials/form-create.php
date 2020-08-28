@@ -44,7 +44,7 @@
 
 
     <div class="form-attendance-dependant"></div>
-
+    
 
     <div class="form-row form-row-footer">
         <button type="submit" class="button-primary"><?php _e( 'Submit' ); ?></button>

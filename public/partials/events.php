@@ -13,7 +13,7 @@ if ( isset( $_GET['type'] ) ) {
 		$show_internal = true;
 	} else {
 		$show_internal = false;
-    }
+	}
 }
 
 // Meta
@@ -121,8 +121,14 @@ if ( ! is_null( $filter ) ) {
 } else if ( ! empty( $preferred_filters ) ) {
 	$params['filter'] = implode( ',', $preferred_filters );
 }
+
 // Query
 $repo        = new SPC_Community_Calendar_Data_Repository();
+/*$account     = $repo->get_account();
+$permission  = $account->get_item_param( 'permission' );
+if($permission === 'approved') {
+    $params['include_site_drafts'] = get_option( 'spcc_website_id' );
+}*/
 $events      = $repo->get_events( $params );
 $events_list = $events->get_items();
 

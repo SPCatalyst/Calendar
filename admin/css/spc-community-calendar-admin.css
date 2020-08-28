@@ -84,3 +84,18 @@
 .lodaed .spinner {
     display: none;
 }
+
+.modal .spcc-form .spcc-form-row label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.modal .spcc-form .spcc-form-row .spcc-form-control {
+    display: block;
+    width: 100%;
+    min-height: 150px;
+    margin-bottom: 15px;
+}
+.modal .spcc-form .spcc-form-row {
+    width: 100%;
+}

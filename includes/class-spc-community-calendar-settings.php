@@ -95,8 +95,10 @@ class SPC_Community_Calendar_Settings {
 	 */
 	public function saveRequest() {
 
+		$old_page = $this->get('events_page', null);
+
 		$values = array();
-		$skip = array('events_page');
+		$skip = array();
 		foreach ( $this->get_allowed_settings() as $key ) {
 
 			if(in_array($key, $skip)) {
@@ -107,6 +109,10 @@ class SPC_Community_Calendar_Settings {
 				$_POST[ $key ] = null;
 			}
 			$values[ $key ] = is_array( $_POST[ $key ] ) ? $_POST[ $key ] : sanitize_text_field( $_POST[ $key ] );
+		}
+
+		if(isset($values['events_page']) && $old_page != $values['events_page']) {
+			flush_rewrite_rules(true);
 		}
 
 		return $this->save( $values );

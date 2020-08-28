@@ -3,6 +3,7 @@
 $repo                = new SPC_Community_Calendar_Data_Repository();
 $categories          = $repo->get_categories();
 $categories_choices  = spcc_array_key_value( $categories->get_items(), 'id', 'name' );
+
 $states = array(
         'FL' => 'Florida',
 );
@@ -11,6 +12,10 @@ if(!isset($event['post_title']) || !isset($event['ID'])) {
 }
 $attendance = isset($event['meta']['event_attendance']) ? $event['meta']['event_attendance'] : 'physical';
 $is_virtual = $attendance === 'virtual';
+
+$account = $repo->get_account();
+$permission = $account->get_item_param('permission');
+
 ?>
 <form id="editEventForm" class="event-form-wrap" method="POST" action="">
 	<div class="form-row status-wrapper-row">
@@ -92,8 +97,8 @@ $is_virtual = $attendance === 'virtual';
 	        <?php $is_disabled = isset($event['meta']['event_type']) && in_array($event['meta']['event_type'], array('private', 'public')); ?>
             <label for="type"><?php _e('Type'); ?> <span class="spcc-required">*</span></label>
             <select id="type" name="type" required class="form-control" <?php echo $is_disabled ? 'readonly' : ''; ?>>
-                <option value="private" <?php echo isset($event['meta']['event_type']) && $event['meta']['event_type'] === 'private' ? 'selected' : ''; ?>><?php _e('Private'); ?></option>
-                <option value="public" <?php echo isset($event['meta']['event_type']) && $event['meta']['event_type'] === 'public' ? 'selected' : ''; ?>><?php _e('Public'); ?></option>
+                <option value="private" <?php echo isset($event['meta']['event_type']) && $event['meta']['event_type'] === 'private' ? 'selected' : ''; ?>><?php _e('Private / Local'); ?></option>
+                <option <?php disabled('limited', $permission); ?> value="public" <?php echo isset($event['meta']['event_type']) && $event['meta']['event_type'] === 'public' ? 'selected' : ''; ?>><?php _e('Public / Network'); ?></option>
             </select>
         </div>
 	</div>

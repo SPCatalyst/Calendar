@@ -172,7 +172,44 @@ class SPC_Community_Calendar_API {
 	 * @return SPC_Community_Calendar_API_Response
 	 */
 	public function register_account( $data ) {
+
+		$data['type'] = 'create';
+
 		$response = $this->post( 'account', $data );
+
+		return SPC_Community_Calendar_API_Response::create( $response );
+	}
+
+	/**
+	 * Login account
+	 *
+	 * @param $email
+	 * @param $password
+	 *
+	 * @return SPC_Community_Calendar_API_Response
+	 */
+	public function login_account( $email, $password ) {
+		$response = $this->post( 'account', array(
+			'email'    => $email,
+			'password' => $password,
+			'type'     => 'login',
+		) );
+
+		return SPC_Community_Calendar_API_Response::create( $response );
+	}
+
+	/**
+	 * Request access
+	 *
+	 * @param $message
+	 *
+	 * @return SPC_Community_Calendar_API_Response
+	 */
+	public function request_access( $message ) {
+
+		$data     = [ 'message' => $message ];
+		$token    = $this->get_account_token();
+		$response = $this->post( 'account/request-access', $data, [ 'X-API-KEY' => $token ] );
 
 		return SPC_Community_Calendar_API_Response::create( $response );
 	}

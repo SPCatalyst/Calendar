@@ -7,6 +7,10 @@ $states             = array(
 $repo               = new SPC_Community_Calendar_Data_Repository();
 $categories         = $repo->get_categories();
 $categories_choices = spcc_array_key_value( $categories->get_items(), 'id', 'name' );
+
+$account = $repo->get_account();
+$permission = $account->get_item_param('permission');
+
 ?>
 
 
@@ -35,7 +39,7 @@ $categories_choices = spcc_array_key_value( $categories->get_items(), 'id', 'nam
 		</select>
 	</div>
 	<div class="form-col-4">
-		<label for="postal_code"><?php _e( 'Postal Code' ); ?></label>
+		<label for="postal_code"><?php _e( 'Postal Code' ); ?> <span class="spcc-required">*</span></label>
 		<input type="text" id="postal_code" required name="postal_code" class="form-control"
 		       placeholder="<?php _e( 'Enter postal code' ); ?>">
 		<input type="hidden" name="country" value="US">
@@ -60,8 +64,8 @@ $categories_choices = spcc_array_key_value( $categories->get_items(), 'id', 'nam
     <div class="form-col-6">
         <label for="type"><?php _e( 'Type' ); ?> <span class="spcc-required">*</span></label>
         <select id="type" name="type" required class="form-control">
-            <option value="private" selected><?php _e( 'Private' ); ?></option>
-            <option value="public"><?php _e( 'Public' ); ?></option>
+            <option value="private" selected><?php _e( 'Private / Local' ); ?></option>
+            <option <?php disabled('limited', $permission); ?> value="public"><?php _e( 'Public / Network' ); ?></option>
         </select>
     </div>
 </div>

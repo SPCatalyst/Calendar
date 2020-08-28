@@ -12,6 +12,141 @@ use Rakit\Validation\Validator;
  */
 class SPC_Community_Calendar_AJAX {
 
+	public function request_access() {
+		if ( ! $this->check_referer( 'spcc-nonce', 'nonce' ) ) {
+			wp_send_json_error( array( 'errors' => array( __( 'Access denied.', 'spcc' ) ) ) );
+		}
+
+		$message = isset($_POST['message']) ? $_POST['message'] : '';
+
+		if(empty($message)) {
+			wp_send_json_error( array( 'errors' => array( __( 'Please enter valid message.', 'spcc' ) ) ) );
+		} else {
+			$api = new SPC_Community_Calendar_API();
+			$response = $api->request_access($message);
+			if($response->is_error()) {
+				$message = __( 'Please correct the following errors:' );
+				$errors  = $response->get_errors();
+				wp_send_json_error( array( 'message' => $message, 'errors' => $errors ) );
+			} else {
+				update_option('spcc_access_request', wp_date('Y-m-d H:i:s'));
+				wp_send_json_success(array('message' => __('Request sent successfully.')));
+			}
+		}
+	}
+
+	public function handle_login() {
+
+		if ( ! $this->check_referer( 'spcc-nonce', 'nonce' ) ) {
+			wp_send_json_error( array( 'errors' => array( __( 'Access denied.', 'spcc' ) ) ) );
+		}
+
+		$repo = new SPC_Community_Calendar_Data_Repository();
+
+		$email = isset( $_POST['email'] ) ? $_POST['email'] : '';
+		$pass  = isset( $_POST['password'] ) ? $_POST['password'] : '';
+
+		$api      = new SPC_Community_Calendar_API();
+		$response = $api->login_account( $email, $pass );
+
+		if ( $response->is_error() ) {
+			$message = __( 'Please correct the following errors:' );
+			$errors  = $response->get_errors();
+			wp_send_json_error( array( 'message' => $message, 'errors' => $errors ) );
+		} else {
+
+			$html = $this->load_settings();
+			$message = __( 'Authentication successful!' );
+			$item    = $response->get_item();
+
+			update_option( 'spcc_token', $item['token'] );
+			update_option( 'spcc_website_id', $item['website_id'] );
+			$account = $repo->get_account();
+			wp_send_json_success( array(
+				'message' => $message,
+				'account' => $account,
+				'html' => $html,
+			) );
+		}
+
+	}
+
+
+	public function handle_register() {
+
+		if ( ! $this->check_referer( 'spcc-nonce', 'nonce' ) ) {
+			wp_send_json_error( array( 'errors' => array( __( 'Access denied.', 'spcc' ) ) ) );
+		}
+
+		$repo = new SPC_Community_Calendar_Data_Repository();
+
+		$validator  = new Validator();
+		$validation = $validator->validate( $_POST + $_FILES, [
+			'name'     => 'required',
+			'email'    => 'required|email',
+			'website'  => 'required|url',
+			'password' => 'required|min:6',
+		] );
+		if ( $validation->fails() ) {
+			$message = __( 'Please correct the following errors' );
+			$errors  = $validation->errors()->all();
+			wp_send_json_error( array( 'message' => $message, 'errors' => $errors ) );
+		} else {
+			$data     = array(
+				'name'     => $_POST['name'],
+				'email'    => $_POST['email'],
+				'website'  => $_POST['website'],
+				'password' => $_POST['password'],
+			);
+			$api      = new SPC_Community_Calendar_API();
+			$response = $api->register_account( $data );
+			if ( $response->is_error() ) {
+				$message = __( 'Please correct the following errors:' );
+				$errors  = $response->get_errors();
+				wp_send_json_error( array( 'message' => $message, 'errors' => $errors ) );
+			} else {
+
+				$html = $this->load_settings();
+
+				$message = __( 'Your registration was successful!' );
+				$item    = $response->get_item();
+				update_option( 'spcc_token', $item['token'] );
+				update_option( 'spcc_website_id', $item['website_id'] );
+				$account = $repo->get_account();
+
+				wp_send_json_success( array( 'message' => $message, 'account' => $account, 'html' => $html ) );
+
+			}
+		}
+
+	}
+
+	private function load_settings() {
+		ob_start();
+		include(trailingslashit(SPCC_ROOT_PATH) .'admin/partials/form-settings.php');
+		$html = ob_get_clean();
+		return $html;
+	}
+
+	public function handle_settings() {
+
+		if ( ! $this->check_referer( 'spcc-nonce', 'nonce' ) ) {
+			wp_send_json_error( array( 'errors' => array( __( 'Access denied.', 'spcc' ) ) ) );
+		}
+
+		$settings = new SPC_Community_Calendar_Settings();
+
+		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+			$settings->saveRequest();
+			wp_send_json_success( array(
+				'message' => __( 'Settings saved successfully!' ),
+			) );
+		}
+
+		wp_send_json_error();
+		exit;
+	}
+
 
 	public function handle_create_event() {
 
@@ -296,12 +431,12 @@ class SPC_Community_Calendar_AJAX {
 
 	public function render_event_form_dynamic() {
 
-		$type = isset($_POST['attendance']) ? $_POST['attendance'] : 'physical';
+		$type = isset( $_POST['attendance'] ) ? $_POST['attendance'] : 'physical';
 
-		$path = SPCC_ROOT_PATH . 'admin/partials/form-create-'.$type.'.php';
+		$path = SPCC_ROOT_PATH . 'admin/partials/form-create-' . $type . '.php';
 
-		if(file_exists($path)) {
-			include($path);
+		if ( file_exists( $path ) ) {
+			include( $path );
 		}
 
 		die;
