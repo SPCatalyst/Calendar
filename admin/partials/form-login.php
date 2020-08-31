@@ -14,6 +14,6 @@
     <div class="settings-row">
         <input type="hidden" name="req_type" value="login">
         <span class="spcc-spinner"></span>
-        <button type="submit" class="button-primary"><?php _e( 'Login', 'spcc' ); ?></button>
+        <button type="submit" class="button-primary spcc-submit"><?php _e( 'Login', 'spcc' ); ?></button>
     </div>
 </form>

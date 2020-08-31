@@ -261,6 +261,7 @@ class SPC_Community_Calendar {
 		$this->loader->add_action('wp_ajax_spcc_register', $ajax_actions, 'handle_register');
 		$this->loader->add_action('wp_ajax_spcc_settings_save', $ajax_actions, 'handle_settings');
 		$this->loader->add_action('wp_ajax_spcc_request_access', $ajax_actions, 'request_access');
+		$this->loader->add_action('wp_ajax_spcc_disconnect', $ajax_actions, 'disconnect');
 	}
 
 	/**

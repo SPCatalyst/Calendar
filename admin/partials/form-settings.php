@@ -190,7 +190,7 @@ $prev_access_request = get_option('spcc_access_request');
     <div class="settings-row">
         <input type="hidden" name="req_type" value="save_settings">
         <span class="spcc-spinner"></span>
-        <button type="submit" class="button-primary"><?php _e( 'Save', 'spcc' ); ?></button>
+        <button type="submit" class="button-primary spcc-submit"><?php _e( 'Save', 'spcc' ); ?></button>
         &nbsp;&nbsp;
         <a href="#"
            class="spcc-disconnect">Disconnect</a>

@@ -21,6 +21,6 @@
     <div class="settings-row">
         <input type="hidden" name="req_type" value="register">
         <span class="spcc-spinner"></span>
-        <button type="submit" class="button-primary"><?php _e( 'Register', 'spcc' ); ?></button>
+        <button type="submit" class="button-primary spcc-submit"><?php _e( 'Register', 'spcc' ); ?></button>
     </div>
 </form>

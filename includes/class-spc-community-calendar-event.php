@@ -195,10 +195,10 @@ class SPC_Community_Calendar_Event {
 	 * @return string
 	 */
 	public function get_formatted_datetime() {
-		$date_start = $this->get_start_date('');
+		$date_start = $this->get_start_date('M d @ h:i A');
 
 
-		$date_end   = $this->get_end_date();
+		$date_end   = $this->get_end_date('M d @ h:i A');
 
 		if ( $date_start === $date_end ) {
 			$date = $date_start;

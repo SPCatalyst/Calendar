@@ -12,6 +12,17 @@ use Rakit\Validation\Validator;
  */
 class SPC_Community_Calendar_AJAX {
 
+	public function disconnect() {
+		if ( ! $this->check_referer( 'spcc-nonce', 'nonce' ) ) {
+			wp_send_json_error( array( 'errors' => array( __( 'Access denied.', 'spcc' ) ) ) );
+		}
+
+		delete_option( 'spcc_token' );
+		delete_option( 'spcc_website_id' );
+
+		wp_send_json_success();
+	}
+
 	public function request_access() {
 		if ( ! $this->check_referer( 'spcc-nonce', 'nonce' ) ) {
 			wp_send_json_error( array( 'errors' => array( __( 'Access denied.', 'spcc' ) ) ) );

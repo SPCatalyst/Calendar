@@ -387,7 +387,11 @@
     $(document).on('click', '.spcc-disconnect', function(e){
        if(confirm('Are you sure you want to disconnect from the community calendar')) {
            $.ajax({
-
+               url: SPCC.ajax_url + '?action=spcc_disconnect&nonce=' + SPCC.nonce,
+               type: 'POST',
+               success: function() {
+                   window.location.reload();
+               }
            })
        }
     });
