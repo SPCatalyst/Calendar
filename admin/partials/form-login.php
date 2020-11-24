@@ -7,7 +7,7 @@
     </div>
     <div class="settings-row">
         <label for="password"><?php _e( 'Password', 'spcc' ); ?></label>
-        <input type="text" name="password" id="password">
+        <input type="password" name="password" id="password">
     </div>
     <div class="settings-row">
         <p>Don't have an account? <a href="#" class="spcc-form-switch" data-nextform="register">Sign up</a></p>
