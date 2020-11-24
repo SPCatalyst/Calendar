@@ -1,4 +1,5 @@
 <form class="section-form" id="form-login" method="POST" action="">
+    <h3 class="section-title"><?php _e('Login'); ?></h3>
     <div class="settings-row">
         <label for="email"><?php _e( 'Email', 'spcc' ); ?><span class="required">*</span></label>
         <input type="email" name="email" id="email" class="required"

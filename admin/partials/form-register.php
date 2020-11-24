@@ -1,4 +1,5 @@
 <form class="section-form" id="form-register" method="POST" action="">
+    <h3 class="section-title"><?php _e('Register'); ?></h3>
     <div class="settings-row">
         <label for="name"><?php _e( 'Name', 'spcc' ); ?></label>
         <input type="text" name="name" id="name" class="required">
