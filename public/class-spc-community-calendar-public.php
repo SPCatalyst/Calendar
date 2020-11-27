@@ -80,6 +80,7 @@ class SPC_Community_Calendar_Public {
 	 */
 	public function enqueue_styles() {
 
+		wp_enqueue_style( $this->plugin_name . '-grid', plugin_dir_url( __FILE__ ) . 'css/grid.css', array(), null, 'all' );
 		wp_enqueue_style( $this->plugin_name . '-iconfont', plugin_dir_url( __FILE__ ) . 'resources/iconfont/css/spccicons.css', array(), null, 'all' );
 		$last_updated = filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'css/spc-community-calendar-public.css' );
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/spc-community-calendar-public.css', array(), $last_updated, 'all' );

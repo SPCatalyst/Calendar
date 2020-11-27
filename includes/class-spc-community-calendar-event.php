@@ -353,7 +353,55 @@ class SPC_Community_Calendar_Event {
 		return $this->get_meta_value( 'event_venue' );
 	}
 
+    /**
+     * Returns phone
+     * @return string
+     */
+	public function get_phone() {
+	    return $this->get_meta_value('event_phone');
+    }
+
+    /**
+     * Returns phone
+     * @return string
+     */
+    public function get_email() {
+        return $this->get_meta_value('event_email');
+    }
+
+    /**
+     * The event host
+     * @return mixed|string
+     */
+    public function get_parking() {
+        return $this->get_meta_value('event_parking');
+    }
+
+    /**
+     * The event host
+     * @return mixed|string
+     */
+    public function get_organizer() {
+        return $this->get_meta_value('event_host');
+    }
+
 	/**
+	 * The categories
+	 * @return array
+	 */
+	public function get_categories() {
+		return isset($this->event['categories']) ? (array) $this->event['categories'] : array();
+	}
+
+	/**
+	 * The categories
+	 * @return array
+	 */
+	public function get_tags() {
+		return isset($this->event['tags']) ? (array) $this->event['tags'] : array();
+	}
+
+    /**
 	 * The event content
 	 * @return string
 	 */
@@ -498,6 +546,14 @@ class SPC_Community_Calendar_Event {
 		}
 
 		return $urls;
+	}
+
+	public function the_thumbnail($size = 'large') {
+		$image = isset($this->event['image'][$size]) ? $this->event['image'][$size] : null;
+		if(empty($image)) {
+			return;
+		}
+		echo '<img src="'.$image.'">';
 	}
 
 }

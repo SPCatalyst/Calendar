@@ -237,3 +237,21 @@ function decode_image_to_uploads($base64_string)
 	}
 	return $upload;
 }
+
+/**
+ * Format phone number
+ * @param $phone
+ * @return string
+ */
+function spcc_format_phone($phone) {
+	if ($phone) {
+		$_phone = trim(str_replace(array('+1', ' ', '-', '(', ')', '+'), array('', '', '', '', '',''), $phone));
+		if (strlen($_phone) === 10) {
+			$area_code = substr($_phone, 0, 3);
+			$number_p1 = substr($_phone, 3, 3);
+			$number_p2 = substr($_phone, 6, 4);
+			$phone = "({$area_code}) {$number_p1}-{$number_p2}";
+		}
+	}
+	return $phone;
+}

@@ -32,6 +32,10 @@ Sure. Go to settings and select the "Internal" option in the type setting.
 
 == Changelog ==
 
+= 1.2.0 =
+* Major update
+* Implement new single event design
+
 = 1.1.1 =
 * Fix date display
 * Added loading animation when saving settings

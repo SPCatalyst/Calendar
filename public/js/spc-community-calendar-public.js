@@ -221,6 +221,7 @@ function spcc_parse_query(url) {
 				$('body').LoadingOverlay('show');
 			},
 			success: function (response) {
+				console.log(response);
 				var cont = $('.spcc-events-container');
 				var part = $(response).find('.spcc-events-container').html();
 				cont.addClass('spcc-loading');
