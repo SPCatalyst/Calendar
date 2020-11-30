@@ -197,6 +197,7 @@ class SPC_Community_Calendar_AJAX {
 
 			$valid_keys = spcc_array_except( array_keys( $rules ), [ 'image' ] );
 			$valid_keys = array_merge( $valid_keys, array(
+				'parking',
 				'address2',
 				'cost',
 				'tickets_url',
@@ -296,6 +297,7 @@ class SPC_Community_Calendar_AJAX {
 
 			$valid_keys = spcc_array_except( array_keys( $rules ), [ 'image' ] );
 			$valid_keys = array_merge( $valid_keys, array(
+				'parking',
 				'address2',
 				'cost',
 				'tickets_url',

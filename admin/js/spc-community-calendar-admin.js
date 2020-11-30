@@ -207,11 +207,6 @@
         return false;
     });
 
-    // Open modal in AJAX callback
-    $('.event-edit').click(function (event) {
-        init_datepickers();
-    });
-
     init_scripts();
 
     $(document).on('change', '.spcc-conditional', function (e) {
@@ -419,6 +414,10 @@
         });
 
         return false;
+    });
+
+    $(document).on($.modal.OPEN, function(event, modal) {
+        init_datepickers();
     });
 
 })(jQuery);
