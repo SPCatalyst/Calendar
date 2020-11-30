@@ -268,6 +268,10 @@ class SPC_Community_Calendar_Public {
                 background-color: <?php echo $primary; ?>;
             }
 
+            .spcc-event-date-feat span {
+                background-color: <?php echo $primary; ?>;
+            }
+
             .spcc-events-main--filters ul li > a.current {
                 color: <?php echo $primary; ?>;
             }

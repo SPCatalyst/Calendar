@@ -13,6 +13,18 @@ $permission = $account->get_item_param('permission');
 
 ?>
 
+<div class="form-row">
+    <div class="form-col-6">
+        <label for="venue"><?php _e( 'Venue' ); ?> <span class="spcc-required">*</span></label>
+        <input type="text" id="venue" name="venue" required class="form-control"
+               placeholder="<?php _e( 'Enter venue' ); ?>">
+    </div>
+    <div class="form-col-6">
+        <label for="parking"><?php _e( 'Parking' ); ?></label>
+        <input type="text" id="parking" name="parking" required class="form-control"
+               placeholder="<?php _e( 'Enter parking' ); ?>">
+    </div>
+</div>
 
 <div class="form-row">
 	<div class="form-col-6">

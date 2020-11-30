@@ -40,8 +40,20 @@ $permission = $account->get_item_param('permission');
 		</div>
 	</div>
 	<div class="form-row">
-		<label for="venue"><?php _e('Venue'); ?> <span class="required">*</span></label>
-		<input type="text" id="venue" name="venue" required value="<?php echo isset($event['meta']['event_venue']) ? $event['meta']['event_venue'] : ''; ?>" class="form-control" placeholder="<?php _e('Enter venue'); ?>">
+        <?php if(!$is_virtual): ?>
+            <label for="venue"><?php _e('Venue'); ?> <span class="required">*</span></label>
+            <input type="text" id="venue" name="venue" required value="<?php echo isset($event['meta']['event_venue']) ? $event['meta']['event_venue'] : ''; ?>" class="form-control" placeholder="<?php _e('Enter venue'); ?>">
+        <?php else: ?>
+            <div class="form-col-6">
+                <label for="venue"><?php _e('Venue'); ?> <span class="required">*</span></label>
+                <input type="text" id="venue" name="venue" required value="<?php echo isset($event['meta']['event_venue']) ? $event['meta']['event_venue'] : ''; ?>" class="form-control" placeholder="<?php _e('Enter venue'); ?>">
+            </div>
+            <div class="form-col-6">
+                <label for="parking"><?php _e('Parking'); ?> <span class="required">*</span></label>
+                <input type="text" id="parking" name="parking" required value="<?php echo isset($event['meta']['event_parking']) ? $event['meta']['event_parking'] : ''; ?>" class="form-control" placeholder="<?php _e('Enter parking'); ?>">
+            </div>
+        <?php endif; ?>
+
 	</div>
 
 

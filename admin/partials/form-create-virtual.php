@@ -9,6 +9,11 @@ $permission = $account->get_item_param('permission');
 ?>
 
 <div class="form-row">
+    <label for="venue"><?php _e( 'Venue' ); ?> <span class="spcc-required">*</span></label>
+    <input type="text" id="venue" name="venue" required class="form-control"
+           placeholder="<?php _e( 'Enter venue' ); ?>">
+</div>
+<div class="form-row">
     <label for="image"><?php _e( 'Image' ); ?> <span class="spcc-required">*</span></label>
     <input type="file" id="image" name="image" required placeholder="<?php _e( 'Enter image' ); ?>">
 </div>

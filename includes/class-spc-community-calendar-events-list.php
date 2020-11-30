@@ -199,9 +199,15 @@ class SPC_Community_Calendar_Events_List_Table extends WP_List_Table {
 			$args['search'] = sanitize_text_field( $_REQUEST['s'] );
 		}
 
+		$private_active = ( isset( $_GET['type'] ) && $_GET['type'] === 'private' ) ? 'private' : '';
+
 		$repository = new SPC_Community_Calendar_Data_Repository();
 
 		$args['fields'] = 'all';
+
+		if(!empty($private_active)) {
+			$args['type'] = 'private';
+		}
 
 		$response = $repository->get_events( $args );
 

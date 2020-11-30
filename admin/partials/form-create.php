@@ -36,12 +36,6 @@
                    placeholder="<?php _e( 'Enter end date' ); ?>">
         </div>
     </div>
-    <div class="form-row">
-        <label for="venue"><?php _e( 'Venue' ); ?> <span class="spcc-required">*</span></label>
-        <input type="text" id="venue" name="venue" required class="form-control"
-               placeholder="<?php _e( 'Enter venue' ); ?>">
-    </div>
-
 
     <div class="form-attendance-dependant"></div>
     
