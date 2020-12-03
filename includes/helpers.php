@@ -255,3 +255,33 @@ function spcc_format_phone($phone) {
 	}
 	return $phone;
 }
+
+/**
+ * Display featured events
+ * @param $atts
+ *
+ * @return string
+ */
+function spcc_featured_events($atts) {
+	// Static config
+	$config = array(
+		'per_page' => $atts['per_page'],
+		'fields'   => 'all',
+		'orderby'  => 'date',
+		'order'    => 'asc',
+	);
+	if ( $atts['type'] === 'private' ) {
+		$config['parent'] = get_option( 'spcc_website_id' );
+	} else if ( $atts['type'] === 'featured' ) {
+		$config['featured'] = 1;
+	}
+
+	$repo   = new SPC_Community_Calendar_Data_Repository();
+	$query  = $repo->get_events( $config );
+	$events = $query->get_items();
+
+	return '<div class="spcc-featured-events">' . spcc_get_view( 'events-grid-home', array(
+			'events_list' => $events,
+			'config'      => $config
+		) ) . '</div>';
+}

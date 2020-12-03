@@ -47,6 +47,14 @@ class SPC_Community_Calendar_Event {
 	}
 
 	/**
+	 * Is featured?
+	 * @return int
+	 */
+	public function is_featured() {
+		return (int) $this->get_meta_value('event_featured', 0);
+	}
+
+	/**
 	 * The event excerpt
 	 * @return string
 	 */

@@ -224,12 +224,4 @@ $event_phone = spcc_format_phone( $event_phone );
         </div>
     </div>
 
-	<?php if ( apply_filters( 'spc_show_submit_section', true ) ): ?>
-        <div class="row spcc-event-row-footer">
-            <div class="col-sm-12">
-				<?php include( 'events-submit.php' ); ?>
-            </div>
-        </div>
-	<?php endif; ?>
-
 </div>

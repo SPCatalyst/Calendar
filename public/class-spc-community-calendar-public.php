@@ -203,27 +203,7 @@ class SPC_Community_Calendar_Public {
 			'per_page' => 4,
 		), $atts );
 
-		// Static config
-		$config = array(
-			'per_page' => $atts['per_page'],
-			'fields'   => 'all',
-			'orderby'  => 'date',
-			'order'    => 'asc',
-		);
-		if ( $atts['type'] === 'private' ) {
-			$config['parent'] = get_option( 'spcc_website_id' );
-		} else if ( $atts['type'] === 'featured' ) {
-			$config['featured'] = 1;
-		}
-
-		$repo   = new SPC_Community_Calendar_Data_Repository();
-		$query  = $repo->get_events( $config );
-		$events = $query->get_items();
-
-		return '<div class="spcc-featured-events">' . spcc_get_view( 'events-grid-home', array(
-				'events_list' => $events,
-				'config'      => $config
-			) ) . '</div>';
+        return spcc_featured_events($atts);
 	}
 
 
@@ -256,6 +236,9 @@ class SPC_Community_Calendar_Public {
 
 		?>
         <style type="text/css">
+            .spc-border-featured {
+                border: 1px solid <?php echo $primary; ?>;
+            }
             .spcc-post-actions a i.spcc-icon {
                 color: <?php echo $primary; ?>;
             }
@@ -265,11 +248,11 @@ class SPC_Community_Calendar_Public {
             }
 
             .spcc-btn-primary {
-                background-color: <?php echo $primary; ?>;
+                background-color: <?php echo $primary; ?> !important;
             }
 
             .spcc-event-date-feat span {
-                background-color: <?php echo $primary; ?>;
+                background-color: <?php echo $primary; ?> !important;
             }
 
             .spcc-events-main--filters ul li > a.current {

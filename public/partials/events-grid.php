@@ -8,8 +8,8 @@ $posts = array_chunk( $events_list, 3 );
 
 <?php foreach ( $posts as $group ): ?>
     <div class="spcc-g-row">
-		<?php foreach ( $group as $_post ): $e = new SPC_Community_Calendar_Event( $_post ); ?>
-            <div class="spcc-g-event">
+		<?php foreach ( $group as $_post ): $e = new SPC_Community_Calendar_Event( $_post ); $is_featured = $e->is_featured(); ?>
+            <div class="spcc-g-event <?php echo ($is_featured) ? 'spc-border-featured' : ''; ?>">
                 <div class="spcc-g-event-entry">
                     <div class="spcc-g-event-image">
                         <a target="_self" href="<?php echo $e->get_link(); ?>">

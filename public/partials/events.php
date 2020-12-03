@@ -3,15 +3,20 @@
 // Settings
 $settings = new SPC_Community_Calendar_Settings();
 
+// Config 1
 $preferred_categories = $settings->get( 'preferred_categories', array() );
 $preferred_filters    = $settings->get( 'preferred_filters', array() );
 
-$show_internal = $settings->get( 'type' ) === 'internal';
+// Config 2
+$show_internal_setting = $settings->get( 'type' ) === 'internal';
+$show_internal = $show_internal_setting;
 
-if ( isset( $_GET['type'] ) ) {
-	if ( $_GET['type'] === 'internal' ) {
+// Parse Type
+$type = isset( $_GET['type'] ) ? $_GET['type'] : '';
+if ( $type ) {
+	if ( $type === 'internal' ) {
 		$show_internal = true;
-	} else {
+	} else if ( $type === 'both' ) {
 		$show_internal = false;
 	}
 }
@@ -20,6 +25,17 @@ if ( isset( $_GET['type'] ) ) {
 global $wp;
 $short_url = home_url( $wp->request );
 $full_url  = remove_query_arg( array( 'pagenum', 'pagename' ), spcc_current_page_url() );
+
+// Find the logo url
+$logo_url = remove_query_arg( 'type', $full_url );
+if ( $type === 'both' ) {
+	$logo_url_type = 'internal';
+} else if ( $type === 'internal' ) {
+	$logo_url_type = 'both';
+} else {
+	$logo_url_type = $show_internal_setting ? 'both' : 'internal';
+}
+$logo_url = add_query_arg( 'type', $logo_url_type, $logo_url );
 
 // Set View
 $view = $settings->get( 'preferred_view', 'list' );
@@ -83,12 +99,16 @@ $allowed_views = array(
 );
 
 // Static config
+$website_id = get_option( 'spcc_website_id' );
 $config = array(
 	'per_page' => apply_filters( 'ccc_events_per_page', 10 ),
 	'fields'   => 'all',
+    'current_site' => $website_id,
 );
+
+// Internal?
 if ( $show_internal ) {
-	$config['parent'] = get_option( 'spcc_website_id' );
+	$config['parent'] = $website_id;
 }
 
 // API Params
@@ -124,11 +144,6 @@ if ( ! is_null( $filter ) ) {
 
 // Query
 $repo        = new SPC_Community_Calendar_Data_Repository();
-/*$account     = $repo->get_account();
-$permission  = $account->get_item_param( 'permission' );
-if($permission === 'approved') {
-    $params['include_site_drafts'] = get_option( 'spcc_website_id' );
-}*/
 $events      = $repo->get_events( $params );
 $events_list = $events->get_items();
 
@@ -160,29 +175,25 @@ $logo     = $settings->get( 'logo' );
 if ( ! empty( $logo ) ) {
 	$logo = wp_get_attachment_image_url( $logo, 'medium' );
 }
+$show_featured = (int) $settings->get('show_featured', 0);
 
 ?>
 <div class="spcc-events-container">
 
-	<?php if ( apply_filters( 'ccc_show_branding', true ) ): ?>
-        <div class="spcc-events-row">
-            <div class="spcc-branding spcc-text-right">
-                <a target="_blank" href="https://stpetecatalyst.com"><img
-                            src="<?php echo plugin_dir_url( dirname( __FILE__ ) ); ?>img/poweredby.jpg" width="300"
-                            alt="st pete catalyst"></a>
-            </div>
-        </div>
-	<?php endif; ?>
+    <?php if($show_featured): ?>
+    <div class="spcc-events-row">
+        <?php echo spcc_featured_events(array('type' => 'featured', 'per_page' => 4)); ?>
+    </div>
+    <?php endif; ?>
 
     <div class="spcc-events-row">
         <div class="spcc-events-filters">
 			<?php if ( ! empty( $logo ) ): ?>
                 <div class="spcc-banner">
-                    <a href="#"><img alt="ad" src="<?php echo $logo; ?>"></a>
+                    <a href="<?php echo $logo_url; ?>"><img alt="ad" src="<?php echo $logo; ?>"></a>
                 </div>
 			<?php endif; ?>
             <div class="spcc-filters">
-
                 <form class="spcc-events-filters-form" id="spcc-events-filters-form" action="" method="GET">
                     <div class="spcc-form-row">
                         <label>Show events for:</label>
@@ -196,10 +207,6 @@ if ( ! empty( $logo ) ) {
                                 </li>
 							<?php endforeach; ?>
                         </ul>
-                    </div>
-                    <div class="spcc-form-row">
-                        <a class="spcc-events-type"
-                           href="<?php echo $allowed_type_filters[0]['url']; ?>"><?php echo sprintf( __( '%s events only' ), 'Local' ); ?></a>
                     </div>
                     <div class="spcc-form-row f-14">
                         <label class="spcc-label-fw" for="datefrom">Show events between:</label>
@@ -236,9 +243,38 @@ if ( ! empty( $logo ) ) {
                         <a href="<?php echo $short_url; ?>" class="spcc-btn spcc-btn-link spcc-reset">Reset</a>
                     </div>
                 </form>
-
             </div>
             <div class="spcc-other">
+                <form class="js-cm-form subscribe-form spc-newsletter-cc"
+                      action="https://www.createsend.com/t/subscribeerror?description=" method="post"
+                      data-id="191722FC90141D02184CB1B62AB3DC269F5AD945E1D601D6AA7B21A6353A852EA24E42384A444112F4BAFE1B3BC7CBE1B74EC527A033A333C3FB969E23514D1F">
+                    <div class="cc-s-header">
+                        <img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ); ?>img/poweredby.jpg"
+                             alt="subscribe">
+                    </div>
+                    <div class="cc-s-body">
+                        <div class="cc-form-row">
+                            <h3 class="title-sub">Get your free subscription</h3>
+                        </div>
+                        <div class="cc-form-row">
+                            <input id="fieldName" placeholder="Name" name="cm-name" type="text"/>
+                        </div>
+                        <div class="cc-form-row">
+                            <input id="fieldEmail" class="js-cm-email-input" name="cm-gtrgt-gtrgt" placeholder="Email"
+                                   type="email" required/>
+                        </div>
+                        <div class="cc-form-row">
+                            <button class="spcc-btn spcc-btn-primary" type="submit">Subscribe</button>
+                        </div>
+                        <div class="cc-form-row">
+                            <h3 class="title-listed">Want your event listed?</h3>
+                            <p>
+                                <a class="spcc-btn spcc-btn-primary" href="https://stpetecatalyst.com/contribute/event"
+                                   type="submit">Submit your event</a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
 				<?php do_action( 'spcc_sidebar' ); ?>
             </div>
         </div>
@@ -300,10 +336,5 @@ if ( ! empty( $logo ) ) {
             </div>
         </div>
     </div>
-	<?php if ( apply_filters( 'ccc_show_submit_section', true ) ): ?>
-        <div class="spcc-events-row">
-			<?php include( 'events-submit.php' ); ?>
-        </div>
-	<?php endif; ?>
 </div>
 

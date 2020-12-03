@@ -3,7 +3,7 @@ Contributors: darkog
 Tags: events, calendar
 Requires at least: 3.0.1
 Tested up to: 3.4
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,12 @@ e.g.
 Sure. Go to settings and select the "Internal" option in the type setting.
 
 == Changelog ==
+
+= 1.2.2 =
+* Update to the events page design to match the main site
+* Added featured posts above events with option to enable/disable
+* Made the private events to be saved as private events in the main db
+* Added functionality to toggle event types in main events page by clicking on the partner logo
 
 = 1.2.1 =
 * Fix datepickers

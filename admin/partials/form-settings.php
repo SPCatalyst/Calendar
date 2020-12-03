@@ -36,6 +36,7 @@ if ( ! is_array( $filters_selected ) ) {
 $view_selected     = $settings->get( 'preferred_view', 'list' );
 $color_schemes     = $settings->get( 'color_schemes' );
 $events_type       = $settings->get( 'type' );
+$show_featured     = $settings->get('show_featured');
 $events_visibility = $settings->get( 'visibility' );
 $google_maps_key   = $settings->get( 'google_maps_key' );
 $logo              = $settings->get( 'logo' );
@@ -144,6 +145,13 @@ $prev_access_request = get_option('spcc_access_request');
                    value="internal"> <?php _e( 'Show only internal events', 'spcc' ); ?> <br/>
             <input type="radio" name="type" <?php checked( $events_type, 'any', true ); ?>
                    value="any"> <?php _e( 'Show my events and events from the Catalyst Master Calendar', 'spcc' ); ?>
+        </label>
+    </div>
+    <div class="settings-row">
+        <label for="type" class="spcc-radio-group">
+            <span><?php _e( 'Feautred Events', 'spcc' ); ?></span>
+            <input type="checkbox" name="show_featured" <?php checked( '1', $show_featured, true ); ?>
+                   value="1"> <?php _e( 'Show featured events on the events page', 'spcc' ); ?> <br/>
         </label>
     </div>
     <!--<div class="settings-row">

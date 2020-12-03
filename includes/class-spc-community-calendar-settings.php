@@ -150,6 +150,7 @@ class SPC_Community_Calendar_Settings {
 			'google_maps_key',
 			'maps_provider',
 			'events_page',
+			'show_featured',
 		);
 	}
 

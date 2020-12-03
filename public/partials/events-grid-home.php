@@ -7,7 +7,7 @@ $posts = array_chunk( $events_list, 4 );
 ?>
 
 <div class="spcc-events-container">
-    <div class="spcc-events-main">
+    <div class="spcc-events-main2">
         <div class="spcc-events-main--list">
 			<?php foreach ( $posts as $group ): ?>
                 <div class="spcc-g-row">

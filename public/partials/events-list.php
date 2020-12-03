@@ -2,7 +2,7 @@
 if ( ! is_array( $events_list ) ) {
 	return;
 }
-$posts = array_chunk( $events_list, 3 );
+
 ?>
 
 <?php foreach ( $events_list as $event ): ?>
@@ -11,8 +11,10 @@ $posts = array_chunk( $events_list, 3 );
 	$url_add_to_calendar = $e->get_google_calendar_url();
 	$url_tickets = $e->get_tickets_url();
 
+	$is_featured = $e->is_featured();
+
 	?>
-    <div id="event-<?php echo $e->get_id(); ?>" class="spcc-event spcc-event-row">
+    <div id="event-<?php echo $e->get_id(); ?>" class="spcc-event spcc-event-row <?php echo ($is_featured) ? 'spc-border-featured' : ''; ?>">
         <div class="spcc-event-left">
             <a target="_self" href="<?php echo $e->get_link(); ?>">
 				<img src="<?php echo $e->get_thumbnail( 'spgc-small-thumb' ); ?>" alt="<?php echo $e->get_title(); ?>">

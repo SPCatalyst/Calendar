@@ -350,14 +350,20 @@
                     notice = make_notice('error', response.data.message, response.data.errors);
                 }
                 $formStatus.html(notice);
-                $self.removeClass('spcc-loading');
+                setTimeout(function(){
+                    $self.removeClass('spcc-loading');
+                }, 2000);
             },
             error: function () {
-                $self.removeClass('spcc-loading');
+                setTimeout(function(){
+                    $self.removeClass('spcc-loading');
+                }, 2000);
                 alert('HTTP Error.');
             },
             complete: function() {
-                $self.removeClass('spcc-loading');
+                setTimeout(function(){
+                    $self.removeClass('spcc-loading');
+                }, 2000);
             }
         });
 
