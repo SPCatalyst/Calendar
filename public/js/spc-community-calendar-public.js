@@ -290,5 +290,36 @@ function spcc_parse_query(url) {
 
 	});
 
+	// Email subscription box
+	$(document).on('submit', '#spcc-subscribe', function(){
+		var $self = $(this);
+		var data = $self.serialize();
+		$.ajax({
+			url: 'https://stpetecatalyst.com/wp-json/communitycalendar/v1/account/subscribe',
+			data: data,
+			type: 'POST',
+			beforeSend: function() {
+				$('body').LoadingOverlay('show');
+			},
+			success: function(response){
+				if(response.code === 200) {
+					$self.get(0).reset();
+					alert(response.message);
+				} else {
+					alert(response.errors[0]);
+				}
+				$('body').LoadingOverlay('hide');
+			},
+			error: function() {
+				alert('HTTP Error.');
+				$('body').LoadingOverlay('hide');
+			},
+			complete: function() {
+				$('body').LoadingOverlay('hide');
+			}
+		});
+		return false;
+	});
+
 
 })(jQuery);

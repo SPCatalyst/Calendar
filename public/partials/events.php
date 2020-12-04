@@ -1,7 +1,13 @@
 <?php
 
 // Settings
-$settings = new SPC_Community_Calendar_Settings();
+$settings         = new SPC_Community_Calendar_Settings();
+$repo             = new SPC_Community_Calendar_Data_Repository();
+$account_response = $repo->get_account();
+$account          = null;
+if ( ! $account_response->is_error() ) {
+	$account = $account_response->get_item();
+}
 
 // Config 1
 $preferred_categories = $settings->get( 'preferred_categories', array() );
@@ -10,6 +16,13 @@ $preferred_filters    = $settings->get( 'preferred_filters', array() );
 // Config 2
 $show_internal_setting = $settings->get( 'type' ) === 'internal';
 $show_internal = $show_internal_setting;
+
+// Logo
+$settings = new SPC_Community_Calendar_Settings();
+$logo     = $settings->get( 'logo' );
+if ( ! empty( $logo ) ) {
+	$logo = wp_get_attachment_image_url( $logo, 'medium' );
+}
 
 // Parse Type
 $type = isset( $_GET['type'] ) ? $_GET['type'] : '';
@@ -36,6 +49,19 @@ if ( $type === 'both' ) {
 	$logo_url_type = $show_internal_setting ? 'both' : 'internal';
 }
 $logo_url = add_query_arg( 'type', $logo_url_type, $logo_url );
+
+// Find the logo image
+if($logo_url_type === 'both') {
+	$_remote_logo = isset($account['logo_mixed']) && !empty($account['logo_mixed']) ? $account['logo_mixed'] : '';
+	if(!empty($_remote_logo)) {
+		$logo = $_remote_logo;
+	}
+} elseif($logo_url_type === 'internal') {
+	$_remote_logo = isset($account['logo_local']) && !empty($account['logo_local']) ? $account['logo_local'] : '';
+	if(!empty($_remote_logo)) {
+		$logo = $_remote_logo;
+	}
+}
 
 // Set View
 $view = $settings->get( 'preferred_view', 'list' );
@@ -143,7 +169,6 @@ if ( ! is_null( $filter ) ) {
 }
 
 // Query
-$repo        = new SPC_Community_Calendar_Data_Repository();
 $events      = $repo->get_events( $params );
 $events_list = $events->get_items();
 
@@ -170,12 +195,9 @@ $url_prev  = add_query_arg( 'pagenum', $prev_page, $full_url );
 $url_first = add_query_arg( 'pagenum', 1, $full_url );
 $url_last  = add_query_arg( 'pagenum', $total_pages, $full_url );
 
-$settings = new SPC_Community_Calendar_Settings();
-$logo     = $settings->get( 'logo' );
-if ( ! empty( $logo ) ) {
-	$logo = wp_get_attachment_image_url( $logo, 'medium' );
-}
+// Featured
 $show_featured = (int) $settings->get('show_featured', 0);
+
 
 ?>
 <div class="spcc-events-container">
@@ -245,9 +267,7 @@ $show_featured = (int) $settings->get('show_featured', 0);
                 </form>
             </div>
             <div class="spcc-other">
-                <form class="js-cm-form subscribe-form spc-newsletter-cc"
-                      action="https://www.createsend.com/t/subscribeerror?description=" method="post"
-                      data-id="191722FC90141D02184CB1B62AB3DC269F5AD945E1D601D6AA7B21A6353A852EA24E42384A444112F4BAFE1B3BC7CBE1B74EC527A033A333C3FB969E23514D1F">
+                <form id="spcc-subscribe" class="js-cm-form subscribe-form spc-newsletter-cc" method="post">
                     <div class="cc-s-header">
                         <img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ); ?>img/poweredby.jpg"
                              alt="subscribe">
@@ -257,10 +277,10 @@ $show_featured = (int) $settings->get('show_featured', 0);
                             <h3 class="title-sub">Get your free subscription</h3>
                         </div>
                         <div class="cc-form-row">
-                            <input id="fieldName" placeholder="Name" name="cm-name" type="text"/>
+                            <input id="fieldName" placeholder="Name" name="name" type="text"/>
                         </div>
                         <div class="cc-form-row">
-                            <input id="fieldEmail" class="js-cm-email-input" name="cm-gtrgt-gtrgt" placeholder="Email"
+                            <input id="fieldEmail" class="js-cm-email-input" name="email" placeholder="Email"
                                    type="email" required/>
                         </div>
                         <div class="cc-form-row">
