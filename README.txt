@@ -32,6 +32,9 @@ Sure. Go to settings and select the "Internal" option in the type setting.
 
 == Changelog ==
 
+= 1.2.4 =
+* Added ''
+
 = 1.2.3 =
 * Added option to gather the logos from the remote administration
 * Added option to subscribe to the catalyst newsletter via API

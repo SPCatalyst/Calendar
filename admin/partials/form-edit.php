@@ -149,12 +149,18 @@ $permission = $account->get_item_param('permission');
     </div>
 
     <div class="form-row">
+        <div class="form-col-6">
         <?php if($is_virtual): ?>
             <label for="website"><?php _e( 'Conference URL'); ?><span class="spcc-required">*</span></label>
         <?php else: ?>
             <label for="website"><?php _e( 'Website'); ?></label>
         <?php endif; ?>
         <input type="text" value="<?php echo isset($event['meta']['event_website']) ? $event['meta']['event_website'] : ''; ?>" id="website" name="website" required class="form-control"">
+        </div>
+        <div class="form-col-6">
+            <label for="tickets_url"><?php _e( 'Tickets URL' ); ?></label>
+            <input type="text" value="<?php echo isset($event['meta']['event_tickets_url']) ? $event['meta']['event_tickets_url'] : ''; ?>" id="tickets_url" name="tickets_url" class="form-control">
+        </div>
     </div>
 
 	<div class="form-row form-row-footer">

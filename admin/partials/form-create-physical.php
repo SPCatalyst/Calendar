@@ -116,6 +116,12 @@ $permission = $account->get_item_param('permission');
 </div>
 
 <div class="form-row">
-    <label for="website"><?php _e( 'Website' ); ?></label>
-    <input type="text" id="website" name="website" class="form-control">
+    <div class="form-col-6">
+        <label for="website"><?php _e( 'Website' ); ?></label>
+        <input type="text" id="website" name="website" class="form-control">
+    </div>
+    <div class="form-col-6">
+        <label for="tickets_url"><?php _e( 'Tickets URL' ); ?></label>
+        <input type="text" id="tickets_url" name="tickets_url" class="form-control">
+    </div>
 </div>
