@@ -1,4 +1,38 @@
 <?php
+
+/**
+ * Check if string is substring
+ *
+ * @param $haystack
+ * @param $needle
+ * @return bool
+ */
+function spcc_str_contains($haystack, $needle)
+{
+    if (function_exists('str_contains')) {
+        return str_contains($haystack, $needle);
+    } else {
+       return '' === $needle || false !== strpos($haystack, $needle);
+    }
+}
+
+/**
+ * Add http.
+ * @param $url
+ * @param string $default_scheme
+ */
+function spcc_add_scheme($url, $default_scheme = 'https://')
+{
+
+    $has_scheme = (spcc_str_contains($url, 'https:') || spcc_str_contains($url, 'http:'));
+
+    if (!$has_scheme) {
+        $url = sprintf('%s%s', $default_scheme, $url);
+    }
+
+    return $url;
+}
+
 /**
  * Format array to key => value pairs
  *
@@ -8,20 +42,21 @@
  *
  * @return array
  */
-function spcc_array_key_value( $arr, $key, $value ) {
-	if ( ! is_array( $arr ) ) {
-		return array();
-	}
+function spcc_array_key_value($arr, $key, $value)
+{
+    if (!is_array($arr)) {
+        return array();
+    }
 
-	$new_arr = array();
+    $new_arr = array();
 
-	foreach ( $arr as $item ) {
-		if ( isset( $item[ $key ] ) && isset( $item[ $value ] ) ) {
-			$new_arr[ $item[ $key ] ] = $item[ $value ];
-		}
-	}
+    foreach ($arr as $item) {
+        if (isset($item[$key]) && isset($item[$value])) {
+            $new_arr[$item[$key]] = $item[$value];
+        }
+    }
 
-	return $new_arr;
+    return $new_arr;
 }
 
 /**
@@ -33,19 +68,20 @@ function spcc_array_key_value( $arr, $key, $value ) {
  *
  * @return bool|int|WP_Error
  */
-function spcc_handle_media_upload( $file_handler, $post_id ) {
-	if ( ! file_exists( $_FILES[ $file_handler ]['tmp_name'] ) || ! is_uploaded_file( $_FILES[ $file_handler ]['tmp_name'] ) ) {
-		return false;
-	}
-	require_once( ABSPATH . 'wp-admin/includes/image.php' );
-	require_once( ABSPATH . 'wp-admin/includes/file.php' );
-	require_once( ABSPATH . 'wp-admin/includes/media.php' );
-	$attachment_id = media_handle_upload( $file_handler, $post_id );
-	if ( ! is_wp_error( $attachment_id ) ) {
-		return $attachment_id;
-	} else {
-		return false;
-	}
+function spcc_handle_media_upload($file_handler, $post_id)
+{
+    if (!file_exists($_FILES[$file_handler]['tmp_name']) || !is_uploaded_file($_FILES[$file_handler]['tmp_name'])) {
+        return false;
+    }
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+    require_once(ABSPATH . 'wp-admin/includes/file.php');
+    require_once(ABSPATH . 'wp-admin/includes/media.php');
+    $attachment_id = media_handle_upload($file_handler, $post_id);
+    if (!is_wp_error($attachment_id)) {
+        return $attachment_id;
+    } else {
+        return false;
+    }
 }
 
 /**
@@ -56,15 +92,16 @@ function spcc_handle_media_upload( $file_handler, $post_id ) {
  *
  * @return array
  */
-function spcc_array_only( $data, $only ) {
-	$new_data = array();
-	foreach ( $data as $key => $value ) {
-		if ( in_array( $key, $only ) ) {
-			$new_data[ $key ] = $value;
-		}
-	}
+function spcc_array_only($data, $only)
+{
+    $new_data = array();
+    foreach ($data as $key => $value) {
+        if (in_array($key, $only)) {
+            $new_data[$key] = $value;
+        }
+    }
 
-	return $new_data;
+    return $new_data;
 }
 
 /**
@@ -75,15 +112,16 @@ function spcc_array_only( $data, $only ) {
  *
  * @return array
  */
-function spcc_array_except( $data, $except ) {
-	$new_data = array();
-	foreach ( $data as $key => $value ) {
-		if ( ! in_array( $key, $except ) ) {
-			$new_data[ $key ] = $value;
-		}
-	}
+function spcc_array_except($data, $except)
+{
+    $new_data = array();
+    foreach ($data as $key => $value) {
+        if (!in_array($key, $except)) {
+            $new_data[$key] = $value;
+        }
+    }
 
-	return $new_data;
+    return $new_data;
 }
 
 /**
@@ -94,18 +132,19 @@ function spcc_array_except( $data, $except ) {
  *
  * @return array
  */
-function spcc_build_multipart_request( $fields, $files ) {
+function spcc_build_multipart_request($fields, $files)
+{
 
-	$multipart = new SPC_Community_Calendar_Multipart();
-	$multipart->addArray( $fields );
-	foreach ( $files as $key => $file ) {
-		$multipart->addFile( $key, $file );
-	}
+    $multipart = new SPC_Community_Calendar_Multipart();
+    $multipart->addArray($fields);
+    foreach ($files as $key => $file) {
+        $multipart->addFile($key, $file);
+    }
 
-	return array(
-		'content-type' => $multipart->contentType(),
-		'body'         => $multipart->data(),
-	);
+    return array(
+        'content-type' => $multipart->contentType(),
+        'body' => $multipart->data(),
+    );
 }
 
 /**
@@ -113,12 +152,13 @@ function spcc_build_multipart_request( $fields, $files ) {
  *
  * @return string|null
  */
-function spcc_retrieve_local_event( $remote_event_ID ) {
-	global $wpdb;
-	$query  = $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='remote_id' AND meta_value=%d", $remote_event_ID );
-	$result = $wpdb->get_var( $query );
+function spcc_retrieve_local_event($remote_event_ID)
+{
+    global $wpdb;
+    $query = $wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key='remote_id' AND meta_value=%d", $remote_event_ID);
+    $result = $wpdb->get_var($query);
 
-	return $result;
+    return $result;
 }
 
 
@@ -128,14 +168,15 @@ function spcc_retrieve_local_event( $remote_event_ID ) {
  * @param $view
  * @param $data
  */
-function spcc_view( $view, $data = array() ) {
-	$path = SPCC_ROOT_PATH . 'public/partials/' . $view . '.php';
-	if ( file_exists( $path ) ) {
-		if ( ! empty( $data ) ) {
-			extract( $data );
-		}
-		include( $path );
-	}
+function spcc_view($view, $data = array())
+{
+    $path = SPCC_ROOT_PATH . 'public/partials/' . $view . '.php';
+    if (file_exists($path)) {
+        if (!empty($data)) {
+            extract($data);
+        }
+        include($path);
+    }
 }
 
 /**
@@ -146,25 +187,27 @@ function spcc_view( $view, $data = array() ) {
  *
  * @return false|string
  */
-function spcc_get_view( $view, $data = array() ) {
-	ob_start();
-	spcc_view( $view, $data );
+function spcc_get_view($view, $data = array())
+{
+    ob_start();
+    spcc_view($view, $data);
 
-	return ob_get_clean();
+    return ob_get_clean();
 }
 
 /**
  * Return the current page url
  * @return string
  */
-function spcc_current_page_url() {
-	global $wp;
-	$url = home_url( $wp->request );
-	if ( isset( $_SERVER['QUERY_STRING'] ) ) {
-		$url = add_query_arg( $_SERVER['QUERY_STRING'], '', $url );
-	}
+function spcc_current_page_url()
+{
+    global $wp;
+    $url = home_url($wp->request);
+    if (isset($_SERVER['QUERY_STRING'])) {
+        $url = add_query_arg($_SERVER['QUERY_STRING'], '', $url);
+    }
 
-	return $url;
+    return $url;
 }
 
 
@@ -176,8 +219,9 @@ function spcc_current_page_url() {
  *
  * @return mixed|null
  */
-function spcc_get_var( $key, $default = null ) {
-	return isset( $_GET[ $key ] ) ? sanitize_text_field( $_GET[ $key ] ) : $default;
+function spcc_get_var($key, $default = null)
+{
+    return isset($_GET[$key]) ? sanitize_text_field($_GET[$key]) : $default;
 }
 
 
@@ -188,17 +232,18 @@ function spcc_get_var( $key, $default = null ) {
  * @param $current_value
  * @param $placeholder
  */
-function spcc_custom_upload_field( $key, $current_value, $placeholder = '' ) {
+function spcc_custom_upload_field($key, $current_value, $placeholder = '')
+{
 
-	$media_id = $current_value;
-	if ( ! empty( $media_id ) && is_numeric( $media_id ) ) {
-		$current_src = wp_get_attachment_image_src( $media_id, 'thumbnail' );
-		$current_src = $current_src[0];
-	} else {
-		$current_src = $placeholder;
-		$media_id    = '';
-	}
-	?>
+    $media_id = $current_value;
+    if (!empty($media_id) && is_numeric($media_id)) {
+        $current_src = wp_get_attachment_image_src($media_id, 'thumbnail');
+        $current_src = $current_src[0];
+    } else {
+        $current_src = $placeholder;
+        $media_id = '';
+    }
+    ?>
     <div class="upload">
         <img data-src="<?php echo $placeholder; ?>" src="<?php echo $current_src; ?>" width="120px"/>
         <div>
@@ -207,7 +252,7 @@ function spcc_custom_upload_field( $key, $current_value, $placeholder = '' ) {
             <button type="submit" class="remove_image_button button">&times;</button>
         </div>
     </div>
-	<?php
+    <?php
 }
 
 /**
@@ -215,11 +260,10 @@ function spcc_custom_upload_field( $key, $current_value, $placeholder = '' ) {
  *
  * @return string
  */
-function spcc_get_submit_link() {
+function spcc_get_submit_link()
+{
     return 'https://stpetecatalyst.com/contribute/event';
 }
-
-
 
 
 /**
@@ -227,15 +271,15 @@ function spcc_get_submit_link() {
  **/
 function decode_image_to_uploads($base64_string)
 {
-	$temporary_file = wp_tempnam();
-	file_put_contents($temporary_file, base64_decode($base64_string));
-	$filename = 'headway-imported-image.jpg';
-	$file = array('name' => $filename, 'tmp_name' => $temporary_file);
-	$upload = wp_handle_sideload($file, array('test_form' => false));
-	if (isset($upload['error'])) {
-		@unlink($temporary_file);
-	}
-	return $upload;
+    $temporary_file = wp_tempnam();
+    file_put_contents($temporary_file, base64_decode($base64_string));
+    $filename = 'headway-imported-image.jpg';
+    $file = array('name' => $filename, 'tmp_name' => $temporary_file);
+    $upload = wp_handle_sideload($file, array('test_form' => false));
+    if (isset($upload['error'])) {
+        @unlink($temporary_file);
+    }
+    return $upload;
 }
 
 /**
@@ -243,17 +287,18 @@ function decode_image_to_uploads($base64_string)
  * @param $phone
  * @return string
  */
-function spcc_format_phone($phone) {
-	if ($phone) {
-		$_phone = trim(str_replace(array('+1', ' ', '-', '(', ')', '+'), array('', '', '', '', '',''), $phone));
-		if (strlen($_phone) === 10) {
-			$area_code = substr($_phone, 0, 3);
-			$number_p1 = substr($_phone, 3, 3);
-			$number_p2 = substr($_phone, 6, 4);
-			$phone = "({$area_code}) {$number_p1}-{$number_p2}";
-		}
-	}
-	return $phone;
+function spcc_format_phone($phone)
+{
+    if ($phone) {
+        $_phone = trim(str_replace(array('+1', ' ', '-', '(', ')', '+'), array('', '', '', '', '', ''), $phone));
+        if (strlen($_phone) === 10) {
+            $area_code = substr($_phone, 0, 3);
+            $number_p1 = substr($_phone, 3, 3);
+            $number_p2 = substr($_phone, 6, 4);
+            $phone = "({$area_code}) {$number_p1}-{$number_p2}";
+        }
+    }
+    return $phone;
 }
 
 /**
@@ -262,26 +307,27 @@ function spcc_format_phone($phone) {
  *
  * @return string
  */
-function spcc_featured_events($atts) {
-	// Static config
-	$config = array(
-		'per_page' => $atts['per_page'],
-		'fields'   => 'all',
-		'orderby'  => 'date',
-		'order'    => 'asc',
-	);
-	if ( $atts['type'] === 'private' ) {
-		$config['parent'] = get_option( 'spcc_website_id' );
-	} else if ( $atts['type'] === 'featured' ) {
-		$config['featured'] = 1;
-	}
+function spcc_featured_events($atts)
+{
+    // Static config
+    $config = array(
+        'per_page' => $atts['per_page'],
+        'fields' => 'all',
+        'orderby' => 'date',
+        'order' => 'asc',
+    );
+    if ($atts['type'] === 'private') {
+        $config['parent'] = get_option('spcc_website_id');
+    } else if ($atts['type'] === 'featured') {
+        $config['featured'] = 1;
+    }
 
-	$repo   = new SPC_Community_Calendar_Data_Repository();
-	$query  = $repo->get_events( $config );
-	$events = $query->get_items();
+    $repo = new SPC_Community_Calendar_Data_Repository();
+    $query = $repo->get_events($config);
+    $events = $query->get_items();
 
-	return '<div class="spcc-featured-events">' . spcc_get_view( 'events-grid-home', array(
-			'events_list' => $events,
-			'config'      => $config
-		) ) . '</div>';
+    return '<div class="spcc-featured-events">' . spcc_get_view('events-grid-home', array(
+            'events_list' => $events,
+            'config' => $config
+        )) . '</div>';
 }

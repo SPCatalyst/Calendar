@@ -57,6 +57,8 @@ $calendar_url    = $e->get_google_calendar_url();
 
 // Format phone
 $event_phone = spcc_format_phone( $event_phone );
+$event_website = spcc_add_scheme($event_website);
+
 
 ?>
 
@@ -128,7 +130,7 @@ $event_phone = spcc_format_phone( $event_phone );
 								<?php _e( 'Event Website' ); ?>
                             </div>
                             <div class="spcc-event-detail--value">
-                                <a href="<?php echo $e->get_website(); ?>" target="_blank"><?php _e( 'View' ); ?></a>
+                                <a href="<?php echo $event_website; ?>" target="_blank"><?php _e( 'View' ); ?></a>
                             </div>
                         </div>
 						<?php if ( ! empty( $event_socials ) ): ?>
