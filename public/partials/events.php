@@ -269,7 +269,7 @@ $show_featured = (int) $settings->get('show_featured', 0);
             <div class="spcc-other">
                 <form id="spcc-subscribe" class="js-cm-form subscribe-form spc-newsletter-cc" method="post">
                     <div class="cc-s-header">
-                        <img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ); ?>img/poweredby.jpg"
+                        <img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ); ?>img/poweredby.png"
                              alt="subscribe">
                     </div>
                     <div class="cc-s-body">
@@ -354,6 +354,31 @@ $show_featured = (int) $settings->get('show_featured', 0);
 
 				?>
             </div>
+
+            <div class="spcc-events-footer">
+                <div class="spcc-events-main--filters">
+                    <ul>
+                        <?php if ( $total_pages > 1 ): ?>
+                            <li class="spcc-nav-links">
+                                <a target="_self" href="<?php echo $url_first; ?>" class="spcc-left"><i
+                                            class="spcc-icon spcc-icon-left-dir"></i></a>
+                                <a target="_self" href="<?php echo $url_prev; ?>" class="spcc-backward"><i
+                                            class="spcc-icon spcc-icon-fast-bw"></i></a>
+                                <a target="_self" href="#"><?php echo implode( '-', array(
+                                        $params['page'],
+                                        $config['per_page']
+                                    ) ); ?>
+                                    OF <?php echo $total_pages; ?></a>
+                                <a target="_self" href="<?php echo $url_next; ?>" class="spcc-forward"><i
+                                            class="spcc-icon spcc-icon-fast-fw"></i></a>
+                                <a target="_self" href="<?php echo $url_last; ?>" class="spcc-right"><i
+                                            class="spcc-icon spcc-icon-right-dir"></i></a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
