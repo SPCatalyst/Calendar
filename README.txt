@@ -3,7 +3,7 @@ Contributors: darkog
 Tags: events, calendar
 Requires at least: 3.0.1
 Tested up to: 3.4
-Stable tag: 1.2.4
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,13 @@ e.g.
 Sure. Go to settings and select the "Internal" option in the type setting.
 
 == Changelog ==
+
+= 1.3.0 =
+* Fix view/socials link
+* Fix date formatting on featured events
+* Add spacing between featured events and top
+* Add navigation links under the events list
+* Add yahoo,outlook,ics,google to 'Add to calendar' button choices
 
 = 1.2.4 =
 * Added tickets_url field in create/edit forms
