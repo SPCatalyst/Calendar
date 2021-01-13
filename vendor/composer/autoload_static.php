@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit08d1374de0cc0a2f3a6e5917e73736fe
 {
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Spatie\\CalendarLinks\\' => 21,
+        ),
         'R' => 
         array (
             'Rakit\\Validation\\' => 17,
@@ -14,6 +18,10 @@ class ComposerStaticInit08d1374de0cc0a2f3a6e5917e73736fe
     );
 
     public static $prefixDirsPsr4 = array (
+        'Spatie\\CalendarLinks\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/calendar-links/src',
+        ),
         'Rakit\\Validation\\' => 
         array (
             0 => __DIR__ . '/..' . '/rakit/validation/src',

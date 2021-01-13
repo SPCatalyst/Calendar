@@ -203,6 +203,21 @@ function spcc_parse_query(url) {
 })(jQuery);
 
 
+/**
+ * The calendar modal
+ */
+(function($){
+
+	$(document).on('click', '.spcc-event-calendar--button', function(e){
+		e.preventDefault();
+		var modal = $('#calendarModal').remodal();
+		modal.open()
+	})
+
+})(jQuery);
+
+
+
 /// Lazy load
 (function ($) {
 

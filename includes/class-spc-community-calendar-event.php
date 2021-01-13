@@ -1,5 +1,7 @@
 <?php
 
+use Spatie\CalendarLinks\Link;
+
 /**
  * This class represents single event
  *
@@ -416,6 +418,61 @@ class SPC_Community_Calendar_Event {
 	public function get_event_content() {
 		return $this->event['post_content'];
 	}
+
+    /**
+     * Return calendar links
+     * @return array
+     */
+    public function get_calendar_links() {
+
+        $start = $this->get_meta_value('event_start');
+        $end = $this->get_meta_value('event_end');
+
+        if(strtotime($start) <= strtotime($end)) {
+            $event_start = $start;
+            $event_end = $end;
+        } else {
+            $event_start = $end;
+            $event_end = $start;
+        }
+
+        $links = array();
+
+        if ( empty( $event_start ) || empty( $event_end ) ) {
+            return $links;
+        }
+
+        $from = DateTime::createFromFormat( 'Y-m-d H:i:s', $event_start );
+        $to   = DateTime::createFromFormat( 'Y-m-d H:i:s', $event_end );
+
+        $options = array( 'google' => 'Google', 'yahoo' => 'Yahoo', 'webOutlook' => 'Outlook', 'ics' => 'Apple iCal' );
+
+
+        $categories  = $this->get_categories();
+        $description = array();
+        foreach ( $categories as $category ) {
+            array_push( $description, $category->name );
+        }
+        $description = ! empty( $description ) ? implode( ', ', $description ) : '';
+
+        try {
+            $link = Link::create( $this->get_title(), $from, $to )
+                ->description( $description )
+                ->address( $this->get_formatted_address() );
+        } catch (\Exception $e) {
+            return array();
+        }
+
+        $data = array();
+
+        foreach ( $options as $method => $name ) {
+            if ( method_exists( $link, $method ) ) {
+                $data[ $name ] = $link->$method();
+            }
+        }
+
+        return $data;
+    }
 
 	/**
 	 * Return the google calendar url formatted,

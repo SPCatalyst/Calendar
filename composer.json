@@ -1,5 +1,6 @@
 {
   "require": {
-    "rakit/validation": "^1.2"
+    "rakit/validation": "^1.2",
+    "spatie/calendar-links": "^1.4"
   }
 }

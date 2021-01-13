@@ -59,6 +59,8 @@ $calendar_url = $e->get_google_calendar_url();
 $event_phone = spcc_format_phone($event_phone);
 $event_website = !empty($event_website) ? spcc_add_scheme($event_website) : '';
 
+$calendar_links = $e->get_calendar_links();
+
 ?>
 
 <div class="spcc-event-wrap bootstrap-wrapper">
@@ -201,7 +203,7 @@ $event_website = !empty($event_website) ? spcc_add_scheme($event_website) : '';
             </div>
 
             <div class="spcc-event-calendar">
-                <a href="<?php echo $calendar_url; ?>" class="spcc-event-calendar--button"
+                <a href="#" class="spcc-event-calendar--button"
                    target="_blank"><?php _e('Add to Calendar'); ?></a>
             </div>
 
@@ -233,4 +235,21 @@ $event_website = !empty($event_website) ? spcc_add_scheme($event_website) : '';
         </div>
     </div>
 
+</div>
+
+
+<div class="remodal" data-remodal-id="calendar" id="calendarModal">
+    <button data-remodal-action="close" class="remodal-close"></button>
+    <h3 class="spcc-modal-title">Calendar</h3>
+    <p class="spcc-modal-paragraph">
+        Click on the calendar you prefer to save this event to:
+    </p>
+    <ul class="spcc-modal-links">
+        <?php foreach ( $calendar_links as $name => $calendar_link ): ?>
+            <li><a href="<?php echo $calendar_link; ?>"><?php echo $name; ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <br>
+    <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+    <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
 </div>

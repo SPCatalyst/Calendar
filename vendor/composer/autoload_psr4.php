@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Spatie\\CalendarLinks\\' => array($vendorDir . '/spatie/calendar-links/src'),
     'Rakit\\Validation\\' => array($vendorDir . '/rakit/validation/src'),
 );

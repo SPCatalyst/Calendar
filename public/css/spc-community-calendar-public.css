@@ -808,3 +808,20 @@ Responsive
 .spcc-events-container .spcc-featured-events {
     margin-top: 30px;
 }
+
+
+/* calendar popup */
+.spcc-modal-links {
+    list-style: none;
+    padding-left:0;
+}
+.spcc-modal-links li {
+    margin-bottom: 5px;
+}
+.spcc-modal-paragraph {
+    margin-bottom: 10px;
+}
+.spcc-modal-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
