@@ -25,7 +25,7 @@ $posts = array_chunk( $events_list, 4 );
                                            href="<?php echo $e->get_link(); ?>"><?php echo $e->get_title(); ?></a></h3>
                                 </div>
                                 <div class="spcc-g-event-meta">
-		                            <?php echo $e->get_start_date('M d - h:i A'); ?>
+		                            <?php echo $e->get_formatted_event_date(); ?>
                                 </div>
                             </div>
                         </div>
