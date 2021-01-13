@@ -6,7 +6,7 @@ class Validator
 {
     use Traits\TranslationsTrait, Traits\MessagesTrait;
 
-    /** @var translations */
+    /** @var array */
     protected $translations = [];
 
     /** @var array */
@@ -34,7 +34,7 @@ class Validator
      * Register or override existing validator
      *
      * @param mixed $key
-     * @param Rakit\Validation\Rule $rule
+     * @param \Rakit\Validation\Rule $rule
      * @return void
      */
     public function setValidator(string $key, Rule $rule)
@@ -51,7 +51,7 @@ class Validator
      */
     public function getValidator($key)
     {
-        return isset($this->validators[$key])? $this->validators[$key] : null;
+        return isset($this->validators[$key]) ? $this->validators[$key] : null;
     }
 
     /**
@@ -137,6 +137,7 @@ class Validator
             'between'                   => new Rules\Between,
             'url'                       => new Rules\Url,
             'integer'                   => new Rules\Integer,
+            'boolean'                   => new Rules\Boolean,
             'ip'                        => new Rules\Ip,
             'ipv4'                      => new Rules\Ipv4,
             'ipv6'                      => new Rules\Ipv6,
@@ -160,6 +161,7 @@ class Validator
             'digits_between'            => new Rules\DigitsBetween,
             'defaults'                  => new Rules\Defaults,
             'default'                   => new Rules\Defaults, // alias of defaults
+            'nullable'                  => new Rules\Nullable,
         ];
 
         foreach ($baseValidator as $key => $validator) {
@@ -171,7 +173,7 @@ class Validator
      * Given $ruleName and $rule to add new validator
      *
      * @param string $ruleName
-     * @param Rakit\Validation\Rule $rule
+     * @param \Rakit\Validation\Rule $rule
      * @return void
      */
     public function addValidator(string $ruleName, Rule $rule)

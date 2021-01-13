@@ -15,6 +15,13 @@ trait SizeTrait
      */
     protected function getValueSize($value)
     {
+        if ($this->getAttribute()
+            && ($this->getAttribute()->hasRule('numeric') || $this->getAttribute()->hasRule('integer'))
+            && is_numeric($value)
+        ) {
+            $value = (float) $value;
+        }
+
         if (is_int($value) || is_float($value)) {
             return (float) $value;
         } elseif (is_string($value)) {
