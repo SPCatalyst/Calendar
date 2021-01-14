@@ -456,6 +456,35 @@ class SPC_Community_Calendar_AJAX {
 
 	}
 
+
+    /**
+     * Share post via email
+     */
+    public function share_post_via_email() {
+        if ( ! isset( $_REQUEST['nonce'] ) && ! wp_verify_nonce( $_REQUEST['nonce'], 'spcc_nonce' ) ) {
+            wp_send_json_error( array(
+                'message' => 'Security check failed'
+            ) );
+            exit;
+        }
+
+        $link = isset( $_POST['share_post_url'] ) ? $_POST['share_post_url'] : '';
+        $email   = isset( $_POST['share_email'] ) ? $_POST['share_email'] : '';
+
+
+        if ( empty( $email ) || false === filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+            wp_send_json_error( array( 'message' => 'Empty or invalid email address! Please provide valid email address.' ) );
+            exit;
+        }
+
+        $email_text = 'Someone shared the following this post with you: ' . $link;
+        wp_mail($email, 'Someone shared a post with you.', $email_text);
+        wp_send_json_success(array(
+            'message' => 'Post shared successfully.'
+        ));
+        exit;
+    }
+
 	/**
 	 * Check the ajax referer
 	 *

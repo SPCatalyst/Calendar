@@ -217,6 +217,56 @@ function spcc_parse_query(url) {
 })(jQuery);
 
 
+(function($){
+
+	$(document).on('click', '.spc-share-icons--icon--mail a', function (e) {
+		e.preventDefault();
+		inst = $('[data-remodal-id=emailSignup]').remodal({
+			closeOnOutsideClick: false,
+			hashTracking: false,
+		});
+		inst.open();
+	});
+
+	$(document).on('submit', '#share-with-friend', function () {
+
+		var $self = $(this);
+		var $btn = $(this).find('.btn-submit');
+		var old_text = $btn.text();
+		var data = $(this).serialize();
+
+		$.ajax({
+			type: 'POST',
+			url: SPCC.ajax_url + '?action=spc_share_post_via_email&nonce=' + SPCC.nonce,
+			data: data,
+			cache: false,
+			beforeSend: function () {
+				$btn.text('Loading...');
+			},
+			success: function (response) {
+				if (response.success) {
+					$self.get(0).reset();
+					alert(response.data.message);
+					if (null !== inst) {
+						inst.close();
+					}
+				} else {
+					alert(response.data.message);
+				}
+			},
+			error: function () {
+				alert('HTTP Error.');
+			},
+			complete: function () {
+				$btn.text(old_text);
+			}
+		});
+
+		return false;
+	});
+
+})(jQuery);
+
 
 /// Lazy load
 (function ($) {

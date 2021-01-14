@@ -108,6 +108,11 @@ class SPC_Community_Calendar {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/helpers.php';
 
+        /**
+         * The class responsible for the sharing icons
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-spc-community-calendar-shareicons.php';
+
 		/**
 		 * The class responsible for formatting the API response
 		 */
@@ -262,6 +267,9 @@ class SPC_Community_Calendar {
 		$this->loader->add_action('wp_ajax_spcc_settings_save', $ajax_actions, 'handle_settings');
 		$this->loader->add_action('wp_ajax_spcc_request_access', $ajax_actions, 'request_access');
 		$this->loader->add_action('wp_ajax_spcc_disconnect', $ajax_actions, 'disconnect');
+
+        $this->loader->add_action( 'wp_ajax_spc_share_post_via_email', $ajax_actions, 'share_post_via_email' );
+        $this->loader->add_action( 'wp_ajax_nopriv_spc_share_post_via_email', $ajax_actions, 'share_post_via_email' );
 	}
 
 	/**

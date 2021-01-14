@@ -825,3 +825,46 @@ Responsive
     font-size: 22px;
     margin-bottom: 15px;
 }
+
+
+.spc-share-icons li:last-child {
+    margin-right: 0 !important;
+}
+
+.spc-share-icons li {
+    display: inline-block;
+    margin-right: 10px;
+}
+.spc-share-icons {
+    list-style: none !important;
+    padding-left: 0 !important;
+}
+
+.spc-share-icons li a {
+    color: #fff;
+}
+
+.spc-share-icons--icon--mail {
+    background: #4d9b4d;
+}
+
+.spc-share-icons--icon--facebook {
+    background: #1877f2;
+}
+.spc-share-icons--icon--twitter {
+    background: #1da1f2;
+}
+.spc-share-icons--icon--linkedin {
+    background: #2767b1;
+}
+.spc-share-icons--icon {
+    padding: 5px 24px;
+}
+.spcc-share-icons {
+    margin-top: 25px;
+}
+
+.form-footer {
+    margin-top: 10px;
+    text-align: right;
+}

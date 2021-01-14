@@ -75,6 +75,8 @@ $calendar_links = $e->get_calendar_links();
                     <div class="spcc-share-icons">
                         <?php if (function_exists('social_warfare')): ?>
                             <?php social_warfare(); ?>
+                        <?php else: ?>
+                            <?php $e->print_share_icons(); ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -127,33 +129,33 @@ $calendar_links = $e->get_calendar_links();
 
                 <?php if (!empty($event_website) || !empty($event_socials)): ?>
                 <div class="spcc-event-detail">
-                        <div class="row">
-                            <?php if (!empty($event_website)): ?>
-                                <div class="col-sm-6">
-                                    <div class="spcc-event-detail--label">
-                                        <?php _e('Event Website'); ?>
-                                    </div>
-                                    <div class="spcc-event-detail--value">
-                                        <a href="<?php echo $event_website; ?>" target="_blank"><?php _e('View'); ?></a>
-                                    </div>
+                    <div class="row">
+                        <?php if (!empty($event_website)): ?>
+                            <div class="col-sm-6">
+                                <div class="spcc-event-detail--label">
+                                    <?php _e('Event Website'); ?>
                                 </div>
-                            <?php endif; ?>
-                            <?php if (!empty($event_socials)): ?>
-                                <div class="col-sm-6">
-                                    <div class="spcc-event-detail--label">
-                                        <?php _e('Social Media'); ?>
-                                    </div>
-                                    <div class="spcc-event-detail--value">
-                                        <ul class="spcc-event-socials">
-                                            <?php foreach ($event_socials as $key => $url): ?>
-                                                <a class="spcc-<?php echo $key; ?>" href="<?php echo $url; ?>"><i
-                                                            class="spcc-icon spcc-icon-<?php echo $key; ?>"></i></a>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </div>
+                                <div class="spcc-event-detail--value">
+                                    <a href="<?php echo $event_website; ?>" target="_blank"><?php _e('View'); ?></a>
                                 </div>
-                            <?php endif; ?>
-                        </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (!empty($event_socials)): ?>
+                            <div class="col-sm-6">
+                                <div class="spcc-event-detail--label">
+                                    <?php _e('Social Media'); ?>
+                                </div>
+                                <div class="spcc-event-detail--value">
+                                    <ul class="spcc-event-socials">
+                                        <?php foreach ($event_socials as $key => $url): ?>
+                                            <a class="spcc-<?php echo $key; ?>" href="<?php echo $url; ?>"><i
+                                                        class="spcc-icon spcc-icon-<?php echo $key; ?>"></i></a>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <?php endif; ?>
 
@@ -237,6 +239,25 @@ $calendar_links = $e->get_calendar_links();
 
 </div>
 
+
+<div class="remodal" data-remodal-id="emailSignup" id="emailSignup"
+     data-remodal-options="hashTracking: false, closeOnOutsideClick: false">
+    <button data-remodal-action="close" class="remodal-close"></button>
+    <div class="remodal-content text-left">
+        <h3>Share with friend</h3>
+        <p>Please enter email address you want to share this article with</p>
+        <form id="share-with-friend">
+            <div class="form-row">
+                <input type="hidden" name="share_post_url" value="<?php echo $e->get_link(); ?>">
+                <input type="text" class="form-control" name="share_email" value=""/>
+            </div>
+            <div class="form-row form-footer">
+                <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+                <button type="submit" class="remodal-confirm">Share</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="remodal" data-remodal-id="calendar" id="calendarModal">
     <button data-remodal-action="close" class="remodal-close"></button>
