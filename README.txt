@@ -32,6 +32,9 @@ Sure. Go to settings and select the "Internal" option in the type setting.
 
 == Changelog ==
 
+= 1.3.1 =
+* Added social icons
+
 = 1.3.0 =
 * Fix view/socials link
 * Fix date formatting on featured events

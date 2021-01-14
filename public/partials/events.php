@@ -239,6 +239,9 @@ $show_featured = (int) $settings->get('show_featured', 0);
                                 id="dateto"
                                 value="<?php echo spcc_get_var( 'dateto' ); ?>">
                     </div>
+                    <!--<div class="spcc-form-row">
+                        <div id="calendar"></div>
+                    </div>-->
                     <div class="spcc-form-row">
                         <label for="filter">Filters</label>
                         <select id="filter" name="filter" class="spcc-form-control spcc-w-100">
