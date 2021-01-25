@@ -116,6 +116,8 @@ function spcc_parse_query(url) {
 				dateFormat: dateFormat,
 				defaultDate: "+1w",
 				changeMonth: true,
+				prevText: '<i class="spcc-icon-angle-left"></i>',
+				nextText: '<i class="spcc-icon-angle-right"></i>',
 			}).on("change", function () {
 				to.datepicker("option", "minDate", getDate(this));
 			}),
@@ -124,6 +126,8 @@ function spcc_parse_query(url) {
 				defaultDate: "+1w",
 				changeMonth: true,
 				numberOfMonths: 1,
+				prevText: '<i class="spcc-icon-angle-left"></i>',
+				nextText: '<i class="spcc-icon-angle-right"></i>',
 			}).on("change", function () {
 				from.datepicker("option", "maxDate", getDate(this));
 			});
@@ -147,6 +151,8 @@ function spcc_parse_query(url) {
 		}
 		$('#calendar').datepicker({
 			dateFormat: dateFormat,
+			prevText: '<i class="spcc-icon-angle-left"></i>',
+			nextText: '<i class="spcc-icon-angle-right"></i>',
 			onSelect: function (date) {
 				var $field = $('#datefrom');
 				$field.val(date);

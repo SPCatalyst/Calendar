@@ -101,6 +101,7 @@ class SPC_Community_Calendar_Public {
 	public function enqueue_scripts() {
 
 		wp_enqueue_script( 'jquery-ui-datepicker' );
+		wp_dequeue_style('jquery-ui');
 		wp_enqueue_script( 'remodal', plugin_dir_url( __FILE__ ) . 'resources/remodal/remodal.min.js', array( 'jquery' ), null, true );
 		wp_enqueue_script( 'loadingoverlay', plugin_dir_url( __FILE__ ) . 'resources/loadingoverlay.min.js', array( 'jquery' ), null, true );
 
