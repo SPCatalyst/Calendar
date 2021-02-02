@@ -235,9 +235,12 @@ Grid
     }
 }
 .spcc-g-event-meta {
-    font-weight: bold;
     font-size: 12px;
     line-height: 18px;
+    margin-top: 10px;
+    color: #9a9a9a;
+    text-transform: uppercase;
+    font-weight: normal;
 }
 
 .spcc-g-event-title {
@@ -248,6 +251,7 @@ Grid
 .spcc-g-event-title h3 {
     line-height: 0.8;
     margin-bottom: 10px;
+    font-weight: 600;
     margin-top: 0 !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;

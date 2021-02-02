@@ -105,7 +105,7 @@ function spcc_parse_query(url) {
  */
 (function ($) {
 
-	var dateFormat = "yy-mm-dd";
+	var dateFormat = "mm-dd-yy";
 
 	window.init_spcc_date_picker = function () {
 		if (!jQuery().datepicker) {

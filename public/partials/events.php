@@ -169,6 +169,7 @@ if ( ! is_null( $filter ) ) {
 }
 
 // Query
+$params['date_format'] = 'm-d-Y';
 $events      = $repo->get_events( $params );
 $events_list = $events->get_items();
 

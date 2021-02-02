@@ -20,12 +20,12 @@ $posts = array_chunk( $events_list, 4 );
                                              alt="<?php echo $e->get_title(); ?>">
                                     </a>
                                 </div>
+                                <div class="spcc-g-event-meta">
+                                    <?php echo $e->get_formatted_event_date(); ?>
+                                </div>
                                 <div class="spcc-g-event-title">
                                     <h3><a target="_self"
                                            href="<?php echo $e->get_link(); ?>"><?php echo $e->get_title(); ?></a></h3>
-                                </div>
-                                <div class="spcc-g-event-meta">
-		                            <?php echo $e->get_formatted_event_date(); ?>
                                 </div>
                             </div>
                         </div>

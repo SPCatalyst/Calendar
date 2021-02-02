@@ -317,13 +317,13 @@ class SPC_Community_Calendar_Event
 
         if (!empty($event_start_meta)) {
             $event_start_dt = DateTime::createFromFormat('Y-m-d H:i:s', $event_start_meta);
-            $event_start = $event_start_dt->format('F') . ' ' . $event_start_dt->format('d');
+            $event_start = $event_start_dt->format('M') . ' ' . $event_start_dt->format('d');
             $event_start = $event_start . ' @ ' . $event_start_dt->format('g:i A');
         }
 
         if (!empty($event_end_meta)) {
             $event_end_dt = DateTime::createFromFormat('Y-m-d H:i:s', $event_end_meta);
-            $event_end = $event_end_dt->format('F') . ' ' . $event_end_dt->format('d');
+            $event_end = $event_end_dt->format('M') . ' ' . $event_end_dt->format('d');
             $event_end = $event_end . ' @ ' . $event_end_dt->format('g:i A');
         }
 
