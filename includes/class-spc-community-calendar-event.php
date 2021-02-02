@@ -619,7 +619,7 @@ class SPC_Community_Calendar_Event
      *
      * @return mixed|string
      */
-    private function get_meta_value($key, $default = '')
+    public function get_meta_value($key, $default = '')
     {
         return isset($this->meta[$key]) ? $this->meta[$key] : $default;
     }
