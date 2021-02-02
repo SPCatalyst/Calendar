@@ -705,6 +705,16 @@ ul.spcc-inline-list {
 
 /* Events page form */
 /* Subscribe form */
+.spcc-event-venue-wrap .spcc-event-address {
+    line-height: 1.3;
+    margin-top: 10px;
+    color: #000;
+}
+.spcc-event-venue-wrap {
+    padding: 20px;
+    float: left;
+    background: #f3f3f3;
+}
 .cc-form-row h3 {
     display: block;
     width: 100%;
