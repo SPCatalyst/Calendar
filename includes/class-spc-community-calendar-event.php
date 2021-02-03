@@ -345,15 +345,18 @@ class SPC_Community_Calendar_Event
      */
     public function get_link()
     {
-        $settings = new SPC_Community_Calendar_Settings();
-        $events_page_ID = $settings->get('events_page');
-        $base = get_permalink($events_page_ID);
-        if (empty($base)) {
-            return '/404';
+        if (apply_filters('spcc_share_local_link', false)) {
+            $settings = new SPC_Community_Calendar_Settings();
+            $events_page_ID = $settings->get('events_page');
+            $base = get_permalink($events_page_ID);
+            if (empty($base)) {
+                return '/404';
+            }
+            $base = trailingslashit($base);
+        } else {
+            $base = 'https://stpetecatalyst.com/';
         }
-        $url = trailingslashit($base) . $this->event['post_name'];
-
-        return $url;
+        return $base . $this->event['post_name'];
     }
 
     /**
@@ -539,7 +542,7 @@ class SPC_Community_Calendar_Event
         $markup = '<ul class="spc-share-icons">';
         foreach ($generated as $key => $value) {
             $title = sprintf('Share on %s', ucfirst($key));
-            $markup .= '<li class="spc-share-icons--icon spc-share-icons--icon--'.$key.'"><a title="'.$title.'" href="' . $value . '"><span class="spcc-icon-' . $key . '"></span></a></li>';
+            $markup .= '<li class="spc-share-icons--icon spc-share-icons--icon--' . $key . '"><a title="' . $title . '" href="' . $value . '"><span class="spcc-icon-' . $key . '"></span></a></li>';
         }
         $markup .= '</ul>';
         echo $markup;
