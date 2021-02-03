@@ -355,6 +355,10 @@ Grid
     padding: 2px;
 }
 
+input#search.spcc-form-control {
+    width: 100%;
+}
+
 
 /**
  Events container

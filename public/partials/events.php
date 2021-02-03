@@ -127,7 +127,7 @@ $allowed_views = array(
 // Static config
 $website_id = get_option( 'spcc_website_id' );
 $config = array(
-	'per_page' => apply_filters( 'ccc_events_per_page', 10 ),
+	'per_page' => apply_filters( 'ccc_events_per_page', 8 ),
 	'fields'   => 'all',
     'current_site' => $website_id,
 );
@@ -137,6 +137,7 @@ if ( $show_internal ) {
 	$config['parent'] = $website_id;
 }
 
+
 // API Params
 $params = spcc_array_only( $_GET, array(
 	'date',
@@ -145,8 +146,15 @@ $params = spcc_array_only( $_GET, array(
 	'search',
 ) );
 
+// Page
 $params['page'] = isset( $_GET['pagenum'] ) && is_numeric( $_GET['pagenum'] ) ? intval( $_GET['pagenum'] ) : 1;
 $params         = array_merge( $params, $config );
+
+// Search
+$search = isset($_GET['search']) ? sanitize_text_field($_GET['search']) : '';
+if(!empty($search)) {
+    $params['search'] = $search;
+}
 
 // Sort
 $sort_by           = isset( $_GET['sort_by'] ) ? $_GET['sort_by'] : 'date';
@@ -218,6 +226,9 @@ $show_featured = (int) $settings->get('show_featured', 0);
 			<?php endif; ?>
             <div class="spcc-filters">
                 <form class="spcc-events-filters-form" id="spcc-events-filters-form" action="" method="GET">
+                    <div class="spcc-form-row">
+                        <input type="text" class="spcc-form-control" placeholder="Search events..." id="search" name="search" value="<?php echo $search; ?>">
+                    </div>
                     <div class="spcc-form-row">
                         <label>Show events for:</label>
                         <ul class="spcc-inline-list">
@@ -353,9 +364,12 @@ $show_featured = (int) $settings->get('show_featured', 0);
 					}
 					echo spcc_get_view( $view, array( 'events_list' => $events_list ) );
 				} else {
-					echo '<p>No events found for your query</p>';
+				    if($show_internal) {
+                        echo '<p>There are no events here, please click to display community events using the graphic on the left.</p>';
+                    } else {
+                        echo '<p>No events found for your query</p>';
+                    }
 				}
-
 				?>
             </div>
 
@@ -364,19 +378,11 @@ $show_featured = (int) $settings->get('show_featured', 0);
                     <ul>
                         <?php if ( $total_pages > 1 ): ?>
                             <li class="spcc-nav-links">
-                                <a target="_self" href="<?php echo $url_first; ?>" class="spcc-left"><i
-                                            class="spcc-icon spcc-icon-left-dir"></i></a>
-                                <a target="_self" href="<?php echo $url_prev; ?>" class="spcc-backward"><i
-                                            class="spcc-icon spcc-icon-fast-bw"></i></a>
-                                <a target="_self" href="#"><?php echo implode( '-', array(
-                                        $params['page'],
-                                        $config['per_page']
-                                    ) ); ?>
-                                    OF <?php echo $total_pages; ?></a>
-                                <a target="_self" href="<?php echo $url_next; ?>" class="spcc-forward"><i
-                                            class="spcc-icon spcc-icon-fast-fw"></i></a>
-                                <a target="_self" href="<?php echo $url_last; ?>" class="spcc-right"><i
-                                            class="spcc-icon spcc-icon-right-dir"></i></a>
+                                <a target="_self" href="<?php echo $url_first; ?>" class="spcc-left"><i class="spcc-icon spcc-icon-left-dir"></i></a>
+                                <a target="_self" href="<?php echo $url_prev; ?>" class="spcc-backward"><i class="spcc-icon spcc-icon-fast-bw"></i></a>
+                                <a target="_self" href="#"><?php echo $params['page']; ?> OF <?php echo $total_pages; ?></a>
+                                <a target="_self" href="<?php echo $url_next; ?>" class="spcc-forward"><i class="spcc-icon spcc-icon-fast-fw"></i></a>
+                                <a target="_self" href="<?php echo $url_last; ?>" class="spcc-right"><i class="spcc-icon spcc-icon-right-dir"></i></a>
                             </li>
                         <?php endif; ?>
                     </ul>
