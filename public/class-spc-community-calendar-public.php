@@ -275,6 +275,9 @@ class SPC_Community_Calendar_Public {
             .spcc-submit-box .spcc-h3 {
                 color: <?php echo $primary; ?>;
             }
+            .spcc-featured-events-title-inner {
+                background-color: <?php echo $primary; ?> !important;
+            }
         </style>
 		<?php
 	}

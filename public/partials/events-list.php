@@ -12,7 +12,6 @@ if ( ! is_array( $events_list ) ) {
 	$url_tickets = $e->get_tickets_url();
 
 	$is_featured = $e->is_featured();
-
 	?>
     <div id="event-<?php echo $e->get_id(); ?>" class="spcc-event spcc-event-row <?php echo ($is_featured) ? 'spc-border-featured' : ''; ?>">
         <div class="spcc-event-left">

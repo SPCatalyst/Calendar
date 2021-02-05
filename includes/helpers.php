@@ -12,7 +12,7 @@ function spcc_str_contains($haystack, $needle)
     if (function_exists('str_contains')) {
         return str_contains($haystack, $needle);
     } else {
-       return '' === $needle || false !== strpos($haystack, $needle);
+        return '' === $needle || false !== strpos($haystack, $needle);
     }
 }
 
@@ -315,6 +315,7 @@ function spcc_featured_events($atts)
         'fields' => 'all',
         'orderby' => 'date',
         'order' => 'asc',
+        'datefrom' => sprintf('%s', wp_date('Y-m-d H:i:s'))
     );
     if ($atts['type'] === 'private') {
         $config['parent'] = get_option('spcc_website_id');
@@ -326,8 +327,12 @@ function spcc_featured_events($atts)
     $query = $repo->get_events($config);
     $events = $query->get_items();
 
-    return '<div class="spcc-featured-events">' . spcc_get_view('events-grid-home', array(
+    $title = 'Catalyst Community Calendar';
+    $markup_title  = '<h3 class="spcc-featured-events-title"><span class="spcc-featured-events-title-inner">'.$title.'</span></h3>';
+    $markup_events = '<div class="spcc-featured-events-inner">' . spcc_get_view('events-grid-home', array(
             'events_list' => $events,
             'config' => $config
         )) . '</div>';
+
+    return sprintf('<div class="spcc-featured-events">%s %s</div>', $markup_title, $markup_events);
 }

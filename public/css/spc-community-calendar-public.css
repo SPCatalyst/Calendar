@@ -706,6 +706,11 @@ ul.spcc-inline-list {
     margin-bottom: 50px;
 }
 
+.spcc-featured-events {
+    float:left;
+    width: 100%;
+}
+
 
 /* Events page form */
 /* Subscribe form */
@@ -1004,4 +1009,54 @@ Responsive
 #calendar .ui-datepicker table {
     background: transparent;
     border: 0;
+}
+
+.spcc-featured-events-title:before {
+    content: '';
+    background: #555;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    bottom: 50%;
+    width: 100%;
+    height: 1px;
+    z-index: 0;
+}
+
+.spcc-featured-events-title-inner {
+    margin-bottom:20px;
+    color: #fff;
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 5px 13px;
+    position: relative;
+    text-transform: uppercase;
+    -webkit-transform: skewX(
+            -15deg
+    );
+    -moz-transform: skewX(-15deg);
+    -ms-transform: skewX(-15deg);
+    -o-transform: skewX(-15deg);
+    transform: skewX(
+            -15deg
+    );
+    z-index: 1;
+    background-color: #3EE4dB;
+}
+
+.spcc-featured-events-title {
+    float: left;
+    width: 100%;
+    text-align: center;
+    position:relative;
+}
+
+#spcc-subscribe .spcc-form-control {
+    padding: 5px 10px;
+}
+#spcc-subscribe .spcc-btn {
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }

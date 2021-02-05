@@ -32,6 +32,13 @@ Sure. Go to settings and select the "Internal" option in the type setting.
 
 == Changelog ==
 
+= 1.3.3 =
+* Fixed events query bugs related to the featured events
+* Fixed design problems
+* Fixed map issues
+* Fixed pagination numbers display
+* Updated date filters format
+
 = 1.3.2 =
 * Added sidebar calendar
 

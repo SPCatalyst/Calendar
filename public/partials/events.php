@@ -292,10 +292,10 @@ $show_featured = (int) $settings->get('show_featured', 0);
                             <h3 class="title-sub">Get your free subscription</h3>
                         </div>
                         <div class="cc-form-row">
-                            <input id="fieldName" placeholder="Name" name="name" type="text"/>
+                            <input id="fieldName" class="spcc-form-control" placeholder="Name" name="name" type="text"/>
                         </div>
                         <div class="cc-form-row">
-                            <input id="fieldEmail" class="js-cm-email-input" name="email" placeholder="Email"
+                            <input id="fieldEmail" class="spcc-form-control js-cm-email-input" name="email" placeholder="Email"
                                    type="email" required/>
                         </div>
                         <div class="cc-form-row">
