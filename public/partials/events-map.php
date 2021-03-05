@@ -28,9 +28,15 @@ foreach ($events_list as $event) {
     }
     array_push($events, $event_short);
 }
+
+if (empty($events)) {
+    echo '<div class="spcc-not-found">' . __('No events with physical locations found.') . '</div>';
+    return;
+}
+
 ?>
 
 <div class="spcc-map">
-    <script>window.spccevents = '<?php echo json_encode($events); ?>';</script>
+    <script>window.spccevents = <?php echo json_encode($events, JSON_HEX_QUOT | JSON_HEX_TAG); ?>;</script>
     <div id="spcc-events-map"></div>
 </div>

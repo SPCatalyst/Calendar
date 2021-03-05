@@ -46,7 +46,10 @@
 		window.map = new google.maps.Map($el.get(0), {
 			zoom: 15,
 		});
-		var events = window.spccevents ? JSON.parse(window.spccevents) : [];
+		var events = window.spccevents ? window.spccevents : [];
+		if (typeof events === 'string' || events instanceof String) {
+			events = JSON.parse(window.spccevents);
+		}
 		var infowindow = new google.maps.InfoWindow();
 		var bounds = new google.maps.LatLngBounds();
 

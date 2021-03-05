@@ -71,7 +71,10 @@
         }).addTo(eventsMap);
 
         var bounds = [];
-        var events = window.spccevents ? JSON.parse(window.spccevents) : [];
+        var events = window.spccevents ? window.spccevents : [];
+        if (typeof events === 'string' || events instanceof String) {
+            events = JSON.parse(window.spccevents);
+        }
         //var events = window.spccevents ? window.spccevents : [];
         console.log(events);
         for (i = 0; i < events.length; i++) {
