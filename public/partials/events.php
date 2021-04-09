@@ -201,8 +201,6 @@ $prev_page = $params['page'] > 1 ? $params['page'] - 1 : 1;
 $next_page = $params['page'] + 1 > $total_pages ? $total_pages : $params['page'] + 1;
 $url_next  = add_query_arg( 'pagenum', $next_page, $full_url );
 $url_prev  = add_query_arg( 'pagenum', $prev_page, $full_url );
-$url_first = add_query_arg( 'pagenum', 1, $full_url );
-$url_last  = add_query_arg( 'pagenum', $total_pages, $full_url );
 
 // Featured
 $show_featured = (int) $settings->get('show_featured', 0);
@@ -335,11 +333,9 @@ $show_featured = (int) $settings->get('show_featured', 0);
                     </li>
 					<?php if ( $total_pages > 1 ): ?>
                         <li class="spcc-nav-links">
-                            <a target="_self" href="<?php echo $url_first; ?>" class="spcc-left"><i class="spcc-icon spcc-icon-left-dir"></i></a>
                             <a target="_self" href="<?php echo $url_prev; ?>" class="spcc-backward"><i class="spcc-icon spcc-icon-fast-bw"></i></a>
                             <a target="_self" href="#"><?php echo $params['page']; ?> OF <?php echo $total_pages; ?></a>
                             <a target="_self" href="<?php echo $url_next; ?>" class="spcc-forward"><i class="spcc-icon spcc-icon-fast-fw"></i></a>
-                            <a target="_self" href="<?php echo $url_last; ?>" class="spcc-right"><i class="spcc-icon spcc-icon-right-dir"></i></a>
                         </li>
 					<?php endif; ?>
                 </ul>
@@ -370,11 +366,9 @@ $show_featured = (int) $settings->get('show_featured', 0);
                     <ul>
                         <?php if ( $total_pages > 1 ): ?>
                             <li class="spcc-nav-links">
-                                <a target="_self" href="<?php echo $url_first; ?>" class="spcc-left"><i class="spcc-icon spcc-icon-left-dir"></i></a>
                                 <a target="_self" href="<?php echo $url_prev; ?>" class="spcc-backward"><i class="spcc-icon spcc-icon-fast-bw"></i></a>
                                 <a target="_self" href="#"><?php echo $params['page']; ?> OF <?php echo $total_pages; ?></a>
                                 <a target="_self" href="<?php echo $url_next; ?>" class="spcc-forward"><i class="spcc-icon spcc-icon-fast-fw"></i></a>
-                                <a target="_self" href="<?php echo $url_last; ?>" class="spcc-right"><i class="spcc-icon spcc-icon-right-dir"></i></a>
                             </li>
                         <?php endif; ?>
                     </ul>
