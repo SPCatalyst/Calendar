@@ -419,28 +419,6 @@ class SPC_Community_Calendar_AJAX {
 		die;
 	}
 
-	/**
-	 * Render quick view
-	 */
-	public function render_quick_view() {
-
-		$event_id = isset( $_GET['event_id'] ) && ! empty( $_GET['event_id'] ) ? $_GET['event_id'] : null;
-
-		$repo = new SPC_Community_Calendar_Data_Repository();
-
-		$response = $repo->get_event( $event_id, array( 'fields' => 'all' ) );
-
-		$event = $response->get_item();
-
-		if ( is_null( $event ) || empty( $event ) ) {
-			return '';
-		}
-
-		echo spcc_get_view( 'quick-view', array( 'event' => $event ) );
-
-		exit;
-
-	}
 
 	public function render_event_form_dynamic() {
 

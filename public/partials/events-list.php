@@ -33,7 +33,7 @@ if ( ! is_array( $events_list ) ) {
 	                <?php if(!empty($url_tickets)): ?>
                         <a target="_blank" href="<?php echo $url_tickets; ?>"><i class="spcc-icon spcc-icon-ticket"></i> Get Tickets</a>
 	                <?php endif; ?>
-                    <a href="#" data-id="<?php echo $e->get_id(); ?>" class="spcc-action-qw"><i class="spcc-icon spcc-icon-eye"></i> Quick View</a>
+                    <a href="<?php echo $e->get_link(); ?>"><i class="spcc-icon spcc-icon-eye"></i> More Details</a>
                 </p>
             </div>
         </div>

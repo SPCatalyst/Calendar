@@ -175,41 +175,6 @@ function spcc_parse_query(url) {
 
 
 /**
- * The events Quick View functionality
- */
-(function ($) {
-	$(document).on('click', '.spcc-action-qw', function (e) {
-		e.preventDefault();
-
-		var eventID = $(this).data('id');
-
-		var modalWrap = $(document).find('.spcc-quick-view');
-		if (!modalWrap.length) {
-			$('body').append('<div class="remodal spcc-quick-view"><button data-remodal-action="close" class="remodal-close"></button><div class="spcc-quick-view-body"></div></div>');
-			modalWrap = $(document).find('.spcc-quick-view');
-		}
-		var modalInst = modalWrap.remodal();
-
-		$.ajax({
-			url: SPCC.ajax_url + '?action=spcc_render_quickview&event_id=' + eventID,
-			type: 'GET',
-			cache: false,
-			beforeSend: function () {
-				modalWrap.find('.spcc-quick-view-body').html('');
-				modalWrap.LoadingOverlay('show');
-				modalInst.open();
-			},
-			success: function (response) {
-				modalWrap.find('.spcc-quick-view-body').html(response);
-				modalWrap.LoadingOverlay('hide');
-			},
-		});
-
-	});
-})(jQuery);
-
-
-/**
  * The calendar modal
  */
 (function($){
