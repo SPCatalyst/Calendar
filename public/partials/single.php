@@ -55,6 +55,8 @@ $event_parking = $e->get_parking();
 $event_organizer = $e->get_organizer();
 $calendar_url = $e->get_google_calendar_url();
 
+$url_tickets = $e->get_tickets_url();
+
 // Format phone
 $event_phone = spcc_format_phone($event_phone);
 $event_website = !empty($event_website) ? spcc_add_scheme($event_website) : '';
@@ -180,18 +182,34 @@ $calendar_links = $e->get_calendar_links();
                         </div>
                     </div>
                 <?php endif; ?>
+
                 <div class="spcc-event-detail">
-                    <div class="spcc-event-detail--label">
-                        <?php _e('Event Cost'); ?>
-                    </div>
-                    <div class="spcc-event-detail--value">
-                        <?php if ($event_cost == 0): ?>
-                            <?php _e('FREE'); ?>
-                        <?php else: ?>
-                            <?php echo '$' . $event_cost; ?>
-                        <?php endif; ?>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="spcc-event-detail--label">
+					            <?php _e( 'Event Cost' ); ?>
+                            </div>
+                            <div class="spcc-event-detail--value">
+					            <?php if ( $event_cost == 0 ): ?>
+						            <?php _e( 'FREE' ); ?>
+					            <?php else: ?>
+						            <?php echo '$' . $event_cost; ?>
+					            <?php endif; ?>
+                            </div>
+                        </div>
+			            <?php if ( ! empty( $url_tickets ) ): ?>
+                            <div class="col-sm-6">
+                                <div class="spcc-event-detail--label">
+						            <?php _e( 'Event Tickets' ); ?>
+                                </div>
+                                <div class="spcc-event-detail--value">
+                                    <a target="_blank" href="<?php echo $url_tickets; ?>"><i class="fa fa fa-ticket"></i> Get Tickets</a>
+                                </div>
+                            </div>
+			            <?php endif; ?>
                     </div>
                 </div>
+
                 <?php if (!empty($event_parking) && !$e->is_virtual()): ?>
                     <div class="spcc-event-detail">
                         <div class="spcc-event-detail--label">
