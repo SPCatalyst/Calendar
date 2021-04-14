@@ -12,6 +12,8 @@ if ( ! is_array( $events_list ) ) {
 	$url_tickets = $e->get_tickets_url();
 
 	$is_featured = $e->is_featured();
+
+	$organizer = $e->get_organizer();
 	?>
     <div id="event-<?php echo $e->get_id(); ?>" class="spcc-event spcc-event-row <?php echo ($is_featured) ? 'spc-border-featured' : ''; ?>">
         <div class="spcc-event-left">
@@ -22,6 +24,9 @@ if ( ! is_array( $events_list ) ) {
         <div class="spcc-event-right">
             <h4 class="spcc-post-date"><?php echo $e->get_formatted_datetime(); ?></h4>
             <h2 class="spcc-post-title"><a target="_self" href="<?php echo $e->get_link(); ?>"><?php echo $e->get_title(); ?></a></h2>
+	        <?php if(!empty($organizer)): ?>
+                <h4  class="spcc-post-organizer"><?php echo sprintf( 'Organized by %s', $organizer ); ?></h4>
+	        <?php endif; ?>
             <div class="spcc-post-excerpt">
 				<p>
 					<?php echo $e->get_excerpt(); ?>

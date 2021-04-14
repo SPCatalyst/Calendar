@@ -86,7 +86,16 @@ Grid
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     margin-bottom: 10px !important;
-    font-size: 24px !important;
+    font-size: 26px !important;
+}
+.spcc-post-organizer {
+    margin-top:0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 10px !important;
+    font-size: 18px !important;
+    font-style: italic;
+    font-weight: 500;
 }
 .spcc-post-excerpt {
     margin-bottom: 10px;
