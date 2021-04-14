@@ -14,7 +14,7 @@
 	var center = new google.maps.LatLng(lat, lng);
 
 	window.evnetMap = new google.maps.Map($el.get(0), {
-		zoom: 12,
+		zoom: 9,
 		center: center,
 		mapTypeControl: false,
 		scaleControl: false,
@@ -65,19 +65,22 @@
 			window.currentEvent = events[i];
 			marker = new google.maps.Marker({
 				position: new google.maps.LatLng(lat, lng),
-				map: window.map
+				map: window.map,
+				event: window.currentEvent,
 			});
 			bounds.extend(marker.position);
 			google.maps.event.addListener(marker, 'click', (function (marker, i) {
 				return function () {
 
-					var venue = window.currentEvent.hasOwnProperty('event_venue') ? window.currentEvent.event_venue : undefined;
+					var mapEvent = marker.event;
+
+					var venue = mapEvent.hasOwnProperty('event_venue') ? mapEvent.event_venue : undefined;
 
 					var values = [
 						{name: 'Venue', value: venue},
-						{name: 'Address', value: window.currentEvent.event_address_formatted},
-						{name: 'Start Date', value: window.currentEvent.event_start_date_formatted},
-						{name: 'End Date', value: window.currentEvent.event_end_date_formatted},
+						{name: 'Address', value: mapEvent.event_address_formatted},
+						{name: 'Start Date', value: mapEvent.event_start_date_formatted},
+						{name: 'End Date', value: mapEvent.event_end_date_formatted},
 					];
 
 					var content_meta = '';
@@ -89,7 +92,7 @@
 
 					var content = '<div class="sifw-event">\n' +
 						'\t<div class="sifw-event-title">\n' +
-						'\t\t<h4>' + window.currentEvent.event_title + '</h4>\n' +
+						'\t\t<h4>' + mapEvent.event_title + '</h4>\n' +
 						'\t</div>\n' +
 						'\t<div class="sifw-event-meta">\n' + content_meta +
 						'</div>';
@@ -102,7 +105,7 @@
 
 		window.map.fitBounds(bounds);
 		var listener = google.maps.event.addListener(map, "idle", function () {
-			window.map.setZoom(11);
+			window.map.setZoom(9);
 			google.maps.event.removeListener(listener);
 		});
 	};
