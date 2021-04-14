@@ -2,8 +2,8 @@
 Contributors: darkog
 Tags: events, calendar
 Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 1.3.4
+Tested up to: 5.7
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,14 @@ e.g.
 Sure. Go to settings and select the "Internal" option in the type setting.
 
 == Changelog ==
+
+= 1.3.5 =
+* Add 'get tickets' link to single event page
+* Updated google maps integration
+* Updated subscription box title
+* Remove first/last links in the pagination
+* Remove quick view functionality, replace with More Details
+* Improved date formatting on front-end on same day events
 
 = 1.3.4 =
 * Fix Map view
