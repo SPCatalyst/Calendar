@@ -286,8 +286,8 @@ $show_featured = (int) $settings->get('show_featured', 0);
                              alt="subscribe">
                     </div>
                     <div class="cc-s-body">
-                        <div class="cc-form-row">
-                            <h3 class="title-sub">Get your free subscription</h3>
+                        <div class="cc-form-row cc-form-row--title">
+                            <h3 class="title-listed"><?php _e('Subscribe For Free'); ?></h3>
                         </div>
                         <div class="cc-form-row">
                             <input id="fieldName" class="spcc-form-control" placeholder="Name" name="name" type="text"/>

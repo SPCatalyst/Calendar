@@ -1060,3 +1060,7 @@ Responsive
     text-transform: uppercase;
     letter-spacing: 1px;
 }
+
+.cc-form-row--title {
+    margin-bottom: 0;
+}
