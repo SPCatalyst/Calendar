@@ -4,7 +4,7 @@
  * Plugin Name:       SPC Community Calendar
  * Plugin URI:        https://stpetecatalyst.com
  * Description:       The catalyst events calendar
- * Version:           1.3.5
+ * Version:           1.3.6
  * Author:            Darko Gjorgjijoski (stpetecatalyst.com)
  * Author URI:        https://darkog.com
  * License:           GPL-2.0+
@@ -25,7 +25,7 @@ require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'SPC_COMMUNITY_CALENDAR_VERSION', '1.3.5' );
+define( 'SPC_COMMUNITY_CALENDAR_VERSION', '1.3.6' );
 define( 'SPCC_PT_EVENT', 'spcc-event' );
 define( 'SPCC_ROOT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SPCC_ROOT_URL', plugin_dir_url(__FILE__));
